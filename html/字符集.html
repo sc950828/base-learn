@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字符集</title>
+  </head>
+  <body>
+    <h1>字符集</h1>
+    <h2>可以通过 font-size 属性，像设置字体大小一样，设置表情的大小。</h2>
+    <p style="font-size: 48px">&#128512; &#128516; &#128525; &#128151;</p>
+    <h2>
+      ASCII 是 7 比特字符集，包含了 128 个不同的字符值。 ASCII 支持 0-9
+      的数字，A-Z大写和小写英文字母，以及一些特殊字符。其中包括32个通用控制字符、10个十进制数码、52个英文大写小写字母和34个专用符号
+    </h2>
+
+    <div>&#65; - &#90;</div>
+    <div>&#97; - &#122;</div>
+    <div>&#8986;</div>
+    <!-- 16进制加x -->
+    <div>&#x231A;</div>
+    <div>空格&#32;空格</div>
+    <div>&#33;</div>
+
+    <div>空格&nbsp;空格</div>
+    <div>大于&gt;</div>
+    <div>小于&lt;</div>
+    <div style="font-size: 24px; color: red">&permil;可以设置颜色大小</div>
+
+    <h2>
+      URL 只能使用 ASCII 字符集来通过因特网进行发送。URL
+      编码会将字符转换为可通过因特网传输的格式。由于 URL 常常会包含 ASCII
+      集合之外的字符，URL 必须转换为有效的 ASCII 格式。 URL 编码使用 "%"
+      其后跟随两位的十六进制数来替换非 ASCII 字符。 URL 不能包含空格。URL
+      编码通常使用 + 来替换空格。JavaScript 中使用 encodeURI()
+      函数对字符串进行URL编码。
+    </h2>
+  </body>
+</html>
