@@ -444,7 +444,7 @@ const toStringValueOfTest = () => {
 toStringValueOfTest();
 
 // parseInt()和Number()转换成数字的区别
-// parseInt()解析字符串允许含有非数字字符，解析按从左到右的顺序，如果遇到非数字字符就停止。而Number ()不允许出现非数字字符，否则会返回 NaN。
+// parseInt()解析字符串允许含有非数字字符，解析按从左到右的顺序，如果遇到非数字字符就停止。而Number()不允许出现非数字字符，否则会返回 NaN。
 // 并且parseInt是取整，不会四舍五入
 
 const parseIntNumberTest = () => {
@@ -460,11 +460,11 @@ parseIntNumberTest();
 // 如果是+操作符，并且有字符串则进行字符串的拼接，如果没有字符串则都转成数字进行计算。（各类型会按数字转，先调用valueOf再调toString）
 const OperatorTest = () => {
   console.log("true + 2:", true + 2); // 3
-  console.log("null + 2:", null + 2); //2
   console.log("true - 2:", true - 2); //-1
   console.log("true / 2:", true / 2); //0.5
+  console.log("null + 2:", null + 2); //2
   console.log("undefined + 2:", undefined + 2); //NaN
-  console.log('"a" + 2:', "a" + 2); // a2
+  console.log('"a" + 2:', "a" + 2); //a2
   console.log('"a" + true', "a" + true); //atrue
   function Animal(name) {
     this.name = name;
@@ -478,11 +478,88 @@ const OperatorTest = () => {
     return 12;
   };
   const dog = new Animal("brid");
-  console.log("dog + 2:", dog + 2);
-  console.log("dog - 2:", dog - 2);
-  console.log("dog * 2:", dog * 2);
-  console.log("dog / 2:", dog / 2);
-  console.log("dog % 2:", dog % 2);
+  console.log("dog + 2:", dog + 2); //14
+  console.log("dog - 2:", dog - 2); //10
+  console.log("dog * 2:", dog * 2); //24
+  console.log("dog / 2:", dog / 2); //6
+  console.log("dog % 2:", dog % 2); //0
 };
 
 OperatorTest();
+
+// == 操作符的强制类型转换规则
+// 字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较
+// 其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，true 变 1，false 变 0，再应用其他规则进行比较
+// null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值
+// 如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。
+// 对象和非对象之间的相等比较，对象先调用 valueOf 或者 toString 抽象操作后变为基本类型，再进行比较。
+// 如果没有重写toString或者valueOf方法默认先调用toString方法，否则重写了啥先调用啥方法，都重写了先调用valueOf方法。
+// 如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。
+const dengyu1Test = () => {
+  console.log("true == '1':", true == "1"); // true
+  console.log("true == 1:", true == 1); // true
+  console.log("false == '0':", false == "0"); // true
+  console.log("false == 0:", false == 0); // true
+  // 布尔先转数字 字符串转数字 1==NaN 返回false
+  console.log("true == 'true':", true == "true"); //false
+  console.log("false == 'false':", false == "false"); //false
+  console.log("null == undefined:", null == undefined); //true
+  console.log("NaN == NaN:", NaN == NaN); //false
+
+  function Animal(name) {
+    this.name = name;
+  }
+  // Animal.prototype.toString = function () {
+  //   console.log("toString");
+  //   return "toString";
+  // };
+  Animal.prototype.valueOf = function () {
+    console.log("valueOf");
+    return 1;
+  };
+  const dog = new Animal("brid");
+  console.log("dog == '[object Object]':", dog == "[object Object]");
+  console.log("dog == true:", dog == true);
+
+  // 是否指向同一地址
+  const dog2 = new Animal("brid");
+  console.log("dog == dog2:", dog == dog2); //false
+  const dog3 = dog;
+  console.log("dog == dog3:", dog == dog3); //true
+};
+dengyu1Test();
+
+// === 操作符 先比较类型再比较值
+const dengyu2Test = () => {
+  console.log("1 === 1:", 1 === 1); // true
+  console.log("1 === '1':", 1 === "1"); // false
+  function Animal(name) {
+    this.name = name;
+  }
+  const dog = new Animal("brid");
+  const dog2 = new Animal("brid");
+  const dog3 = dog;
+  console.log("dog === dog2:", dog === dog2); //false
+  console.log("dog === dog3:", dog === dog3); //true
+};
+dengyu2Test();
+
+// 布尔值的隐式强制类型转换
+// if (..) 语句中的条件判断表达式。
+// for ( .. ; .. ; .. ) 语句中的条件判断表达式（第二个）。
+// while (..) 和 do..while(..) 循环中的条件判断表达式。
+// ? : 中的条件判断表达式。
+// 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
+
+// && 也可以叫逻辑与，在其操作数中找到第一个虚值表达式并返回它。也使用了短路来防止不必要的工作。
+// 如果没有找到任何虚值表达式，则返回最后一个表达式的值。
+console.log(1 && console.log("a") && null && console.log("b") && 2); //a undefined
+console.log(" " && true && 5); // 5
+// || 也叫或逻辑或，在其操作数中找到第一个真值表达式并返回它。这也使用了短路来防止不必要的工作。
+// 如果没有找到任何真值表达式，则返回最后一个表达式的值。
+console.log(null || console.log("a") || 1 || console.log("b")); // a 1
+console.log(undefined || null); //null
+// 所以说逻辑与逻辑或返回的不是true false而是某个表达式的值
+
+// +操作符可以进行一些隐式转换 比如字符串转数字
+console.log(+"12.3b"); //NaN
