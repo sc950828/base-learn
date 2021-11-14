@@ -415,8 +415,8 @@ convertNumberTest();
 // 对象输出的时候会调用 valueOf 方法(除了 new Date 对象会调用 toString()方法)，返回对象的原始值。
 // 对象在转换基本类型时，会调用 valueOf 和 toString，先调用哪个方法，主要是要看这个对象倾向于转换为什么。
 // 如果倾向于转换为 Number 类型的，就优先调用 valueOf；如果倾向于转换为 String 类型，就先调用 toString。
-// 比如使用了 new Number()转换就会先调用 valueOf()方法，如果 valueOf() 没有返回基本类型就会再调用 toString()方法，如果都没返回基本类型则报错。
-// 比如使用了 new String()转换就会先调用 toString()方法，如果 toString()没有返回基本类型就会再调用 valueOf()方法，如果都没返回基本类型则报错。
+// 比如使用了 Number()转换就会先调用 valueOf()方法，如果 valueOf() 没有返回基本类型就会再调用 toString()方法，如果都没返回基本类型则报错。
+// 比如使用了 String()转换就会先调用 toString()方法，如果 toString()没有返回基本类型就会再调用 valueOf()方法，如果都没返回基本类型则报错。
 // 如果有 Symbol.toPrimitive 属性的话，则只会调用 Symbol.toPrimitive 方法，toString 和 valueOf 方法就不会调用了。并且该方法只能返回基本类型，否则会报错。
 
 const toStringValueOfTest = () => {
@@ -551,15 +551,16 @@ dengyu2Test();
 // ? : 中的条件判断表达式。
 // 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
 
+// +操作符可以进行一些隐式转换 比如字符串转数字
+console.log(+"12.3b"); //NaN
+
+// && ||
 // && 也可以叫逻辑与，在其操作数中找到第一个虚值表达式并返回它。也使用了短路来防止不必要的工作。
 // 如果没有找到任何虚值表达式，则返回最后一个表达式的值。
 console.log(1 && console.log("a") && null && console.log("b") && 2); //a undefined
 console.log(" " && true && 5); // 5
-// || 也叫或逻辑或，在其操作数中找到第一个真值表达式并返回它。这也使用了短路来防止不必要的工作。
+// || 也叫逻辑或，在其操作数中找到第一个真值表达式并返回它。这也使用了短路来防止不必要的工作。
 // 如果没有找到任何真值表达式，则返回最后一个表达式的值。
 console.log(null || console.log("a") || 1 || console.log("b")); // a 1
 console.log(undefined || null); //null
 // 所以说逻辑与逻辑或返回的不是true false而是某个表达式的值
-
-// +操作符可以进行一些隐式转换 比如字符串转数字
-console.log(+"12.3b"); //NaN
