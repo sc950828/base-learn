@@ -448,10 +448,12 @@ toStringValueOfTest();
 // 并且parseInt是取整，不会四舍五入
 
 const parseIntNumberTest = () => {
-  console.log('parseInt("123a"):', parseInt("123a"));
-  console.log('parseInt("123.6"):', parseInt("123.6"));
-  console.log('Number("123a"):', Number("123a"));
-  console.log('Number("123.3"):', Number("123.3"));
+  console.log('parseInt("123a"):', parseInt("123a")); // 123
+  console.log('parseInt("123.6"):', parseInt("123.6")); // 123
+  console.log('parseFloat("123.6"):', parseFloat("123.6")); // 123.6
+  console.log('parseFloat("123.6a"):', parseFloat("123.6a")); // 123.6
+  console.log('Number("123a"):', Number("123a")); // NaN
+  console.log('Number("123.3"):', Number("123.3")); // 123.3
 };
 
 parseIntNumberTest();

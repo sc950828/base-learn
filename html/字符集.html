@@ -7,12 +7,11 @@
     <title>字符集</title>
   </head>
   <body>
-    <h1>字符集</h1>
     <h2>可以通过 font-size 属性，像设置字体大小一样，设置表情的大小。</h2>
     <p style="font-size: 48px">&#128512; &#128516; &#128525; &#128151;</p>
     <h2>
-      ASCII 是 7 比特字符集，包含了 128 个不同的字符值。 ASCII 支持 0-9
-      的数字，A-Z大写和小写英文字母，以及一些特殊字符。其中包括32个通用控制字符、10个十进制数码、52个英文大写小写字母和34个专用符号
+      ASCII 是 7 比特字符集，包含了 128 个不同的字符值。 ASCII 支持
+      0-9的数字，A-Z大写和小写英文字母，以及一些特殊字符。其中包括32个通用控制字符、10个十进制数码、52个英文大写小写字母和34个专用符号
     </h2>
 
     <div>&#65; - &#90;</div>
@@ -36,5 +35,32 @@
       编码通常使用 + 来替换空格。JavaScript 中使用 encodeURI()
       函数对字符串进行URL编码。
     </h2>
+    <script>
+      // encodeURI用来把非ASCII字符进行编码
+      // 但是encodeURI不会编码 , / ? : @ & = + $ #等特殊意义字符
+      const uri = "https://suchun.vip?name=苏纯&age=24!";
+      const encodeUri = encodeURI(uri);
+      console.log(encodeUri);
+      const decodeUri = decodeURI(encodeUri);
+      console.log(decodeUri);
+
+      // encodeURIComponent比encodeURI更严格
+      // 该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ' ( )
+      const encodeUriCom = encodeURIComponent(uri);
+      console.log(encodeUriCom);
+      const decodeUriCom = decodeURIComponent(encodeUriCom);
+      console.log(decodeUriCom);
+
+      // escape()该方法不会对 ASCII 字母和数字进行编码，也不会对下面这些 ASCII 标点符号进行编码： * @ - _ + . / 。
+      // 其他所有的字符都会被转义序列替换
+      const escapeUri = escape(uri);
+      console.log(escapeUri);
+      const unescapeUri = unescape(escapeUri);
+      console.log(unescapeUri);
+
+      // eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行
+      eval('console.log("eval执行啦");var a = 123');
+      console.log(a);
+    </script>
   </body>
 </html>
