@@ -11,7 +11,7 @@
 const error1 = new Error("我创建的错误");
 
 try {
-  console.log(error1.message); //  创建的错误
+  console.log(error1.message); // 创建的错误
   console.log(error1.name); // Error
   console.log(error1.stack);
 } catch (e) {
