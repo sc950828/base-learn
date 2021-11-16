@@ -14,7 +14,6 @@
     <script>
       // location
       document.write("<h3>location</h3>");
-
       // 属性
       // location.href http: //127.0.0.1:5500/html/bom.html?name=randy#h
       // location.protocol http:
@@ -68,6 +67,31 @@
       );
       document.write("navigator.platform: " + navigator.platform + "<br/>");
       document.write("navigator.userAgent: " + navigator.userAgent + "<br/>");
+      document.write("navigator.onLine: " + navigator.onLine + "<br/>");
+      console.log(
+        "网络类型",
+        navigator.connection ||
+          navigator.mozConnection ||
+          navigator.webkitConnection
+      );
+
+      // 网络监听
+      window.addEventListener("online", function () {
+        console.log("连网了");
+      });
+      window.addEventListener("offline", function () {
+        console.log("断网了");
+      });
+
+      // 页面是否可见监听
+      let eventName = "visibilitychange";
+      if (document.webkitHidden != undefined) {
+        eventName = "webkitvisibilitychange";
+      }
+      window.addEventListener(eventName, function () {
+        // alert(document.hidden || document.webkitHidden);
+        console.log("页面是否可见", document.hidden || document.webkitHidden);
+      });
 
       // window
       document.write("<h3>window</h3>");

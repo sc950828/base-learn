@@ -14,6 +14,7 @@
   <body>
     <div id="div1" class="div1" style="font-size: 18px">style测试</div>
     <script>
+      // style
       const div1 = document.querySelector("#div1");
       console.log("---style---", div1.style, "只能获取到内联样式");
       console.table(div1.style);
@@ -32,6 +33,26 @@
       div1.style.setProperty("font-weight", 600);
       // 移除样式
       div1.style.removeProperty("font-weight");
+
+      // window.getComputedStyle
+      // 获取渲染后所有的css信息
+      console.log("---getComputedStyle---", window.getComputedStyle(div1));
+
+      // getBoundingClientRect
+      // 只能获取到位置相关信息
+      // bottom: 32
+      // height: 24
+      // left: 8
+      // right: 1912
+      // top: 8
+      // width: 1904
+      // x: 8
+      // y: 8
+      console.log("----getBoundingClientRect---", div1.getBoundingClientRect());
+
+      // currentStyle
+      //获取渲染后所有的css信息。但只支持 IE
+      console.log(div1.currentStyle);
     </script>
   </body>
 </html>
