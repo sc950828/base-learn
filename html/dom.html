@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dom</title>
+    <style>
+      .root {
+        font-weight: 600;
+        margin-left: 10px;
+        position: relative;
+      }
+      .div1 {
+        color: red;
+      }
+      #first {
+        width: 200px;
+        height: 50px;
+        overflow: scroll;
+        margin: 5px;
+        padding:10px;
+        border: 1px solid black;
+      }
+      #input {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" style="font-size: 18px" class="root">
+      <div id="first">
+        <div style="height:100px;width:400px"></div>
+      </div>
+      <input id="input"></input>
+    </div>
+
+    <script>
+      document.write("document.title: " + document.title + "<br/>");
+      document.write("document.cookie: " + document.cookie + "<br/>");
+      // 返回文档被最后修改的日期和时间。
+      document.write(
+        "document.lastModified: " + document.lastModified + "<br/>"
+      );
+      // 返回编码方式
+      document.write(
+        "document.inputEncoding: " + document.inputEncoding + "<br/>"
+      );
+      document.write("document.baseURI: " + document.baseURI + "<br/>");
+      document.write(
+        "document.domain: " + document.domain + " 返回域名" + "<br/>"
+      );
+      document.write("document.documentURI: " + document.documentURI + "<br/>");
+      document.write(
+        "document.URL: " + document.URL + " 返回文档完整的URL" + "<br/>"
+      );
+      document.write(
+        "document.referrer: " +
+          document.referrer +
+          " 返回载入当前文档的文档的 URL" +
+          "<br/>"
+      );
+
+      // 返回与文档相关的文档类型声明 (DTD)。
+      console.log("---document.doctype---", document.doctype);
+      // 	返回页面中所有脚本的集合。
+      console.log("---document.scripts---", document.scripts);
+      // 返回对文档中所有 Form 对象引用。
+      console.log("---document.forms---", document.forms);
+      // 返回对文档中所有 Image 对象引用。
+      console.log("---document.images---", document.images);
+      // 返回对文档中所有 Area 和 Link 对象引用。
+      console.log("---document.links---", document.links);
+      // 返回文档加载状态
+      // uninitialized - 还未开始载入
+      // loading - 载入中
+      // interactive - 已加载，文档与用户可以开始交互
+      // complete - 载入完成
+      console.log("---document.readyState---", document.readyState); // loading
+      // 返回文档的根节点 html节点
+      console.log("---document.documentElement---", document.documentElement);
+      // 返回文档的body元素
+      console.log("---document.body---", document.body);
+      // 返回当前获取焦点元素
+      console.log("---document.activeElement---", document.activeElement);
+
+      // dom操作
+      const root = document.getElementById("root");
+      const first = document.getElementById("first");
+      const input = document.getElementById("input");
+      // 创建元素节点
+      const div1 = document.createElement("div");
+      // 创建注释节点
+      const com1 = document.createComment("我是注释");
+      // 创建文本节点
+      const text1 = document.createTextNode("我是文本节点");
+      // fragment
+      // const frag1 = document.createDocumentFragment();
+      // 创建属性节点
+      const attrClass1 = document.createAttribute("class");
+      const attrTitle1 = document.createAttribute("title");
+      // 属性节点设置值 使用value或nodeValue都行
+      attrClass1.value = "div1 div2";
+      attrTitle1.nodeValue = "我是title";
+      // 元素节点设置属性节点 这种方法需要先创建属性节点然后再设置
+      div1.setAttributeNode(attrClass1);
+      div1.setAttributeNode(attrTitle1);
+      // 获取属性节点
+      const attr1 = div1.getAttributeNode("title");
+      // 删除属性节点
+      div1.removeAttributeNode(attr1);
+      // 通过这种方法设置属性更快
+      div1.setAttribute("id", "div1");
+      // 直接删除某属性
+      div1.removeAttribute("id");
+      // 末尾添加新的子节点
+      div1.appendChild(com1);
+      div1.appendChild(text1);
+      const span1 = document.createElement("span");
+      // 在指定节点前插入元素节点
+      div1.insertBefore(span1, com1);
+      // 删除节点
+      div1.removeChild(span1);
+      const text2 = document.createTextNode("我是替换过来的");
+      // 替换节点
+      div1.replaceChild(text2, text1);
+      root.appendChild(div1);
+      // 聚焦
+      input.focus();
+      // input.accessKey = "r";
+
+      console.log("---attributes---", div1.attributes);
+      console.log(
+        "---classList---",
+        div1.classList,
+        "得到是一个数组，通过该方法的classList.value可以获取完整值"
+      );
+      console.log(
+        "---className---",
+        div1.className,
+        "通过该方法可以设置或者获取元素的class"
+      );
+      console.log(
+        "---childNodes---",
+        div1.childNodes,
+        "返回元素的一个子节点的数组"
+      );
+      console.log("---children---", div1.children, "返回元素的子元素的集合");
+      console.log(
+        "---firstChild---",
+        div1.firstChild,
+        "返回元素的第一个子节点"
+      );
+      console.log(
+        "---lastChild---",
+        div1.lastChild,
+        "返回元素的最后一个子节点"
+      );
+      console.log(
+        "---getAttribute---",
+        div1.getAttribute("class"),
+        "获取某属性的值"
+      );
+      console.log(
+        "---hasAttribute---",
+        div1.hasAttribute("class"),
+        "是否有某属性"
+      );
+      console.log(
+        "---hasAttributes---",
+        div1.hasAttributes(),
+        "是否有任意属性，只要有就返回true"
+      );
+      console.log(
+        "---hasChildNodes---",
+        div1.hasChildNodes(),
+        "是否具有任何子元素，只要有就返回true"
+      );
+      // console.log("---hasFocus---", div1.hasFocus(), "是否聚焦，会报错");
+      console.log(
+        "---getAttributeNode---",
+        div1.getAttributeNode("class"),
+        "获取的是属性节点，需要使用getAttributeNode(xx).value得到值"
+      );
+      console.log(
+        "---textContent---",
+        div1.textContent,
+        "设置或返回一个节点和它的文本内容"
+      );
+      console.log(
+        "---tagName---",
+        div1.tagName,
+        "返回元素的标签名，返回的是大写，文本节点或者属性节点是没有值的。"
+      );
+      console.log(
+        "---tabIndex---",
+        div1.tabIndex,
+        "设置或返回元素的标签顺序。"
+      );
+      console.log(
+        "---lang---",
+        document.documentElement.lang,
+        "设置或者返回一个元素的语言。"
+      );
+      console.log(
+        "---id---",
+        root.id,
+        "返回元素id。"
+      );
+      console.log(
+        "---style---",
+        root.style,
+        "返回元素样式。但是只能获取到内联样式，如果需要全部样式需要使用window.getComputedStyle()"
+      );
+      console.log(
+        "---ownerDocument---",
+        div1.ownerDocument,
+        "返回文档对象 document"
+      );
+      console.log(
+        "---name---",
+        attrTitle1.name,
+        "属性节点名。只适用于属性节点"
+      );
+      console.log(
+        "---value---",
+        attrTitle1.value,
+        "属性节点值。只适用于属性节点"
+      );
+      console.log(
+        "---nodeName---",
+        div1.nodeName,
+        "返回节点名，元素节点返回tagName，文本节点返回#text，注释节点返回#comment，文档节点返回#document，属性节点返回属性名。"
+      );
+      console.log(
+        "---nodeValue---",
+        com1.nodeValue,
+        "文本节点、注释节点、属性节点返回节点值，元素节点和文档节点返回null。"
+      );
+      console.log(
+        "---nodeType---",
+        div1.nodeType,
+        "返回节点类型。元素节点返回1、属性节点返回2、文本节点返回3、注释节点返回8、文档节点返回9"
+      );
+      console.log("---parentNode---", div1.parentNode, "返回父节点");
+      console.log(
+        "---previousSibling---",
+        input.previousSibling,
+        "返回某个元素紧接之前元素。一般为空格，因为每个元素都换行了拿到的是#text的文本节点"
+      );
+      console.log(
+        "---previousElementSibling---",
+        input.previousElementSibling,
+        "返回指定元素的前一个兄弟元素（相同节点树层中的前一个元素节点）。这个方法好用点，但是只能获取到元素节点"
+      );
+      console.log(
+        "---nextSibling---",
+        input.nextSibling,
+        "返回某个元素紧接之后元素。一般为空格，因为每个元素都换行了拿到的是#text的文本节点"
+      );
+      console.log(
+        "---nextElementSibling---",
+        input.nextElementSibling,
+        "返回指定元素的后一个兄弟元素（相同节点树层中的前一个元素节点）。这个方法好用点，但是只能获取到元素节点"
+      );
+
+      // 大小
+      // 滚动条会占据元素设置的宽高 windows是17px，
+      // 所以可见宽度=元素设置宽度-滚动条宽度+padding
+      first.scrollBy(20, 20) // 滚动一下
+      console.log("---clientWidth---", first.clientWidth, "可视宽度（宽度包含内边距（padding），但不包含边框（border）、外边距（margin）、滚动条");
+      console.log("---clientHeight---", first.clientHeight, "可视宽度（宽度包含内边距（padding），但不包含边框（border）、外边距（margin）、滚动条");
+      console.log("---clientLeft---", first.clientLeft, "左边框宽度");
+      console.log("---clientTop---", first.clientTop, "上边框宽度");
+      console.log("---scrollWidth---", first.scrollWidth, "可视宽度（宽度包含内边距（padding），但不包含边框（border）、外边距（margin）、滚动条");
+      console.log("---scrollHeight---", first.scrollHeight, "可视宽度（宽度包含内边距（padding），但不包含边框（border）、外边距（margin）、滚动条");
+      console.log("---scrollLeft---", first.scrollLeft, "横向滚动条滚动的距离");
+      console.log("---scrollTop---", first.scrollTop, "垂直滚动条滚动的距离");
+      // 元素宽度 = 元素设置宽度 + padding + border
+      console.log("---offsetWidth---", first.offsetWidth, "（宽度包含内边距（padding）、边框（border）、滚动条，但不包含外边距（margin）");
+      console.log("---offsetHeight---", first.offsetHeight, "（宽度包含内边距（padding）、边框（border）、滚动条，但不包含外边距（margin）");
+      console.log("---offsetParent---", first.offsetParent, "是一个只读属性，获得被定位的最近祖先元素。没找到有定位的元素就返回body元素，用于offsetLeft和offsetTop");
+      console.log("---offsetLeft---", first.offsetLeft, "相对offsetParent水平偏移距离");
+      console.log("---offsetTop---", first.offsetTop, "相对offsetParent垂直偏移距离");
+
+      // 获取元素
+      console.log("---getElementById---", document.getElementById("root"));
+      console.log(
+        "---getElementsByName---",
+        document.getElementsByName("root")
+      );
+      console.log(
+        "---getElementsByClassName---",
+        document.getElementsByClassName("div1")
+      );
+      console.log(
+        "---getElementsByTagName---",
+        document.getElementsByTagName("div")
+      );
+      // css查询器 需要带上相应的前缀
+      // 返回第一个
+      console.log("---querySelector---", document.querySelector(".div1"));
+      // 返回所有
+      console.log("---querySelectorAll---", document.querySelectorAll(".div1"));
+
+      // 伪数组NodeList和HtmlCollection都能通过for of 循环和for循环
+      // for (const div of document.querySelectorAll(".div1")) {
+      //   console.log(div);
+      // }
+      // for (const div of document.getElementsByTagName("div")) {
+      //   console.log(div);
+      // }
+
+      // 还能通过item方法访问
+      for (let i = 0;  i < document.querySelectorAll(".div1").length;i++) {
+        // console.log(document.querySelectorAll(".div1")[i]);
+        console.log(document.querySelectorAll(".div1").item(i));
+      }
+      for (let i = 0;  i < document.getElementsByTagName("div").length;i++) {
+        // console.log(document.getElementsByTagName("div")[i]);
+        console.log(document.getElementsByTagName("div").item(i));
+        // 返回指定name或者id的元素
+        // console.log(document.getElementsByTagName("div").namedItem("root"));
+      }
+    </script>
+  </body>
+</html>

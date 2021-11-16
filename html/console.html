@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>console</title>
+  </head>
+  <body>
+    <script>
+      console.log("log");
+      console.info("info");
+      console.warn("warn");
+      console.error("error");
+      // table输出 可以输出数组、数组对象、对象
+      console.table(["Google", "Runoob", "Taobao"]);
+      console.table([
+        { name: "randy", age: 24 },
+        { name: "demi", age: 25 },
+        { name: "tom", age: 26 },
+      ]);
+      console.table({ name: "randy", age: 24, sex: "male" });
+
+      // 时间计时
+      console.time();
+      setTimeout(function () {
+        console.timeEnd();
+      }, 2000);
+
+      for (let i = 0; i < 10; i++) {
+        // 打印次数
+        console.count();
+      }
+
+      console.log("Runoob");
+      console.group(); // 开始分组 默认打开
+      console.log("Runoob，这个在分组里面1。");
+      console.log("Runoob，这个在分组里面2。");
+      console.groupEnd(); //结束分组
+
+      // console.group();
+      console.groupCollapsed(); // 开始分组 但是默认折叠
+      console.log("Runoob，这个在分组里面3。");
+      console.log("Runoob，这个在分组里面4。");
+      console.groupEnd();
+      console.log("跳出分组啦！");
+
+      // 断言 如果断言为 false，则在信息到控制台输出错误信息。
+      console.assert(
+        document.getElementById("demo"),
+        "没有 ID 为 'demo' 的元素"
+      );
+      // console.trace();
+    </script>
+  </body>
+</html>

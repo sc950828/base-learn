@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>style</title>
+    <style>
+      .div1 {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1" class="div1" style="font-size: 18px">style测试</div>
+    <script>
+      const div1 = document.querySelector("#div1");
+      console.log("---style---", div1.style, "只能获取到内联样式");
+      console.table(div1.style);
+      console.log("---style.cssText---", div1.style.cssText);
+      const priority = div1.style.getPropertyPriority("color");
+      // 返回指定的 CSS 属性是否设置了 "important!" 属性。
+      console.log("---getPropertyPriority---", priority);
+      console.log(
+        "---getPropertyValue---",
+        div1.style.getPropertyValue("font-size")
+      );
+      // 获取指定下标样式值
+      console.log("---item---", div1.style.item(0));
+      // 设置样式
+      // div1.style.fontSize = 600; // 设置无效
+      div1.style.setProperty("font-weight", 600);
+      // 移除样式
+      div1.style.removeProperty("font-weight");
+    </script>
+  </body>
+</html>

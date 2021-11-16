@@ -38,25 +38,29 @@
     <script>
       // encodeURI用来把非ASCII字符进行编码
       // 但是encodeURI不会编码 , / ? : @ & = + $ #等特殊意义字符
+      document.write("<h3>encodeURI</h3>");
       const uri = "https://suchun.vip?name=苏纯&age=24!";
+      document.write("uri: " + uri + "<br/>");
       const encodeUri = encodeURI(uri);
-      console.log(encodeUri);
+      document.write("encodeURI: " + encodeUri + "<br/>");
       const decodeUri = decodeURI(encodeUri);
-      console.log(decodeUri);
+      document.write("decodeURI: " + decodeUri + "<br/>");
 
       // encodeURIComponent比encodeURI更严格
       // 该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ' ( )
+      document.write("<h3>encodeURIComponent</h3>");
       const encodeUriCom = encodeURIComponent(uri);
-      console.log(encodeUriCom);
+      document.write("encodeURIComponent: " + encodeUriCom + "<br/>");
       const decodeUriCom = decodeURIComponent(encodeUriCom);
-      console.log(decodeUriCom);
+      document.write("decodeURIComponent: " + decodeUriCom + "<br/>");
 
       // escape()该方法不会对 ASCII 字母和数字进行编码，也不会对下面这些 ASCII 标点符号进行编码： * @ - _ + . / 。
       // 其他所有的字符都会被转义序列替换
+      document.write("<h3>escape</h3>");
       const escapeUri = escape(uri);
-      console.log(escapeUri);
+      document.write("escape: " + escapeUri + "<br/>");
       const unescapeUri = unescape(escapeUri);
-      console.log(unescapeUri);
+      document.write("unescape: " + unescapeUri + "<br/>");
 
       // eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行
       eval('console.log("eval执行啦");var a = 123');

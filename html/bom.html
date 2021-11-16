@@ -7,20 +7,31 @@
     <title>bom</title>
   </head>
   <body>
+    <div>
+      <div style="color: red" id="getComputedStyle">getComputedStyle Test</div>
+      <button onclick="openWindow()">弹出子窗口</button>
+    </div>
     <script>
       // location
-      // http://127.0.0.1:5500/html/bom.html?name=randy#h
+      document.write("<h3>location</h3>");
 
       // 属性
-      // location.href http://127.0.0.1:5500/html/bom.html?name=randy#h
+      // location.href http: //127.0.0.1:5500/html/bom.html?name=randy#h
       // location.protocol http:
-      // location.host 127.0.0.1:5500
+      // location.host 127.0.0.1: 5500
       // location.hostname 127.0.0.1
       // location.port 5500
-      // location.origin http://127.0.0.1:5500
+      // location.origin http: //127.0.0.1: 5500
       // location.pathname /html/bom.html
       // location.hash #h
       // location.search ?name=randy
+      document.write("location.href: " + location.href + "<br/>");
+      document.write("location.protocol: " + location.protocol + "<br/>");
+      document.write("location.host: " + location.host + "<br/>");
+      document.write("location.origin: " + location.origin + "<br/>");
+      document.write("location.hostname: " + location.hostname + "<br/>");
+      document.write("location.port: " + location.port + "<br/>");
+      document.write("location.pathname: " + location.pathname + "<br/>");
 
       // 方法
       // location.assign(url) 打开新链接
@@ -28,6 +39,165 @@
       // location.reload() 重新加载
 
       console.log(location);
+
+      // history
+      // history.back() 返回
+      // history.forward() 去下一个页面
+      // history.go(number|URL) 去某页面 负数代表回退
+
+      // screen
+      document.write("<h3>screen</h3>");
+      document.write("screen.width: " + screen.width + "<br/>");
+      document.write("screen.height: " + screen.height + "<br/>");
+      // availWidth 返回屏幕的宽度（不包括Windows任务栏）
+      // availHeight 返回屏幕的高度（不包括Windows任务栏）
+      document.write("screen.availWidth: " + screen.availWidth + "<br/>");
+      document.write("screen.availHeight: " + screen.availHeight + "<br/>");
+      // 返回屏幕的颜色分辨率（每象素的位数）
+      document.write("screen.pixelDepth: " + screen.pixelDepth + "<br/>");
+
+      // navigator
+      document.write("<h3>navigator</h3>");
+      document.write("navigator.appName: " + navigator.appName + "<br/>");
+      document.write(
+        "navigator.appCodeName: " + navigator.appCodeName + "<br/>"
+      );
+      document.write("navigator.appVersion: " + navigator.appVersion + "<br/>");
+      document.write(
+        "navigator.cookieEnabled: " + navigator.cookieEnabled + "<br/>"
+      );
+      document.write("navigator.platform: " + navigator.platform + "<br/>");
+      document.write("navigator.userAgent: " + navigator.userAgent + "<br/>");
+
+      // window
+      document.write("<h3>window</h3>");
+      // 返回窗口是否已被关闭。
+      document.write("window.name: " + window.name + "<br/>");
+      document.write("window.closed: " + window.closed + "<br/>");
+
+      // 宽高
+      document.write(
+        "window.outerWidth: " +
+          window.outerWidth +
+          " 这里返回的是浏览器整个的宽度，如果浏览器最大化的话和screen.availWidth值相等" +
+          "<br/>"
+      );
+      document.write(
+        "window.outerHeight: " +
+          window.outerHeight +
+          " 这里返回的是浏览器整个的高度，如果浏览器最大化的话和screen.availHeight值相等" +
+          "<br/>"
+      );
+      document.write(
+        "window.innerWidth: " +
+          window.innerWidth +
+          " 这里返回的是浏览器文档显示的宽度，只包括滚动条" +
+          "<br/>"
+      );
+      document.write(
+        "window.innerHeight: " +
+          window.innerHeight +
+          " 这里返回的是浏览器文档显示的高度，只包括滚动条" +
+          "<br/>"
+      );
+
+      // 位置
+      // pageXOffset pageYOffset 返回的是滚动条滚动的距离
+      document.write("window.pageXOffset: " + window.pageXOffset + "<br/>");
+      document.write("window.pageYOffset: " + window.pageYOffset + "<br/>");
+      // 返回的是浏览器相对于屏幕左上角的距离
+      document.write("window.screenX: " + window.screenX + "<br/>");
+      document.write("window.screenLeft: " + window.screenLeft + "<br/>");
+      document.write("window.screenY: " + window.screenY + "<br/>");
+      document.write("window.screenTop: " + window.screenTop + "<br/>");
+
+      // 方法
+      const str1 = "randy";
+      const btoa = window.btoa(str1);
+      const atob = window.atob(btoa);
+      document.write("window.btoa: " + btoa + " 字符串转base64" + "<br/>");
+      document.write("window.atob: " + atob + " base64转字符串" + "<br/>");
+      // 关闭窗口
+      // window.close();
+      // window.print() // 调用打印机 打印当前窗口的内容。
+      // window.stop() // 用于停止页面载入，如果页面在载入图片或框架(iframe)时间过长，我门可以使用该方法来停止载入。
+
+      // const result1 = window.alert(123); //返回undefined
+      // console.log(result1);
+      // const result2 = window.confirm("点击"); //点击确定返回true 点击取消返回false
+      // console.log(result2);
+      // prompt(msg,defaultText)方法用于显示可提示用户进行输入的对话框。这个方法点击确定返回用户输入的字符串，点击取消返回null。
+      // const result3 = window.prompt("请输入你的名字", "randy");
+      // console.log(result3);
+
+      // 返回用户选择的文本
+      // window.getSelection();
+      // 用于获取指定元素的 CSS 样式。获取的样式是元素在浏览器中最终渲染效果的样式。
+      console.log(
+        window.getComputedStyle(document.getElementById("getComputedStyle"))
+      );
+
+      // js的媒体查询
+      // 一定记得加括号
+      const query = window.matchMedia("(min-width: 700px)");
+      if (query.matches) {
+        console.log("窗口宽度大于700px");
+      } else {
+        console.log("窗口宽度小于700px");
+      }
+
+      // 大小 滚动
+      setTimeout(() => {
+        // scrollTo(xpos,ypos) 在x轴 y轴滚动到具体位置
+        // window.scrollTo(0, 100);
+        // scrollBy(xnum,ynum) 在x轴 y轴滚动多少
+        // window.scrollBy(0, 100);
+      }, 500);
+
+      function openWindow() {
+        myWindow = window.open("", "", "width=200,height=100");
+        myWindow.document.write("<p>这是我的窗口</p>");
+        setTimeout(() => {
+          // 移动到具体位置
+          // window.moveTo(x,y)
+          // myWindow.moveTo(100, 100);
+          // 相对屏幕移动指定距离
+          // window.moveBy(x,y)
+          // myWindow.moveBy(100, 100);
+          // 窗口放大指定数值
+          // resizeBy(width,height)
+          // myWindow.resizeBy(100, 100);
+          // 窗口缩小或放大到指定大小
+          // resizeTo(width,height)
+          // myWindow.resizeTo(100, 100);
+        }, 500);
+      }
+
+      // 定时器
+      const timer1 = setInterval(
+        // 参数是一一对应的
+        function (arg1, arg2, arg3, arg4, arg5) {
+          console.log(arg1, arg2, arg3, arg4, arg5);
+        },
+        1000,
+        1,
+        2,
+        3,
+        4
+      );
+      const timer2 = setTimeout(
+        // 参数是一一对应的
+        function (arg1, arg2, arg3, arg4) {
+          console.log(arg1, arg2, arg3, arg4);
+          clearInterval(timer1);
+        },
+        5000,
+        1,
+        2,
+        3,
+        4
+      );
+      // clearTimeout(timer2);
     </script>
   </body>
 </html>
