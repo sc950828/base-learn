@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event</title>
+  </head>
+  <body>
+    <div>
+      <h3>事件捕获和事件冒泡</h3>
+      <ul>
+        <li>
+          事件捕获（event capturing）： 当鼠标点击或者触发 dom 事件时（被触发
+          dom 事件的这个元素被叫作事件源），浏览器会从根节点
+          =>事件源（由外到内）进行事件传播。
+        </li>
+        <li>
+          事件冒泡（dubbed bubbling）： 事件源
+          =>根节点（由内到外）进行事件传播。
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>什么是事件传播 事件传播的三个阶段是什么？</h3>
+      <p>
+        当事件发生在 DOM 元素上时，该事件并不完全发生在那个元素上。
+        在“冒泡阶段”中，事件冒泡或向上传播至父级，祖父母，祖父母或父级，直到到达
+        window 为止。在捕获阶段事件从 window 开始向下触发，直到到达目标元素。IE
+        只支持事件冒泡。
+      </p>
+      <ul>
+        <li>
+          捕获阶段 事件从 window 开始，然后向下到每个元素，直到到达目标元素。
+        </li>
+        <li>目标阶段 事件已达到目标元素。</li>
+        <li>
+          冒泡阶段 事件从目标元素冒泡，然后上升到每个元素，直到到达 window。
+        </li>
+      </ul>
+      <p>
+        dom 标准事件流的触发的先后顺序为：先捕获再冒泡。即当触发 dom
+        事件时，会先进行事件捕获，捕获到事件源之后通过事件传播进行事件冒泡。但是默认是冒泡事件，所以冒泡的时候才会进行事件的触发，就是由内到外。
+      </p>
+    </div>
+    <div
+      id="div1"
+      style="height: 200px; background-color: aqua"
+      onclick="click1(event)"
+      oncontextmenu="contextmenu()"
+      ondblclick="dblclick()"
+      onmousedown="mousedown()"
+      onmouseup="mouseup()"
+      onmousemove="mousemove()"
+      onmouseenter="mouseenter()"
+      onmouseleave="mouseleave()"
+      onmouseover="mouseover()"
+      onmouseout="mouseout()"
+      onwheel="wheel()"
+    ></div>
+    <input
+      id="input"
+      type="text"
+      onkeydown="keydown(event)"
+      onkeyup="keyup()"
+      onkeypress="keypress()"
+      oncopy="copy()"
+      oncut="cut()"
+      onpaste="paste()"
+    />
+    <div id="div2" style="height: 200px; background-color: antiquewhite"></div>
+    <button onclick="print1()">打印</button>
+    <div
+      id="div3"
+      style="height: 200px; background-color: rgb(24, 10, 104)"
+      onclick="clickdiv3(event)"
+    >
+      <div
+        id="div4"
+        style="height: 160px; background-color: rgb(57, 134, 61)"
+        onclick="clickdiv4(event)"
+      >
+        <div
+          onclick="clickdiv5(event)"
+          id="div5"
+          style="height: 120px; background-color: rgb(180, 36, 173)"
+        ></div>
+      </div>
+    </div>
+    <button onclick="myevent1()">触发自定义事件1</button>
+    <button onclick="myevent2()">触发自定义事件2</button>
+
+    <script>
+      const div1 = document.getElementById("div1");
+      const div2 = document.getElementById("div2");
+      const div3 = document.getElementById("div3");
+      const div4 = document.getElementById("div4");
+      const div5 = document.getElementById("div5");
+      const input = document.getElementById("input");
+
+      // 鼠标事件
+      function click1(event) {
+        // button 返回当事件被触发时，哪个鼠标按钮被点击。0左键 1中键 2右键
+        const { button, clientX, clientY, screenX, screenY } = event;
+        console.log(button);
+        // clientX clientY 相对于浏览器文档document的坐标
+        // screenX screenY 相对于屏幕
+        console.log(clientX, clientY, screenX, screenY);
+        const text1 = document.createTextNode("onclick事件触发了");
+        div1.appendChild(text1);
+      }
+      function contextmenu(e) {
+        const text1 = document.createTextNode("oncontextmenu事件触发了");
+        div1.appendChild(text1);
+        // 阻止默认事件
+        // e.preventDefault();
+      }
+      function dblclick() {
+        const text1 = document.createTextNode(
+          "ondblclick事件触发了 连点两次鼠标左键"
+        );
+        div1.appendChild(text1);
+      }
+      function mousedown() {
+        const text1 = document.createTextNode(
+          "onmousedown事件触发了鼠标按下，鼠标左右中键都能触发"
+        );
+        div1.appendChild(text1);
+      }
+      function mouseup() {
+        const text1 = document.createTextNode(
+          "onmouseup事件触发了鼠标弹起，鼠标左右中键都能触发"
+        );
+        div1.appendChild(text1);
+      }
+      function mousemove() {
+        const text1 = document.createTextNode(
+          "onmousemove事件触发了，鼠标移动"
+        );
+        // div1.appendChild(text1);
+      }
+      //  onmouseenter mouseleave 事件不支持冒泡
+      function mouseenter() {
+        const text1 = document.createTextNode(
+          "onmouseenter事件触发了，鼠标进入"
+        );
+        div1.appendChild(text1);
+      }
+      function mouseleave() {
+        const text1 = document.createTextNode(
+          "onmouseleave事件触发了，鼠标离开"
+        );
+        div1.appendChild(text1);
+      }
+      function mouseover() {
+        const text1 = document.createTextNode(
+          "onmouseover事件触发了，鼠标进入"
+        );
+        div1.appendChild(text1);
+      }
+      function mouseout() {
+        const text1 = document.createTextNode("onmouseout事件触发了，鼠标离开");
+        div1.appendChild(text1);
+      }
+      // 该事件在鼠标滚轮在元素上下滚动时触发
+      function wheel() {
+        const text1 = document.createTextNode(
+          "onwheel事件触发了，滚动鼠标滚轮触发"
+        );
+        div1.appendChild(text1);
+      }
+
+      // 键盘事件
+      function keydown(event) {
+        const { key, keyCode, which } = event;
+        // key是字符 keyCode或which是字符编码
+        // enter的keyCode是13
+        console.log(key, keyCode, which);
+        const text1 = document.createTextNode("onkeydown事件触发了，键盘按下");
+        div1.appendChild(text1);
+      }
+      function keyup() {
+        const text1 = document.createTextNode(
+          "onkeyup事件触发了，键盘按钮松开"
+        );
+        div1.appendChild(text1);
+      }
+      function keypress() {
+        const text1 = document.createTextNode(
+          "onkeypress事件触发了，键盘按下并松开"
+        );
+        div1.appendChild(text1);
+      }
+
+      // 框架事件
+      // 当 onload 事件触发时，页面上所有的 DOM，样式表，脚本，图片，flash 都已经加载完成了。
+      window.onload = function () {
+        console.log("onload事件触发了");
+        const text1 = document.createTextNode("onload事件触发了");
+        div2.appendChild(text1);
+      };
+      // 该事件在即将离开页面（刷新或关闭）时触发
+      window.onbeforeunload = function () {
+        const text1 = document.createTextNode("onbeforeunload事件触发了");
+        div2.appendChild(text1);
+      };
+      window.onunload = function () {
+        const text1 = document.createTextNode("onunload事件触发了");
+        div2.appendChild(text1);
+      };
+      // 只能通过监听
+      // 当 DOMContentLoaded 事件触发时，仅当 DOM 加载完成，不包括样式表，图片，flash。
+      // 如果页面中同时存在 css 和 js，并且存在 js 在 css 后面，则 DOMContentLoaded 事件会在 css 加载完后才执行。
+      // 其他情况下，DOMContentLoaded 都不会等待 css 加载，并且 DOMContentLoaded 事件也不会等待图片、视频等其他资源加载。
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOMContentLoaded事件触发了");
+      });
+      window.onpageshow = function () {
+        const text1 = document.createTextNode("onpageshow事件触发了");
+        div2.appendChild(text1);
+      };
+      // 离开网页有多种方式。如点击一个链接，刷新页面，提交表单，关闭浏览器等。
+      // 没有触发
+      window.onpagehide = function () {
+        alert("onpagehide事件触发了");
+        const text1 = document.createTextNode("onpagehide事件触发了");
+        div2.appendChild(text1);
+      };
+      window.onscroll = function () {
+        const text1 = document.createTextNode("onscroll事件触发了");
+        div2.appendChild(text1);
+      };
+      window.onresize = function () {
+        const text1 = document.createTextNode("onresize事件触发了");
+        div2.appendChild(text1);
+      };
+      // 浏览器hash值改变是触发
+      window.onhashchange = function () {
+        const text1 = document.createTextNode("onhashchange事件触发了");
+        div2.appendChild(text1);
+      };
+      // 该事件在窗口的浏览历史（history 对象）发生改变时触发
+      window.onpopstate = function () {
+        // alert("onpopstate事件触发了");
+        const text1 = document.createTextNode("onpopstate事件触发了");
+        div2.appendChild(text1);
+      };
+
+      // 剪切板事件
+      input.oncopy = function () {
+        const text1 = document.createTextNode("oncopy事件触发了");
+        div2.appendChild(text1);
+      };
+      input.oncut = function () {
+        const text1 = document.createTextNode("oncut事件触发了");
+        div2.appendChild(text1);
+      };
+      input.onpaste = function () {
+        const text1 = document.createTextNode("onpaste事件触发了");
+        div2.appendChild(text1);
+      };
+
+      // 打印事件
+      var print1 = function () {
+        window.print();
+      };
+      window.onbeforeprint = function () {
+        const text1 = document.createTextNode("onbeforeprint事件触发了");
+        div2.appendChild(text1);
+      };
+      window.onafterprint = function () {
+        const text1 = document.createTextNode("onafterprint事件触发了");
+        div2.appendChild(text1);
+      };
+
+      // 事件冒泡和捕获
+      function clickdiv3(e) {
+        console.log("parent");
+      }
+      function clickdiv4(e) {
+        // 阻止事件冒泡
+        // e.stopPropagation();
+        // 既能阻止事件冒泡，还能阻止当前节点上其他同类型事件的触发
+        // e.stopImmediatePropagation();
+        console.log("middle1");
+      }
+      // 添加同类型事假
+      div4.addEventListener(
+        "click",
+        function () {
+          console.log("middle2");
+        }
+        // { capture: true, once: false }
+      );
+      function clickdiv5(e) {
+        console.log("child");
+      }
+
+      // target.addEventListener(type, listener, options);
+      // { capture: false } 设置是冒泡触发还是捕获 默认false即冒泡触发，设置为true为捕获时触发
+      // {once: false} 是否只触发一次 默认false
+      //  {passive: false} 表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+      // target.addEventListener(type, listener, useCapture);
+      // useCapture默认为false 也就是在冒泡阶段才会触发事件。当useCapture设置为true的时候，事件被修改为在捕获阶段执行事件
+
+      // 通用事件监听器
+      const eventUtil = {
+        // 添加事件
+        addEvent: function (e, type, handler) {
+          if (e.addEventListener) {
+            e.addEventListener(type, handler, false);
+          } else if (e.attachEvent) {
+            e.attachEvent("on" + type, handler);
+          } else {
+            e["on" + type] = handler;
+          }
+        },
+        // 移除事件
+        removeEvent: function (e, type, handler) {
+          if (e.removeEventListener) {
+            e.removeEventListener(type, handler);
+          } else if (e.detachEvent) {
+            e.detachEvent("on" + type, handler);
+          } else {
+            e["on" + type] = null;
+          }
+        },
+        // 获取事件目标
+        getTarget: function (e) {
+          // currentTarget 是挂在事件的元素
+          // target srcElement是触发事件的元素
+          return e.target || e.srcElement;
+        },
+        // 获取事件对象
+        getEvent: function (e) {
+          return e || window.event;
+        },
+        // 阻止默认事件
+        preventDefault: function (e) {
+          if (e.preventDefault) {
+            e.preventDefault();
+          } else {
+            e.returnValue = false;
+          }
+        },
+        // 阻止事件冒泡
+        stopPropagation: function (e) {
+          if (e.stopPropagation) {
+            e.stopPropagation();
+          } else {
+            e.cancelBubble = true;
+          }
+        },
+      };
+
+      // 自定义事件
+      // 创建自定义事件 不能传递参数
+      const myEvent = new Event("test1");
+      // 触发事件
+      function myevent1() {
+        if (document.dispatchEvent) {
+          document.dispatchEvent(myEvent);
+        } else {
+          document.fireEvent(myEvent);
+        }
+      }
+      // 监听事件
+      document.addEventListener("test1", function () {
+        console.log("自定义事件1触发了");
+      });
+
+      // 创建自定义事件能传递参数
+      // 参数只能放在detail里面
+      const myEvent2 = new CustomEvent("test2", { detail: { name: "randy" } });
+      // 触发事件
+      function myevent2() {
+        if (document.dispatchEvent) {
+          document.dispatchEvent(myEvent2);
+        } else {
+          document.fireEvent(myEvent2);
+        }
+      }
+      // 监听事件
+      // 获取参数只能在e.detail里面获取
+      document.addEventListener("test2", function (e) {
+        console.log("自定义事件2触发了", e.detail);
+      });
+    </script>
+  </body>
+</html>

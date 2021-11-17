@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>storage</title>
+  </head>
+  <body>
+    <button onclick="openWindow()">打开窗口测试storage事件</button>
+    <p>
+      onstorage事件不在导致数据变化的当前页面触发（如果浏览器同时打开一个域名下面的多个页面，当其中的一个页面改变
+      sessionStorage 或 localStorage 的数据时， 其他所有页面的 storage
+      事件会被触发，而原始页面并不触发 storage 事件）
+    </p>
+    <script>
+      // localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+      // 设置
+      // localStorage.setItem("user", { name: "randy", age: 24 }); // 只能存储字符串
+      localStorage.setItem("user1", JSON.stringify({ name: "randy", age: 24 }));
+      localStorage.setItem("user2", JSON.stringify({ name: "demi", age: 24 }));
+      // 获取
+      const localUser1 = localStorage.getItem("user1");
+      const localUser2 = localStorage.getItem("user2");
+      document.write("localUser1: " + localUser1 + "<br/>");
+      document.write("localUser2: " + localUser2 + "<br/>");
+      // 移除某项
+      // localStorage.removeItem("user2");
+
+      // 清除所有
+      // localStorage.clear();
+
+      // 通过下标获取key
+      const key1 = localStorage.key(0);
+      const key2 = localStorage.key(1);
+      document.write("key1: " + key1 + "<br/>");
+      document.write("key2: " + key2 + "<br/>");
+
+      //sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+      sessionStorage.setItem(
+        "user1",
+        JSON.stringify({ name: "randy", age: 24 })
+      );
+      sessionStorage.setItem(
+        "user2",
+        JSON.stringify({ name: "demi", age: 24 })
+      );
+      // 获取
+      const sessionUser1 = localStorage.getItem("user1");
+      const sessionUser2 = localStorage.getItem("user2");
+      document.write("sessionUser1: " + sessionUser1 + "<br/>");
+      document.write("sessionUser2: " + sessionUser2 + "<br/>");
+      // 移除某项
+      // sessionStorage.removeItem("user2");
+
+      // 清除所有
+      // sessionStorage.clear();
+
+      // 通过下标获取key
+      const key3 = sessionStorage.key(0);
+      const key4 = sessionStorage.key(1);
+      document.write("key3: " + key3 + "<br/>");
+      document.write("key4: " + key4 + "<br/>");
+
+      function openWindow() {
+        myWindow = window.open("", "", "width=200,height=100");
+
+        // 该事件不在导致数据变化的当前页面触发（如果浏览器同时打开一个域名下面的多个页面，当其中的一个页面改变 sessionStorage 或 localStorage 的数据时，
+        // 其他所有页面的  storage  事件会被触发，而原始页面并不触发 storage 事件）
+        myWindow.onstorage = function () {
+          console.log("onstorage事件触发了");
+        };
+
+        localStorage.setItem("test1", "测试storage事件");
+        // sessionStorage.setItem("test1", "测试storage事件");
+        // localStorage.removeItem("test");
+      }
+    </script>
+  </body>
+</html>
