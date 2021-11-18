@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>margin</title>
+  </head>
+  <body>
+    <div>
+      <p>
+        外边距塌陷也称外边距合并，只有在正常流中的相邻兄弟或父子元素才会出现，并且外边距合并只会是上下外边距合并，左右外边距不会合并。
+      </p>
+      <p>
+        计算外边距合并
+        两个外边距都是正数取大的正数，两个都是负数取绝对值大的数，一正一负取和。
+      </p>
+    </div>
+    <div>
+      <h3>常见情况</h3>
+      <p>第一种 是相邻兄弟元素的 marin-bottom 和 margin-top 的值发生重叠。</p>
+      <div
+        style="
+          height: 100px;
+          background-color: aqua;
+          margin-bottom: 20px;
+          position: relative;
+        "
+      ></div>
+      <div
+        style="height: 100px; background-color: antiquewhite; margin-top: 10px"
+      ></div>
+    </div>
+
+    <div>
+      <div>
+        第二种 是父元素的 margin-top 和子元素的 margin-top
+        发生重叠。它们发生重叠是因为它们是相邻的，所以我们可以通过这一点来解决这个问题。我们可以为父元素设置
+        border-top、padding-top 值来分隔它们。当然我们也可以将父元素设置为 BFC
+        来解决。
+      </div>
+      <div
+        style="
+          height: 160px;
+          background-color: aqua;
+          margin-top: 10px;
+          overflow: auto;
+        "
+      >
+        <div
+          style="
+            height: 100px;
+            background-color: blanchedalmond;
+            margin-top: 20px;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div>
+      <p>
+        第三种是高度为 auto 的父元素的 margin-bottom 和子元素的 margin-bottom
+        发生重叠。它们发生重叠一个是因为它们相邻，一个是因为父元素的高度不固定。因此我们可以为父元素设置
+        border-bottom、padding-bottom 来分隔它们，也可以为父元素设置一个高度
+        height，max-height 和 min-height 也能解决这个问题。当然将父元素设置为
+        BFC 是最简单的方法。
+      </p>
+
+      <div
+        style="background-color: aqua; margin-bottom: 10px; overflow: hidden"
+      >
+        <div
+          style="
+            height: 100px;
+            background-color: blanchedalmond;
+            margin-bottom: 20px;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div>
+      <p>
+        第四种情况，是没有内容的元素，自身的 margin-top 和 margin-bottom
+        发生的重叠。我们可以通过为其设置 border、padding
+        或者高度来解决这个问题。
+      </p>
+      <!--  height: 1px -->
+      <div style="margin-top: 40px; margin-bottom: 20px; height: 1px"></div>
+      <div style="height: 40px; background-color: blue"></div>
+    </div>
+
+    <span style="padding: 20px">行内元素设置上内边距无效，左右下有效</span>
+    <span style="margin: 20px">行内元素设置上下外边距无效，左右外边距有效</span>
+  </body>
+</html>

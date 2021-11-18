@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grid</title>
+    <style>
+      .container {
+        height: 500px;
+        background-color: antiquewhite;
+        display: grid;
+        /* grid-template-rows: 100px 100px; */
+        grid-template-rows: repeat(2, 100px);
+        grid-template-columns: 100px 100px 100px;
+        /* grid-template-columns: 100px 100px; */
+        /* grid-template-columns: repeat(auto-fill, 100px); */
+        /* grid-template-columns: 100px auto 100px; */
+
+        /* grid-gap属性是grid-column-gap和grid-row-gap的合并简写形式， */
+        /* grid-row-gap: 10px; */
+        /* grid-column-gap: 20px; */
+        grid-gap: 20px 10px;
+
+        /* 顺序 默认是row */
+        /* grid-auto-flow: column; */
+
+        /* justify-items属性设置单元格内容的水平位置（左中右），align-items属性设置单元格内容的垂直位置（上中下）。 */
+        /* start | end | center | stretch：拉伸，占满单元格的整个宽度（默认值）。*/
+        justify-items: center;
+        align-items: center;
+        /* place-items属性是align-items属性和justify-items属性的合并简写形式。 */
+
+        /* justify-content属性是整个内容区域在容器里面的水平位置（左中右），align-content属性是整个内容区域的垂直位置（上中下） */
+        /* justify-content: start | end | center | stretch | space-around | space-between | space-evenly; */
+        /* align-content: start | end | center | stretch | space-around | space-between | space-evenly;   */
+
+        /* justify-content: space-evenly; */
+        /* justify-content: space-around; */
+        align-content: center;
+        /* place-content属性是align-content属性和justify-content属性的合并简写形式。 */
+      }
+      .container > div {
+        background-color: aqua;
+      }
+
+      /* justify-self属性设置单元格内容的水平位置（左中右），跟justify-items属性的用法完全一致，但只作用于单个项目。 */
+      /* align-self属性设置单元格内容的垂直位置（上中下），跟align-items属性的用法完全一致，也是只作用于单个项目。 */
+      .child4 {
+        justify-self: end;
+        align-self: end;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child1">child1</div>
+      <div class="child2">child2</div>
+      <div class="child3">child3</div>
+      <div class="child4">child4</div>
+      <div class="child5">child5</div>
+      <div class="child6">child6</div>
+    </div>
+  </body>
+</html>

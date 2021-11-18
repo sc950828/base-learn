@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetch</title>
+  </head>
+  <body>
+    <div>
+      <h3>判断请求是否成功</h3>
+      <p>
+        fetch()发出请求以后，有一个很重要的注意点：只有网络错误，或者无法连接时，fetch()才会报错，其他情况都不会报错，而是认为请求成功。
+        这就是说，即使服务器返回的状态码是 4xx 或 5xx，fetch()也不会报错（即
+        Promise 不会变为 rejected状态）。 只有通过Response.status属性，得到 HTTP
+        回应的真实状态码，才能判断请求是否成功。这里不用考虑网址跳转（状态码为
+        3xx），因为fetch()会将跳转的状态码自动转为 200。
+      </p>
+      <p>另一种方法是判断response.ok是否为true。</p>
+    </div>
+
+    <script>
+      fetch("https://jsonplaceholder.typicode.com/posts/1")
+        .then(function (response) {
+          // response解析
+
+          // 一个简单的 getter，用于暴露一个 ReadableStream 类型的 body 内容。
+          // body: ReadableStream
+
+          // 包含了一个布尔值 来标示该 Response 是否读取过 Body。也就是是否使用了response.json()等方法
+          // bodyUsed: true
+
+          // 包含此 Response 所关联的 Headers 对象，常提供如下方法：
+          // 1、headers.get()：根据指定的键名，返回键值。
+          // 2、headers.has()： 返回一个布尔值，表示是否包含某个标头。
+          // 3、headers.set()：将指定的键名设置为新的键值，如果该键名不存在则会添加。
+          // 4、headers.append()：添加标头。
+          // 5、headers.delete()：删除标头。
+          // 6、headers.keys()：返回一个遍历器，可以依次遍历所有键名。
+          // 7、headers.values()：返回一个遍历器，可以依次遍历所有键值。
+          // 8、headers.entries()：返回一个遍历器，可以依次遍历所有键值对（[key, value]）。
+          // 9、headers.forEach()：依次遍历标头，每个标头都会执行一次参数函数。
+          // headers: Headers {}
+
+          // Response.ok属性返回一个布尔值，表示请求是否成功，true对应 HTTP 请求的状态码 200 到 299，false对应其他的状态码。
+          // ok: true
+
+          // Response.redirected属性返回一个布尔值，表示请求是否发生过跳转。
+          // redirected: false
+
+          // Response.status属性返回一个数字，表示 HTTP 回应的状态码（例如200，表示成功请求）
+          // status: 200
+
+          // Response.statusText属性返回一个字符串，表示 HTTP 回应的状态信息（例如请求成功以后，服务器返回"OK"）。
+          // statusText: ""
+
+          // Response.type属性返回请求的类型。可能的值如下：
+          // 1、basic：普通请求，即同源请求。
+          // 2、cors：跨域请求。
+          // 3、error：网络错误，主要用于 Service Worker。
+          // 4、opaque：如果fetch()请求的type属性设为no-cors，就会返回这个值，详见请求部分。表示发出的是简单的跨域请求，类似<form>表单的那种跨域请求。
+          // 5、opaqueredirect：如果fetch()请求的redirect属性设为manual，就会返回这个值，详见请求部分。
+          // type: "cors"
+
+          // Response.url属性返回请求的 URL。如果 URL 存在跳转，该属性返回的是最终 URL。
+          // url: "https://jsonplaceholder.typicode.com/todos/1"
+
+          console.log(response);
+
+          // response方法
+
+          // response.arrayBuffer()：得到二进制 ArrayBuffer 对象。
+          // response.blob()：得到二进制 Blob 对象。
+          // response.text()：得到文本字符串。
+          // response.json()：得到 JSON 对象。
+          // response.formData()：得到 FormData 表单对象。主要用在 Service Worker 里面，拦截用户提交的表单，修改某些数据以后，再提交给服务器。
+
+          // response.json()是一个异步操作，取出所有内容，并将其转为 JSON 对象。
+          return response.json();
+        })
+        .then(function (myJson) {
+          console.log(myJson);
+        });
+
+      // post请求
+      fetch("https://jsonplaceholder.typicode.com/posts", {
+        // 请求方法 大小写都可以
+        method: "post",
+        // 请求头
+        headers: {
+          // Content-Type的默认值是'text/plain;charset=UTF-8'
+          "Content-Type": "application/json;charset=utf-8",
+        },
+
+        // referrer属性用于设定fetch()请求的referer标头。
+        // referrer: "",
+
+        // referrerPolicy属性用于设定Referer标头的规则。可能的取值如下：
+        // 1、no-referrer-when-downgrade：总是发送Referer标头，除非从 HTTPS 页面请求 HTTP 资源时不发送。
+        // 2、no-referrer：不发送Referer标头。
+        // 3、origin：Referer标头只包含域名，不包含完整的路径。
+        // 4、origin-when-cross-origin：同源请求Referer标头包含完整的路径，跨域请求只包含域名。
+        // 5、same-origin：跨域请求不发送Referer，同源请求发送。
+        // 6、strict-origin：Referer标头只包含域名，HTTPS 页面请求 HTTP 资源时不发送Referer标头。
+        // 7、strict-origin-when-cross-origin：同源请求时Referer标头包含完整路径，跨域请求时只包含域名，HTTPS 页面请求 HTTP 资源时不发送该标头。
+        // 8、unsafe-url：不管什么情况，总是发送Referer标头。
+        // referrerPolicy: "no-referrer-when-downgrade", // 自测默认值是 strict-origin-when-cross-origin
+
+        // mode属性指定请求的模式。可能的取值如下：
+        // 1、cors：默认值，允许跨域请求。
+        // 2、same-origin：只允许同源请求。
+        // 3、no-cors：请求方法只限于 GET、POST 和 HEAD，并且只能使用有限的几个简单标头，不能添加跨域的复杂标头，相当于提交表单所能发出的请求。
+        // mode: "cors",
+
+        // credentials属性指定是否发送 Cookie。可能的取值如下：
+        // 1、same-origin：默认值，同源请求时发送 Cookie，跨域请求时不发送。
+        // 2、include：不管同源请求，还是跨域请求，一律发送 Cookie。
+        // 3、omit：一律不发送。
+        // credentials: "same-origin",
+
+        // cache属性指定如何处理缓存。可能的取值如下：
+        // 1、default：默认值，先在缓存里面寻找匹配的请求。
+        // 2、no-store：直接请求远程服务器，并且不更新缓存。
+        // 3、reload：直接请求远程服务器，并且更新缓存。
+        // 4、no-cache：将服务器资源跟本地缓存进行比较，有新的版本才使用服务器资源，否则使用缓存。
+        // 5、force-cache：缓存优先，只有不存在缓存的情况下，才请求远程服务器。
+        // 6、only-if-cached：只检查缓存，如果缓存里面不存在，将返回504错误。
+        // cache: "default",
+
+        // redirect属性指定 HTTP 跳转的处理方法。可能的取值如下
+        // 1、follow：默认值，fetch()跟随 HTTP 跳转。
+        // 2、error：如果发生跳转，fetch()就报错。
+        // 3、manual：fetch()不跟随 HTTP 跳转，但是response.url属性会指向新的 URL，response.redirected属性会变为true，由开发者自己决定后续如何处理跳转。
+        // redirect: "follow",
+
+        // integrity属性指定一个哈希值，用于检查 HTTP 回应传回的数据是否等于这个预先设定的哈希值。
+        // integrity: "",
+
+        // keepalive属性用于页面卸载时，告诉浏览器在后台保持连接，继续发送数据。
+        // keepalive: false,
+
+        // signal属性指定一个 AbortSignal 实例，用于取消fetch()请求
+        // signal: undefined
+        // 请求参数
+        body: JSON.stringify({
+          userId: 1,
+          title: "title",
+          body: "body",
+        }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((myJson) => {
+          console.log(myJson);
+        });
+
+      // 取消请求 fetch()请求发送以后，如果中途想要取消，需要使用AbortController对象。
+    </script>
+  </body>
+</html>

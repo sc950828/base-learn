@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>variable</title>
+    <style>
+      /* 全局变量 */
+      :root {
+        --color1: red;
+        --pad: {
+          padding: 0 10px;
+        }
+      }
+
+      .p1 {
+        color: var(--color1);
+      }
+      .p2 {
+        --color2: green;
+        color: var(--color2);
+      }
+
+      .p3 {
+        /* 测试无效 没有使用默认值*/
+        color: var(--color2, "blue");
+      }
+    </style>
+  </head>
+  <body>
+    <p class="p1">css变量测试1</p>
+    <p class="p2">css变量测试2</p>
+    <p class="p3">css变量测试3</p>
+  </body>
+</html>

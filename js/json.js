@@ -1,0 +1,113 @@
+// JSON.parse(text[, reviver])
+
+// 如果指定了 reviver 函数，则解析出的 JavaScript 值（解析值）会经过一次转换后才将被最终返回（返回值）。
+// 更具体点讲就是：解析值本身以及它所包含的所有属性，会按照一定的顺序（从最最里层的属性开始，一级级往外，最终到达顶层，也就是解析值本身）分别的去调用 reviver 函数，
+// 在调用过程中，当前属性所属的对象会作为 this 值，当前属性名和属性值会分别作为第一个和第二个参数传入 reviver 中。如果 reviver 返回 undefined，
+// 则当前属性会从所属对象中删除，如果返回了其他值，则返回的值会成为当前属性新的属性值。
+
+// 当遍历到最顶层的值（解析值）时，传入 reviver 函数的参数会是空字符串 ""（因为此时已经没有真正的属性）和当前的解析值（有可能已经被修改过了），
+// 当前的 this 值会是 {"": 修改过的解析值}，在编写 reviver 函数时，要注意到这个特例。（这个函数的遍历顺序依照：从最内层开始，按照层级顺序，依次向外遍历）
+
+// JSON.parse() 不允许用逗号作为结尾
+const result1 = JSON.parse(
+  '{"a": 1, "b": 2,"c": {"d": 4, "e": {"f": 6, "g": 7}}}',
+  function (k, v) {
+    console.log(k); // 输出当前的属性名，从而得知遍历顺序是从内向外的，
+    // 最后一个属性名会是个空字符串。
+    return v; // 返回原始属性值，相当于没有传递 reviver 参数。
+  }
+);
+console.log("parse: ", result1);
+
+// JSON.stringify(value[, replacer [, space]])
+
+// replacer 可选
+// 如果该参数是一个函数，则在序列化过程中，被序列化的值的每个属性都会经过该函数的转换和处理；如果该参数是一个数组，
+// 则只有包含在这个数组中的属性名才会被序列化到最终的 JSON 字符串中；如果该参数为 null 或者未提供，则对象所有的属性都会被序列化。
+
+// space 可选
+// 指定缩进用的空白字符串，用于美化输出（pretty-print）；如果参数是个数字，它代表有多少的空格；上限为10。该值若小于1，则意味着没有空格；
+// 如果该参数为字符串（当字符串长度超过10个字母，取其前10个字母），该字符串将被作为空格；如果该参数没有提供（或者为 null），将没有空格。
+
+const obj1 = { a: 1, b: 2, c: { d: 4, e: { f: 6, g: 7 } } };
+const str1 = JSON.stringify(obj1, function (k, v) {
+  // 过滤掉某属性
+  if (k === "a") {
+    return undefined;
+  }
+  return v;
+});
+console.log("replacer1: ", str1);
+
+const obj2 = { a: 1, b: 2, c: { d: 4, e: { f: 6, g: 7 } } };
+const str2 = JSON.stringify(obj2, ["a", "b", "c"]);
+console.log("replacer2: ", str2);
+
+// 注意
+// 1、布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值。
+const obj3 = { a: new Number(1), b: new Boolean(1), c: new String("randy") };
+const str3 = JSON.stringify(obj3);
+console.log("stringify1: ", str3);
+// 2、undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）
+const obj4 = {
+  a: undefined,
+  b: function say() {},
+  c: Symbol(123),
+};
+const str4 = JSON.stringify(obj4);
+console.log(
+  "undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）: ",
+  str4
+);
+
+// 或者被转换成 null（出现在数组中时）
+const obj5 = [undefined, function say() {}, Symbol(123)];
+const str5 = JSON.stringify(obj5);
+console.log("被转换成 null（出现在数组中时）: ", str5);
+
+// 函数、undefined、Symbol 被单独转换时，会返回 undefined
+console.log(
+  "函数、undefined、Symbol 被单独转换时，会返回 undefined: ",
+  JSON.stringify(Symbol(123)),
+  JSON.stringify(undefined),
+  JSON.stringify(function say() {})
+);
+
+// 3、所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们
+const s1 = Symbol();
+const obj6 = { a: 1, b: 2, [s1]: 3 };
+console.log(
+  "所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们: ",
+  JSON.stringify(obj6)
+);
+
+///4、Date 日期调用了 toJSON() 将其转换为了 string 字符串（同Date.toISOString()），因此会被当做字符串处理。
+const obj7 = { a: 1, b: 2, c: new Date() };
+console.log(
+  "Date 日期调用了 toJSON() 将其转换为了 string 字符串（同Date.toISOString()），因此会被当做字符串处理: ",
+  JSON.stringify(obj7)
+);
+//5、错误对象会被转成空对象
+const obj8 = { a: 1, b: 2, c: new Error("error") };
+console.log("错误会被转成空对象: ", JSON.stringify(obj8));
+//6、正则会被转成空对象
+const obj9 = { a: 1, b: 2, c: new RegExp("\\d", "i") };
+console.log("正则会被转成空对象: ", JSON.stringify(obj9));
+
+// 7、NaN 和 Infinity 格式的数值及 null 都会被当做 null。
+const obj10 = { a: 1, b: 2, c: NaN, d: Infinity, e: null };
+console.log(
+  "NaN 和 Infinity 格式的数值及 null 都会被当做 null: ",
+  JSON.stringify(obj10)
+);
+
+// 错误
+// 对包含循环引用的对象（对象之间相互引用，形成无限循环）执行此方法，会抛出错误。
+// const obj11 = {};
+// const obj12 = { a: obj11 };
+// obj11.a = obj12;
+// console.log(JSON.stringify(obj12));
+
+// 当尝试去转换 BigInt 类型的值会抛出TypeError ("BigInt value can't be serialized in JSON")（BigInt值不能JSON序列化）.
+// const obj11 = { a: 1, b: 2, c: BigInt("12222222222222222222222") };
+// console.log("BigInt 类型的值会抛出TypeError: ", JSON.stringify(obj11));
