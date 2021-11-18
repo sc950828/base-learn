@@ -90,7 +90,18 @@
       <div style="height: 40px; background-color: blue"></div>
     </div>
 
-    <span style="padding: 20px">行内元素设置上内边距无效，左右下有效</span>
+    <span style="padding: 20px"
+      >行内元素设置上下内边距无效，左右内边距有效</span
+    >
     <span style="margin: 20px">行内元素设置上下外边距无效，左右外边距有效</span>
+
+    <div>
+      <span style="margin: 0 auto">
+        行内元素，行内元素使用margin: 0 auto居中不行</span
+      >
+      <div style="width: 400px; margin: 0 auto">
+        块级元素， 块级元素才能使用margin: 0 auto居中
+      </div>
+    </div>
   </body>
 </html>

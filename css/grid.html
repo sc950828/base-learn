@@ -40,7 +40,13 @@
         align-content: center;
         /* place-content属性是align-content属性和justify-content属性的合并简写形式。 */
       }
-      .container > div {
+
+      /* 偶数 even*/
+      .container > div:nth-of-type(even) {
+        background-color: greenyellow;
+      }
+      /* 奇数 odd*/
+      .container > div:nth-of-type(odd) {
         background-color: aqua;
       }
 

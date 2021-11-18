@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>select</title>
+    <style>
+      /* 第一个子元素 刚好是span */
+      .container1 span:nth-child(1) {
+        color: aqua;
+      }
+      /* 第二个子元素 刚好是span */
+      .container1 span:nth-child(2) {
+        color: rgb(165, 177, 165);
+      }
+
+      /* 第一个p元素 */
+      .container1 p:nth-of-type(1) {
+        color: blue;
+      }
+
+      /* 相邻选择器 选择紧邻的指定元素 */
+      .child1 + span {
+        color: blue;
+      }
+
+      /* 兄弟选择器 选择后面所有指定元素 */
+      .child1 ~ span {
+        color: salmon;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container1">
+      <span class="span1">span1</span>
+      <p class="p1">p1</p>
+      <span class="span2">span2</span>
+      <p class="p2">p2</p>
+    </div>
+
+    <div class="container2">
+      <div class="child1">child1</div>
+      <span class="span1">span1</span>
+      <span class="span2">span2</span>
+      <span class="span3">span3</span>
+    </div>
+    <span>outter</span>
+  </body>
+</html>
