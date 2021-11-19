@@ -18,6 +18,8 @@ console.log("---charCodeAt---", str5.charCodeAt(1)); // 97
 const str6 = "97";
 const str7 = "98";
 console.log("---fromCharCode---", String.fromCharCode(str6, str7));
+// 用于从 Unicode 码点返回对应字符，并且可以识别大于0xFFFF的字符。es6新增
+console.log("---fromCodePoint---", String.fromCodePoint(str6, str7));
 
 // indexOf 返回指定字符位置 从前往后找 没找到返回-1
 // lastIndexOf 返回指定字符位置 从后往前找 没找到返回-1
@@ -134,6 +136,10 @@ console.log("---match---", str35_1);
 console.log("---match---", str36);
 console.log("---match---", str37);
 
+// matchAll 查找多个 不支持可能需要编译
+// const matchAllStr = str34.matchAll(/h/); // [ 'h', 'h' ]
+// console.log("---matchAll---", matchAllStr);
+
 // search(string/regexp) 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。
 // 返回与指定查找的字符串或者正则表达式相匹配的 String 对象起始位置。
 // 只会返回找到的第一个匹配的下标，不管是否使用g修饰符。
@@ -147,3 +153,10 @@ console.log("---search---", index1);
 console.log("---search---", index2);
 console.log("---search---", index3);
 console.log("---search---", index4);
+
+// 填充
+// str.padStart(targetLength [, padString])
+// str.padEnd(targetLength [, padString])
+const str39 = "randy";
+console.log("---padStart: ", str39.padStart(10, "*"));
+console.log("---padEnd: ", str39.padEnd(10, "*"));

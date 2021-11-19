@@ -21,6 +21,8 @@ console.log("---Math.min---", Math.min(1, 2, 3, 4, 5, 6)); // 1
 // pow(x, y) 返回 x 的 y 次幂。
 const m6 = Math.pow(2, 4); // 16
 console.log("---Math.pow---", m6);
+// es6新增 **
+console.log("---**---", 2 ** 4); //16
 
 // random() 返回0-1之间的随机数
 const m7 = Math.random();
@@ -37,3 +39,18 @@ const m10 = Math.trunc(123.45);
 const m11 = Math.trunc(123.56);
 console.log("---Math.trunc取整---", m10); // 123
 console.log("---Math.trunc取整---", m11); // 123
+
+// sign 方法用来判断一个数到底是正数、负数、还是零。对于非数值，会先将其转换为数值。
+// 参数为正数，返回+1
+// 参数为负数，返回-1
+// 参数为 0，返回0
+// 参数为-0，返回-0
+// 其他值，返回NaN
+console.log("---Math.sign---", Math.sign(10)); // 1
+console.log("---Math.sign---", Math.sign(-10)); // -1
+console.log("---Math.sign---", Math.sign(0)); // 0
+console.log("---Math.sign---", Math.sign(-0)); // -0
+console.log("---Math.sign---", Math.sign("a")); // NaN
+
+// cbrt 方法用于计算一个数的立方根。
+console.log("---Math.cbrt---", Math.cbrt(8)); // 2

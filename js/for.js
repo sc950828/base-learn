@@ -65,7 +65,7 @@ const obj1 = Object.create(
 // obj1.forEach((key) => {
 //   console.log(key);
 // });
-// entries keys values不能获取Symbol属性 不能获取不可枚举属性
+// entries keys values不能获取Symbol属性 不能获取不可枚举属性 不能获取原型链属性
 for (const entry of Object.entries(obj1)) {
   console.log("entries: ", entry);
 }
@@ -75,7 +75,7 @@ for (const key of Object.keys(obj1)) {
 for (const value of Object.values(obj1)) {
   console.log("values: ", value);
 }
-// 能获取不可枚举属性 不能获取Symbol属性
+// 能获取不可枚举属性 不能获取Symbol属性 不能获取原型链属性
 for (const name of Object.getOwnPropertyNames(obj1)) {
   console.log("getOwnPropertyNames: ", name);
 }
@@ -89,11 +89,13 @@ for (const key in obj1) {
   console.log("for in: ", key);
 }
 // 不但能获取自身不可枚举属性 还能获取Symbol类型的键 但不能获取原型链上的属性
+// 它的返回值等同于 Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))
 console.log("--- Reflect ownKeys ---");
 for (const key of Reflect.ownKeys(obj1)) {
   console.log("Reflect.ownKeys: ", key);
 }
 
+// 数组遍历
 const arr1 = ["a", "b", "c", "d"];
 for (let i = 0; i < arr1.length; i++) {
   console.log("for: ", arr1[i]);

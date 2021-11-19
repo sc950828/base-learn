@@ -54,3 +54,13 @@ console.log(Number.isNaN(NaN)); // true
 console.log(isNaN("123")); // false
 console.log(isNaN("a")); // true
 console.log(isNaN(NaN)); // true
+
+// 进制转换
+// 十进制转其他进制使用toString方法
+console.log("十进制转二进制: ", (10).toString(2));
+console.log("十进制转八进制: ", (10).toString(8));
+console.log("十进制转十六进制: ", (20).toString(16));
+// 其他进制转十进制使用parseInt方法，第二个参数表明当前是几进制
+console.log("二进制转十进制: ", parseInt(1010, 2));
+console.log("八进制转十进制: ", parseInt(12, 8));
+console.log("八进制转十进制: ", parseInt(14, 16));
