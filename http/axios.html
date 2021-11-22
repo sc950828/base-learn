@@ -10,6 +10,28 @@
   <body>
     <div>
       <p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
+
+      <h3>Promise.all</h3>
+      <p>
+        Promise.all 生成并返回一个新的 Promise 对象，所以它可以使用 Promise
+        实例的所有方法。参数传递promise数组中所有的 Promise
+        对象都变为resolve的时候，该方法才会返回， 新创建的 Promise 则会使用这些
+        promise 的值。
+      </p>
+      <p>
+        如果参数中的任何一个promise为reject的话，则整个Promise.all调用会立即终止，并返回一个reject的新的
+        Promise 对象。
+      </p>
+
+      <h3>Promise.race</h3>
+      <p>
+        参数 promise 数组中的任何一个 Promise 对象如果变为 resolve 或者 reject
+        的话， 该函数就会返回，并使用这个 Promise 对象的值进行 resolve 或者
+        reject。
+      </p>
+
+      <h3>Promise.allSettled</h3>
+      <p>所有promise参数无论成功失败都会返回，并且是在resolve里面。</p>
     </div>
 
     <script>
@@ -314,16 +336,53 @@
       const get2 = () => {
         return axios.get("https://jsonplaceholder.typicode.com/posts/2");
       };
-      axios.all([get1(), get2()]).then(
-        axios.spread((res1, res2) => {
-          console.log(res1);
-          console.log(res2);
+      // 错误请求
+      const get3 = () => {
+        return axios.get("https://jsonplaceholder.typicode.com/posts1/2");
+      };
+      // 一个失败都失败，返回错误的那个promise 类似Promise.all
+      axios
+        .all([get1(), get2(), get3()])
+        .then(
+          axios.spread((res1, res2, res3) => {
+            console.log("axios.all: ", res1);
+            console.log("axios.all: ", res2);
+            console.log("axios.all: ", res3);
+          })
+          // 这样也能返回，只是包含在数组里面
+          // (res) => {
+          //   console.log(res);
+          // }
+        )
+        .catch((err) => {
+          console.log("axios.all error: ", err);
+        });
+
+      // Promise.all([get1(), get2(), get3()])
+      //   .then((res) => {
+      //     console.log("Promise.all: ", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("Promise.all error: ", err);
+      //   });
+
+      // 返回第一个请求结果 成功进resolve失败进reject
+      // Promise.race([get1(), get2(), get3()])
+      //   .then((res) => {
+      //     console.log("Promise.race: ", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("Promise.race error: ", err);
+      //   });
+
+      // 无论是否成功，全部结果都返回到resolve中
+      Promise.allSettled([get1(), get2(), get3()])
+        .then((res) => {
+          console.log("Promise.allSettled: ", res);
         })
-        // 这样也能返回，只是包含在数组里面
-        // (res) => {
-        //   console.log(res);
-        // }
-      );
+        .catch((err) => {
+          console.log("Promise.allSettled error: ", err);
+        });
     </script>
   </body>
 </html>
