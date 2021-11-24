@@ -1,0 +1,43 @@
+// if
+.div1 {
+  color: if(2 > 1, red, black);
+}
+
+// boolean
+.div2 {
+  color: if(boolean(2 > 3), green, blue);
+}
+
+// length
+@list: red, green, blue, black;
+.div3 {
+  width: length(@list) * 1px;
+}
+
+// extract 返回指定位置元素 下标从1开始
+.div4 {
+  color: extract(@list, 3);
+}
+
+// each
+each(@list, {
+  .list-@{index} {
+    color: @value
+  }
+});
+
+@list2: range(10);
+// for 通过each和range实现
+each(@list2, {
+  .e-@{index} {
+    width: @value * 1px
+  }
+});
+
+// 间隔10
+@list3: range(10px, 100px, 10);
+each(@list3, {
+  .l-@{index} {
+    width: @value * 1px
+  }
+});

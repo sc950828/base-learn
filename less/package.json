@@ -1,0 +1,18 @@
+{
+  "name": "lesstest",
+  "version": "1.0.0",
+  "description": "less learn",
+  "main": "index.js",
+  "scripts": {
+    "less1": "lessc src/index1.less dist/index1.css",
+    "less2": "lessc src/function.less dist/function.css"
+  },
+  "keywords": [
+    "less"
+  ],
+  "author": "randy",
+  "license": "ISC",
+  "dependencies": {
+    "less": "^4.1.2"
+  }
+}

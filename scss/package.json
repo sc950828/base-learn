@@ -1,0 +1,17 @@
+{
+  "name": "scsstest",
+  "version": "1.0.0",
+  "description": "scss",
+  "main": "index.js",
+  "scripts": {
+    "scss1": "sass src/scss1.scss dist/scss1.css"
+  },
+  "keywords": [
+    "scss"
+  ],
+  "author": "randy",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.43.4"
+  }
+}

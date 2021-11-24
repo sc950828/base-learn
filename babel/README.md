@@ -53,6 +53,13 @@ Babel 的核心功能包含在 @babel/core 模块中。
 
 @babel/polyfill 体积比较大，整体引入既增加项目体积，又污染了过多的变量，所以更推荐使用 preset-env 来按需引入 polyfill。
 
+因为全局引入 import "@bable/polyfill"相当于引入了如下两个库，这意味着不仅不能按需加载还有全局空间被污染的问题。因为他是通过向全局对象和内置对象的 prototype 上添加方法来实现的。
+
+```
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+```
+
 ### preset-env 使用按需引入 polyfill。
 
 ```js
@@ -76,6 +83,8 @@ babel/runtime 并不是开发依赖，而是项目生产依赖。编译时使用
 ### polyfill
 
 上面说了 plugin-transform-runtime 主要是负责将工具函数转换成引入的方式，减少重复代码，而 babel-polyfill 则是引入相关文件模拟兼容环境。babel-polyfill 有一个问题就是引入文件会污染变量，其实 plugin-transform-runtime 也提供了一种 runtime 的 polyfill。有点类似@babel/preset-env 预设。
+
+这种写法更好，既减少了代码体积又按需加载了 polyfill
 
 ```js
 "plugins": [["@babel/plugin-transform-runtime", { "corejs": "3" }]]

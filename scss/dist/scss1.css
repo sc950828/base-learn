@@ -1,0 +1,159 @@
+.box {
+  color: red;
+}
+
+.div1 {
+  color: blue;
+  font-size: 18px;
+}
+
+.fo-1 {
+  width: 1px;
+}
+
+.fo-2 {
+  width: 2px;
+}
+
+.fo-3 {
+  width: 3px;
+}
+
+.fo-4 {
+  width: 4px;
+}
+
+.fo-5 {
+  width: 5px;
+}
+
+.fo-6 {
+  width: 6px;
+}
+
+.fo-7 {
+  width: 7px;
+}
+
+.fo-8 {
+  width: 8px;
+}
+
+.fo-9 {
+  width: 9px;
+}
+
+.fo-10 {
+  width: 10px;
+}
+
+.for-1 {
+  height: 1px;
+}
+
+.for-2 {
+  height: 2px;
+}
+
+.for-3 {
+  height: 3px;
+}
+
+.for-4 {
+  height: 4px;
+}
+
+.for-5 {
+  height: 5px;
+}
+
+.for-6 {
+  height: 6px;
+}
+
+.for-7 {
+  height: 7px;
+}
+
+.for-8 {
+  height: 8px;
+}
+
+.for-9 {
+  height: 9px;
+}
+
+.col {
+  color: green;
+}
+
+.col {
+  color: blue;
+}
+
+.col {
+  color: black;
+}
+
+.col {
+  color: yellow;
+}
+
+.w-10 {
+  width: 10px;
+}
+
+.w-9 {
+  width: 9px;
+}
+
+.w-8 {
+  width: 8px;
+}
+
+.w-7 {
+  width: 7px;
+}
+
+.w-6 {
+  width: 6px;
+}
+
+.w-5 {
+  width: 5px;
+}
+
+.w-4 {
+  width: 4px;
+}
+
+.w-3 {
+  width: 3px;
+}
+
+.w-2 {
+  width: 2px;
+}
+
+.w-1 {
+  width: 1px;
+}
+
+.a {
+  color: red;
+  font-size: 56px;
+}
+
+.b1, .b3 {
+  color: #000;
+}
+
+.b2 {
+  font-size: 12px;
+}
+
+.b3 {
+  color: aqua;
+}
+
+/*# sourceMappingURL=scss1.css.map */
