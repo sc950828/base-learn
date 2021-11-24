@@ -1,0 +1,26 @@
+{
+  "name": "babeltest",
+  "version": "1.0.0",
+  "description": "babel learn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "index1": "babel src/index1.js --out-dir dist",
+    "index2": "babel src/index2.js --out-dir dist",
+    "index3": "babel src/index3.js --out-dir dist"
+  },
+  "keywords": [
+    "babel"
+  ],
+  "author": "randy",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3"
+  }
+}

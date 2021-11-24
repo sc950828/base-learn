@@ -358,6 +358,7 @@
           console.log("axios.all error: ", err);
         });
 
+      // 返回所有成功的，如果有失败的就会返回第一个失败的
       // Promise.all([get1(), get2(), get3()])
       //   .then((res) => {
       //     console.log("Promise.all: ", res);
@@ -383,6 +384,38 @@
         .catch((err) => {
           console.log("Promise.allSettled error: ", err);
         });
+
+      const getPosts1 = () => {
+        return axios.get("https://jsonplaceholder.typicode.com/posts/1");
+      };
+      const getPosts2 = () => {
+        return axios.get("https://jsonplaceholder.typicode.com/posts/2");
+      };
+      const getPosts3 = () => {
+        return axios.get("https://jsonplaceholder.typicode.com/posts/3");
+      };
+
+      // for wait of
+      async function test2() {
+        let arr = [getPosts1(), getPosts2(), getPosts3()];
+        for (item of arr) {
+          console.log(new Date().toLocaleTimeString());
+          const { data } = await item;
+          console.log(data);
+        }
+      }
+
+      // for wait of
+      async function test2() {
+        let arr = [getPosts1(), getPosts2(), getPosts3()];
+        for await (let item of arr) {
+          console.log(new Date().toLocaleTimeString());
+          const { data } = item;
+          console.log(data);
+        }
+      }
+
+      test2();
     </script>
   </body>
 </html>

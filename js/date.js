@@ -5,6 +5,8 @@ console.log(date); // 2021-11-14T16:00:00.000Z
 console.log(date2); // 2021-11-14T15:23:59.102Z
 console.log("toString", date2.toString()); // Sun Nov 14 2021 23:23:59 GMT+0800 (中国标准时间)
 console.log("valueOf", date2.valueOf()); // 1636903439102
+// 返回当前时间戳
+console.log("Date.now(): ", Date.now()); // 1637547890965
 
 // 年
 console.log("getFullYear:", date.getFullYear()); //2021

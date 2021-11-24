@@ -129,3 +129,34 @@ arr1.forEach((item) => {
   }
   console.log("forEach: ", item);
 });
+
+function Gen(time) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve(time);
+    }, time);
+  });
+}
+
+// for await of 一定会按顺序执行
+// 先执行同步代码 到了异步代码等待执行完毕后再执行
+async function test() {
+  let arr = [Gen(2000), Gen(100), Gen(3000)];
+  for (let item of arr) {
+    console.log(Date.now());
+    const res = await item;
+    console.log(res);
+  }
+}
+
+// 整个代码块都不执行，等待 arr 当前的值（Promise状态）发生变化之后，才执行代码块的内容。
+async function test() {
+  let arr = [Gen(2000), Gen(100), Gen(3000)];
+  for await (let item of arr) {
+    console.log(Date.now());
+    const res = item;
+    console.log(res);
+  }
+}
+
+test();
