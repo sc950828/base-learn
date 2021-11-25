@@ -49,6 +49,7 @@ typeOfTest();
 
 // instanceof获取的是true或者false
 // instanceof 只能判断出引用数据类型和自定义引用数据类型。不能判断基本数据类型
+// 其内部运行机制是判断在其原型链中能否找到该类型的原型。
 const instanceofTest = () => {
   console.log("1 instanceof Number:", 1 instanceof Number); //false
   console.log("a instanceof String:", "a" instanceof String); //false
