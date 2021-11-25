@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blob</title>
+  </head>
+  <body>
+    <!-- download 特性（attribute）强制浏览器下载而不是导航 -->
+    <!-- download="hello.txt" 加上download就可以下载了 -->
+    <a download="hello.txt" href="#" id="link">Download</a>
+    <img
+      src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7"
+    />
+    <a download="hello2.txt" href="#" id="link2">Download2</a>
+    <input type="file" onchange="showFile(this)" />
+
+    <script>
+      // 创建一个长度为 16 的 buffer 它会分配一个 16 字节（byte）的连续内存空间，并用 0 进行预填充。
+      const buffer1 = new ArrayBuffer(16);
+
+      // Blob 由一个可选的字符串 type（通常是 MIME 类型）和 blobParts 组成
+      // blobParts 是 Blob/BufferSource/String 类型的值的数组。
+      // new Blob(blobParts, options);
+      const blob1 = new Blob([buffer1], { type: "text/plain" });
+      console.log(blob1);
+
+      const blob2 = new Blob(["Hello, world!"], { type: "text/plain" });
+
+      // 创建blob链接 blob:<origin>/<uuid>
+      // 浏览器内部为每个通过 URL.createObjectURL 生成的 URL 存储了一个 URL → Blob 映射。因此，此类 URL 很短，但可以访问 Blob。
+      link.href = URL.createObjectURL(blob2);
+
+      // 自动下载代码
+      // let link = document.createElement('a');
+      // link.download = 'hello.txt';
+      // let blob = new Blob(['Hello, world!'], {type: 'text/plain'});
+      // link.href = URL.createObjectURL(blob);
+      // link.click();
+      // URL.revokeObjectURL(link.href);
+
+      // base64
+      const blob3 = new Blob(["hello", "randy"], { type: "text/plain" });
+      const fileReader = new FileReader();
+      // readAsArrayBuffer(blob) —— 将数据读取为二进制格式的 ArrayBuffer。
+      // readAsText(blob, [encoding]) —— 将数据读取为给定编码（默认为 utf-8 编码）的文本字符串。
+      // readAsDataURL(blob) —— 读取二进制数据，并将其编码为 base64 的 data url。
+      // abort() —— 取消操作。
+      // 创建base64链接
+      // data:[<mediatype>][;base64],<data>。
+      fileReader.readAsDataURL(blob3);
+      // loadstart —— 开始加载。
+      // progress —— 在读取过程中出现。
+      // load —— 读取完成，没有 error。
+      // abort —— 调用了 abort()。
+      // error —— 出现 error。
+      // loadend —— 读取完成，无论成功还是失败。
+      fileReader.onload = () => {
+        console.log(fileReader);
+        // reader.result 是结果（如果成功）
+        // reader.error 是 error（如果失败）。
+        link2.href = fileReader.result;
+      };
+
+      function showFile(input) {
+        let file = input.files[0];
+        console.log(file);
+      }
+    </script>
+  </body>
+</html>
