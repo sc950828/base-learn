@@ -42,14 +42,27 @@ const routes = [
   {
     path: "/alive",
     name: "Alive",
-    component: () =>
-      import(/* webpackChunkName: "alive" */ "../views/Alive.vue"),
+    // 这种也是异步加载
+    component: (r) =>
+      require.ensure([], () => r(require("../views/Alive.vue")), "alive"),
   },
   {
     path: "/jsxtest",
     name: "JsxTest",
+    // 这种也是异步加载
+    component: (resolve) => require(["../views/JsxTest"], resolve),
+  },
+  {
+    path: "/route",
+    name: "Route",
+    // 这种也是异步加载
+    component: (resolve) => require(["../views/Route"], resolve),
+  },
+  {
+    path: "/storetest",
+    name: "StoreTest",
     component: () =>
-      import(/* webpackChunkName: "jsxtest" */ "../views/JsxTest.vue"),
+      import(/* webpackChunkName: "filter" */ "../views/StoreTest.vue"),
   },
 ];
 
@@ -57,6 +70,20 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  // console.log(to, from);
+  // console.log(VueRouter.START_LOCATION);
+
+  next();
+
+  // if (to.path == "/about" && to.path !== "mixins") {
+  //   // 重新又走了一遍路由
+  //   next("/mixins");
+  // } else {
+  //   next();
+  // }
 });
 
 export default router;
