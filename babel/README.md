@@ -84,7 +84,7 @@ babel/runtime 并不是开发依赖，而是项目生产依赖。编译时使用
 
 上面说了 plugin-transform-runtime 主要是负责将工具函数转换成引入的方式，减少重复代码，而 babel-polyfill 则是引入相关文件模拟兼容环境。babel-polyfill 有一个问题就是引入文件会污染变量，其实 plugin-transform-runtime 也提供了一种 runtime 的 polyfill。有点类似@babel/preset-env 预设。
 
-这种写法更好，既减少了代码体积又按需加载了 polyfill
+这种写法更好，既减少了代码体积又按需加载了 polyfill。
 
 ```js
 "plugins": [["@babel/plugin-transform-runtime", { "corejs": "3" }]]
@@ -92,7 +92,7 @@ babel/runtime 并不是开发依赖，而是项目生产依赖。编译时使用
 
 ## 配置文件
 
-支持 babel.config.js、babel.config.json、.babelrcjs、.babelrc.json、package.json 文件里面的 babel key。
+支持 babel.config.js、babel.config.json、.babelrc.js、.babelrc.json、package.json 文件里面的 babel key。
 
 ## babel 的工作流程
 
