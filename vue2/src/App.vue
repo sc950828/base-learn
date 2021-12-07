@@ -9,8 +9,9 @@
       <router-link to="/filter">Filter</router-link> |
       <router-link to="/alive">Alive</router-link> |
       <router-link to="/jsxtest">JsxTest</router-link> |
-      <router-link to="/route">路由</router-link> |
+      <router-link to="/route/72">路由</router-link> |
       <router-link to="/storetest">Store</router-link> |
+      <router-link to="/father">Father</router-link> |
     </div>
     <router-view />
   </div>

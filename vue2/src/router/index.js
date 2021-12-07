@@ -53,16 +53,50 @@ const routes = [
     component: (resolve) => require(["../views/JsxTest"], resolve),
   },
   {
-    path: "/route",
+    path: "/route/:id",
     name: "Route",
     // 这种也是异步加载
     component: (resolve) => require(["../views/Route"], resolve),
+    beforeEnter: (to, from, next) => {
+      console.log("beforeEnter");
+      next();
+    },
   },
   {
     path: "/storetest",
     name: "StoreTest",
     component: () =>
       import(/* webpackChunkName: "filter" */ "../views/StoreTest.vue"),
+  },
+  {
+    path: "/father",
+    name: "Father",
+    component: () =>
+      import(/* webpackChunkName: "father" */ "../views/Father.vue"),
+    children: [
+      {
+        path: "fchild1",
+        name: "FChild1",
+        component: () =>
+          import(/* webpackChunkName: "father" */ "@/components/Fchild1.vue"),
+        children: [
+          {
+            path: "fchild1_1",
+            name: "FChild1_1",
+            component: () =>
+              import(
+                /* webpackChunkName: "father" */ "@/components/Fchild1_1.vue"
+              ),
+          },
+        ],
+      },
+      {
+        path: "fchild2",
+        name: "FChild2",
+        component: () =>
+          import(/* webpackChunkName: "father" */ "@/components/Fchild2.vue"),
+      },
+    ],
   },
 ];
 
@@ -73,6 +107,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log("beforeEach");
   // console.log(to, from);
   // console.log(VueRouter.START_LOCATION);
 
@@ -84,6 +119,16 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next();
   // }
+});
+
+// 所有都处理完后进入该方法，因为支持next所以可以在该方法进行再次跳转
+router.beforeResolve((to, from, next) => {
+  console.log("beforeResolve");
+  next();
+});
+
+router.afterEach((to, from) => {
+  console.log("afterEach");
 });
 
 export default router;

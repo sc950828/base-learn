@@ -32,6 +32,8 @@ export default new Vuex.Store({
     setOtherAction({ dispatch }, payload) {
       // 可以提交其他模块的action
       // dispatch("people/setName", payload);
+      // 可以不通过命名空间直接提交action
+      // dispatch("someAction", payload);
       dispatch("setName", payload);
     },
   },
@@ -101,9 +103,12 @@ export default new Vuex.Store({
           dispatch("setOtherAction", payload, { root: true });
         },
         // 若需要在带命名空间的模块注册全局 action，你可添加 root: true，并将这个 action 的定义放在函数 handler 中。
+        // 这样
         someAction: {
           root: true,
-          handler(namespacedContext, payload) {},
+          handler(context, payload) {
+            context.commit("SET_NAME", payload);
+          },
         },
       },
     },
