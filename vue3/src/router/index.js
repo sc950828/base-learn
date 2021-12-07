@@ -42,6 +42,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "watch" */ "../views/Watch.vue"),
   },
+  {
+    path: "/router",
+    name: "Router",
+    component: () =>
+      import(/* webpackChunkName: "router" */ "../views/Router.vue"),
+  },
+  {
+    path: "/store",
+    name: "Store",
+    component: () =>
+      import(/* webpackChunkName: "store" */ "../views/Store.vue"),
+  },
 ];
 
 const router = createRouter({

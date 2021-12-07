@@ -7,6 +7,8 @@
     <router-link to="/life">Life</router-link> |
     <router-link to="/computed">Computed</router-link> |
     <router-link to="/watch">Watch</router-link> |
+    <router-link to="/router">Router</router-link> |
+    <router-link to="/store">Store</router-link> |
   </div>
   <router-view />
 </template>

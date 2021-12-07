@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, defineAsyncComponent } from "vue";
+import { defineComponent, ref, defineAsyncComponent, provide } from "vue";
 import Child1 from "@/components/Child1";
 import Child2 from "@/components/Child2";
 import Child3 from "@/components/Child3";
@@ -37,10 +37,13 @@ export default defineComponent({
       // loadingComponent: () => import("./LoadingComponent.vue"),
     }),
   },
+
   setup() {
     const name = ref("randy");
     const name1 = ref("randy");
     const name2 = ref("randy");
+
+    provide("inject1", name);
     return {
       name,
       name1,
