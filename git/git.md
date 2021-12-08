@@ -34,6 +34,20 @@ ssh-keygen -t rsa -C '1287530097@qq.com'
 # 登录 github。打开 setting->SSH keys，点击右上角 New SSH key，把生成好的公钥 id_rsa.pub 放进 key 输入框中，再为当前的 key 起一个 title 来区分每个 key。
 ```
 
+### 文档查询
+
+#### 查看命令大纲
+
+```
+git help
+```
+
+#### 查看所有命令
+
+```
+git help -a
+```
+
 ### 远端仓库配置
 
 #### 查看远端仓库
@@ -153,6 +167,12 @@ git branch -d <branch-name>
 git branch -D <branch-name>
 ```
 
+删除远程分支
+
+```
+git push origin -d <branch-name>
+```
+
 #### 重命名分支
 
 ```
@@ -205,6 +225,22 @@ git commit --amend
 git push origin <branch-name>
 ```
 
+### fetch
+
+将远端分支代码拉取下来
+
+```
+git fetch origin <branch-name>
+```
+
+### pull
+
+将远端分支代码拉取下来并与当前分支进行 merge
+
+```
+git pull origin <branch-name>
+```
+
 ### rm
 
 删除文件，并且将这次删除放入暂存区，前提是该文件是本地仓库的文件，不能是新建的文件。
@@ -217,6 +253,12 @@ git rm <file-name>
 
 ```
 git rm --cached <file-name>
+```
+
+清除 git 所有的缓存，也就是把所有文件置为未追踪状态。
+
+```
+git rm -r --cached .
 ```
 
 ### stash
@@ -397,12 +439,20 @@ git show commitId <file-name>
 git show
 ```
 
-#### 查看操作 log
+#### 查看详细操作 log
 
-详细的 log，包括分支切换、代码合并等等操作
+详细的 log，包括分支切换、代码合并等等操作。
 
 ```
 git reflog
+```
+
+我们可以使用 git checkout reflogid 切换到某个操作上。（git checkout 并不仅仅只能切换到某分支或者某 tag 上）
+
+#### 查看分支提交图
+
+```
+git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 ```
 
 ### 回退
@@ -433,6 +483,18 @@ git checkout HEAD <file-name>
 
 ```
 git checkout HEAD <file-name>
+```
+
+撤销暂存区某文件到工作区
+
+```
+git reset HEAD <file-name>
+```
+
+撤销暂存区所有文件到工作区
+
+```
+git reset HEAD <file-name>
 ```
 
 #### 撤销本地仓库
@@ -473,4 +535,145 @@ git revert HEAD
 
 ```
 git cherry-pick commitId
+```
+
+### tag
+
+tag 只是在某 commit 上打上标签，并不会产生提交。
+
+#### 列出已有 tag
+
+```
+git tag
+```
+
+#### 新建 tag
+
+```
+git tag v1.0.0
+```
+
+#### 新建带有备注信息的 tag
+
+```
+git tag -a v1.0.0 -m '初始版本'
+```
+
+#### 给指定的某个 commit 加 tag
+
+```
+git tag -a v1.0.0 -m '某版本' commitId
+```
+
+#### 删除 tag
+
+```
+git tag -d v1.0.0
+```
+
+#### 查看 tag 详情
+
+可以利用 tag 的 commitId 进行代码的回滚
+
+```
+git show v1.0.0
+```
+
+#### 把 tag 推送到远端
+
+```
+git push origin v1.0.0
+```
+
+#### 把所有不存在的 tag 推送到远程
+
+```
+git push origin --tags
+```
+
+#### 切换到某个 tag 下
+
+切换到某个 tag 跟分支一样，可以直接切换到某个 tag 去。这个时候不位于任何分支，处于游离状态，可以考虑基于这个 tag 创建一个分支。
+
+```
+git checkout v1.0.0
+```
+
+### merge
+
+把目标 commit 的路径上的所有 commit 的内容一并应用到当前 commit，然后自动生成一个新的 commit。
+
+```
+git merge <branch-name>
+```
+
+取消 merge
+
+```
+git merge --abort
+```
+
+### rebase
+
+有些人不喜欢 merge，因为在 merge 之后，commit 历史就会出现分叉，这种分叉再汇合的结构会让有些人觉得混乱而难以管理。
+如果你不希望 commit 历史出现分叉，可以用 rebase 来代替 merge。
+
+```
+git rebase <branch-name>
+```
+
+取消 rebase
+
+```
+git rebase --abort
+```
+
+### 交互式 rebase
+
+rebase -i 是 rebase --interactive 的缩写形式，意为「交互式 rebase」。
+
+```
+git rebase -i commitId
+```
+
+1、以修改不是第一条提交的 message。rebase -i commitId，把需要修改的 commit 的 message 使用 edit/e 标识。
+2、合并提交。rebase -i HEAD^^。把需要合并的 commit 的 message 用 squash/s 标识。
+3、删除某次提交。rebase -i HEAD^^。把需要删除的 commit 的 message 去掉即可。
+
+## ^和~符号
+
+### ^
+
+^ 的用法：在 commit 的后面加一个或多个 ^ 号，可以把 commit 往回偏移，偏移的数量是 ^ 的数量。例如：master^ 表示 master 指向的 commit 之前的那个 commit；
+HEAD^^ 表示 HEAD 所指向的 commit 往前数两个 commit。
+
+### ~
+
+~ 的用法：在 commit 的后面加上 ~ 号和一个数，可以把 commit 往回偏移，偏移的数量是 ~ 号后面的数。例如：HEAD~5 表示 HEAD 指向的 commit 往前数 5 个 commit。
+
+## 忽略文件 .gitignore
+
+```shell
+# 此行为注释 会被Git忽略
+
+# 忽略 node_modules/ 目录下所有的文件
+node_modules
+
+
+# 忽略所有.vscode结尾的文件
+.vscode
+
+# 忽略所有.md结尾的文件
+*.md
+
+# 但README.md 除外
+!README.md
+
+# 会忽略 doc/something.txt 但不会忽略doc/images/arch.txt
+doc/*.txt
+
+# 忽略 doc/ 目录下所有扩展名为txt文件
+
+doc/**/*.txt
+
 ```
