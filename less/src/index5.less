@@ -1,0 +1,28 @@
+// 映射
+.colors() {
+  primary: blue;
+  secondary: green;
+}
+
+.use1 {
+  color: .colors[primary];
+}
+
+.use2 {
+  // 报错
+  // color: .colors.primary;
+}
+
+#colors() {
+  primary: blue;
+  secondary: green;
+}
+
+.use3 {
+  color: #colors[secondary];
+}
+
+.use4 {
+  // 报错
+  // color: #colors.secondary;
+}

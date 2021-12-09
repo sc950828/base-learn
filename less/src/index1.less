@@ -6,34 +6,6 @@
   font-size: 16px;
 }
 
-// 这种mixin不会单独编译出来
-.box2() {
-  color: @color;
-  font-size: 18px;
-}
-
-// 任何 ~"anything" 或 ~'anything' 形式的内容都将按原样输出
-@min768: ~"(min-width: 768px)";
-.element {
-  @media @min768 {
-    font-size: 1.2rem;
-  }
-}
-
-// 混合
-.name1 {
-  // 这种写法已经过时，但是还能使用，不推荐使用
-  .box;
-}
-.name2 {
-  .box();
-}
-.name3 {
-  .box2();
-}
-.name4 {
-  .box2();
-}
 // extend
 // 会组成群租联合选择器，相较于混合更节省空间
 nav ul {

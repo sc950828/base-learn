@@ -1,0 +1,27 @@
+@n1: round(1.67); // returns `2`
+@n2: ceil(2.4); // returns `3`
+@n3: floor(2.6); // returns `2`
+// 如果你想将一个值转化为百分比，你可以使用percentage 函数:
+@n4: percentage(0.5); // returns `50%`
+@n5: sqrt(25cm); //  return 5cm
+@n6: min(3px, 42px, 1px, 16px); // 1px
+@n7: max(3%, 42%, 1%, 16%); // 42%
+
+.box1 {
+  width: @n1;
+}
+.box2 {
+  width: @n2;
+}
+.box3 {
+  width: @n3;
+}
+.box4 {
+  width: @n4;
+}
+.box5 {
+  width: @n5;
+}
+.box6 {
+  width: @n6;
+}

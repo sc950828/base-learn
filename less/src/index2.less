@@ -1,0 +1,44 @@
+// mixin
+.box1 {
+  font-size: 18px;
+}
+// 这种mixin不会单独编译出来
+.box2() {
+  font-size: 20px;
+}
+
+// 混合的使用可以加括号或者不加括号
+.use1 {
+  // 这种写法已经过时，但是还能使用，不推荐使用
+  .box1;
+}
+.use2 {
+  .box2;
+}
+.use3 {
+  .box1();
+}
+.use4 {
+  .box2();
+}
+
+.box3() {
+  .box4 {
+    color: greenyellow;
+  }
+}
+
+// 调用里面
+.use5 {
+  // 这样可以
+  // .box3.box4;
+
+  // 这样调用也可以
+  // .box3.box4();
+
+  // 也可以
+  // .box3 .box4;
+
+  // 也可以
+  .box3 > .box4;
+}

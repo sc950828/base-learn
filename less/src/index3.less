@@ -1,0 +1,7 @@
+// 任何 ~"anything" 或 ~'anything' 形式的内容都将按原样输出
+@min768: ~"(min-width: 768px)";
+.element {
+  @media @min768 {
+    font-size: 1.2rem;
+  }
+}

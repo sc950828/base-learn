@@ -1,0 +1,14 @@
+@counter: 5;
+// 循环函数
+.xunhuan(@count) when(@count>0) {
+  .item-@{count} {
+    color: red;
+  }
+
+  // .xunhuan(@count - 1);
+
+  @count2: @count - 1; // 递归调用自身
+  .xunhuan(@count2);
+}
+// 使用循环
+.xunhuan(@counter);

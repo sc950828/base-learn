@@ -1,0 +1,15 @@
+.box {
+  color: red;
+  font-size: 16px;
+}
+nav ul {
+  background: blue;
+}
+.inline,
+nav ul {
+  color: red;
+  font-size: 1.2rem;
+}
+/*
+块级注释，块级注释会被编译到css文件里面，单行注释不会被编译到css文件里面
+*/

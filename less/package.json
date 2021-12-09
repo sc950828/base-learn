@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "less1": "lessc src/index1.less dist/index1.css",
-    "less2": "lessc src/function.less dist/function.css"
+    "less2": "lessc src/index2.less dist/index2.css",
+    "less3": "lessc src/index3.less dist/index3.css",
+    "less4": "lessc src/index4.less dist/index4.css",
+    "less5": "lessc src/index5.less dist/index5.css",
+    "less6": "lessc src/index6.less dist/index6.css",
+    "less7": "lessc src/index7.less dist/index7.css",
+    "less8": "lessc src/index8.less dist/index8.css",
+    "function": "lessc src/function.less dist/function.css"
   },
   "keywords": [
     "less"
