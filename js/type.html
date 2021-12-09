@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据类型</title>
+  </head>
+  <body>
+    <script>
+      // 基本数据类型有 Number String Boolean Null Undefined Symbol BigInt
+      // 引用数据类型有Object Date Error Function RegExp
+
+      function User(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      const user = new User("randy", 24);
+
+      // typeof获取是的数据类型的小写
+      const typeOfTest = () => {
+        console.log("typeof 1:", typeof 1); //number
+        console.log("typeof a:", typeof "a"); //string
+        console.log("typeof false:", typeof false); //boolean
+        console.log("typeof undefined:", typeof undefined); //undefined
+        console.log("typeof 9007199254740991n:", typeof 9007199254740991n); //bigint
+
+        // typeof 判断基本数据类型的时候除了 null 会判断成 object 其他的都准确。
+        console.log("typeof null:", typeof null); //object
+        // typeof NaN是number
+        console.log("typeof NaN:", typeof NaN); //number
+        console.log("typeof Symbol():", typeof Symbol()); //symbol
+
+        // typeof 判断引用数据类型除了 function 会判断成 function 其他都会被判断成 object。
+        console.log("typeof new Number(1):", typeof new Number(1)); //object
+        console.log("typeof new String('a'):", typeof new String("a")); //object
+        console.log("typeof new Boolean(false):", typeof new Boolean(false)); //object
+        console.log(
+          "typeof BigInt('9007199254740991'):",
+          typeof BigInt("9007199254740991")
+        ); //bigint
+        console.log("typeof new Date():", typeof new Date()); //object
+        console.log("typeof []:", typeof []); //object
+        console.log("typeof new Array(10):", typeof new Array(10)); //object
+        console.log(
+          "typeof new Error('自定义错误'):",
+          typeof new Error("自定义错误")
+        ); //object
+        console.log("typeof user:", typeof user); //object
+        console.log(
+          "typeof function:",
+          typeof new Function("say", 'console.log("say hi")')
+        ); //function
+        console.log("typeof new RegExp():", typeof new RegExp()); //object
+        console.log("typeof /[0-9]?/:", typeof /[0-9]?/); //object
+      };
+
+      typeOfTest();
+
+      // instanceof获取的是true或者false
+      // instanceof 只能判断出引用数据类型和自定义引用数据类型。不能判断基本数据类型
+      // 其内部运行机制是判断在其原型链中能否找到该类型的原型。
+      const instanceofTest = () => {
+        console.log("1 instanceof Number:", 1 instanceof Number); //false
+        console.log("a instanceof String:", "a" instanceof String); //false
+        console.log("false instanceof Boolean:", false instanceof Boolean); //false
+        console.log("null instanceof Object:", null instanceof Object); //false
+        console.log(
+          "undefined instanceof Object:",
+          undefined instanceof Object
+        ); //false
+        console.log("Symbol() instanceof Symbol:", Symbol() instanceof Symbol); //false
+        console.log(
+          "9007199254740991n instanceof BigInt:",
+          9007199254740991n instanceof BigInt
+        ); //false
+
+        // 引用数据类型和自定义引用数据类型都可以判断正确
+        console.log("user instanceof User:", user instanceof User); //true
+        console.log(
+          "new Number(1) instanceof Number:",
+          new Number(1) instanceof Number
+        ); //true
+        console.log(
+          "new String('a') instanceof String:",
+          new String("a") instanceof String
+        ); //true
+        console.log(
+          "new Boolean(false) instanceof Boolean:",
+          new Boolean(false) instanceof Boolean
+        ); //true
+        console.log(
+          "BigInt('9007199254740991') instanceof Boolean:",
+          BigInt("9007199254740991") instanceof BigInt
+        ); //false
+        console.log("new Date() instanceof Date:", new Date() instanceof Date); //true
+        console.log(
+          "new Array(10) instanceof Array:",
+          new Array(10) instanceof Array
+        ); //true
+        console.log(
+          "new Function('say', 'console.log('say hi')') instanceof Function:",
+          new Function("say", 'console.log("say hi")') instanceof Function
+        ); //true
+        console.log(
+          "new Error('自定义错误') instanceof Error:",
+          new Error("自定义错误") instanceof Error
+        ); //true
+        console.log(
+          "new RegExp() instanceof RegExp:",
+          new RegExp() instanceof RegExp
+        ); //true
+        console.log("/[0-9]?/ instanceof RegExp:", /[0-9]?/ instanceof RegExp); //true
+      };
+
+      instanceofTest();
+
+      // Object.prototype.toString.call()获取的是[object xxx] 可以通过slice(7, -1)获取真实数据类型
+      // Object.prototype.toString.call()能获取 js 的基本数据类型和引用数据类型。但是不能判断出自定义对象的数据类型。
+      const toStringCallTest = () => {
+        console.log(
+          "Object.prototype.toString.call(1):",
+          Object.prototype.toString.call(1)
+        ); //[object Number]
+        console.log(
+          "Object.prototype.toString.call('a'):",
+          Object.prototype.toString.call("a")
+        ); //[object String]
+        console.log(
+          "Object.prototype.toString.call(false):",
+          Object.prototype.toString.call(false)
+        ); //[object Boolean]
+        console.log(
+          "Object.prototype.toString.call(null):",
+          Object.prototype.toString.call(null)
+        ); //[object Null]
+        console.log(
+          "Object.prototype.toString.call(undefined):",
+          Object.prototype.toString.call(undefined)
+        ); //[object Undefined]
+        console.log(
+          "Object.prototype.toString.call(Symbol()):",
+          Object.prototype.toString.call(Symbol())
+        ); // [object Symbol]
+        console.log(
+          "Object.prototype.toString.call(12312321324234234234234n):",
+          Object.prototype.toString.call(12312321324234234234234n)
+        ); // [object BigInt]
+
+        console.log(
+          "Object.prototype.toString.call(new Number(1)):",
+          Object.prototype.toString.call(new Number(1))
+        ); //[object Number]
+        console.log(
+          "Object.prototype.toString.call(new String('a')):",
+          Object.prototype.toString.call(new String("a"))
+        ); //[object String]
+        console.log(
+          "Object.prototype.toString.call(new Boolean(false)):",
+          Object.prototype.toString.call(new Boolean(false))
+        ); //[object Boolean]
+        console.log(
+          "Object.prototype.toString.call(BigInt('12312321324234234234234')):",
+          Object.prototype.toString.call(BigInt("12312321324234234234234"))
+        ); // [object BigInt]
+
+        // 自定义引用数据类型判断不出来
+        console.log(
+          "Object.prototype.toString.call(user):",
+          Object.prototype.toString.call(user)
+        ); //[object Object]
+
+        console.log(
+          "Object.prototype.toString.call(new Date()):",
+          Object.prototype.toString.call(new Date())
+        ); //[object Date]
+        console.log(
+          "Object.prototype.toString.call(new Array(10)):",
+          Object.prototype.toString.call(new Array(10))
+        ); //[object Array]
+        console.log(
+          "Object.prototype.toString.call(new Function('say', 'console.log('say hi')')):",
+          Object.prototype.toString.call(
+            new Function("say", 'console.log("say hi")')
+          )
+        ); //[object Function]
+        console.log(
+          "Object.prototype.toString.call(new Error('自定义错误')):",
+          Object.prototype.toString.call(new Error("自定义错误"))
+        ); //[object Error]
+        console.log(
+          "Object.prototype.toString.call(/[0-9]?/)",
+          Object.prototype.toString.call(/[0-9]?/)
+        ); //[object RegExp]
+
+        console.log(
+          Object.prototype.toString.call(new Error("自定义错误")).slice(7, -1),
+          Object.prototype.toString
+            .call(new Function("say", 'console.log("say hi")'))
+            .slice(7, -1)
+        );
+      };
+
+      toStringCallTest();
+
+      // 获取的是类型大写
+      // 对象.constructor.name 既能获取基本数据类型又能获取引用数据类型还能获取自定义引用数据类型
+      // 因为null undefined没有constructor 不能进行判断
+      const constructorNameTest = () => {
+        console.log("(1).constructor.name:", (1).constructor.name); //Number
+        console.log("(a).constructor.name:", "a".constructor.name); //String
+        console.log("(false).constructor.name:", false.constructor.name); //Boolean
+        console.log("Symbol().constructor.name:", Symbol().constructor.name); //Symbol
+        console.log(
+          "(12312321324234234234234n).constructor.name:",
+          12312321324234234234234n.constructor.name
+        ); //BigInt
+
+        console.log("user.constructor.name:", user.constructor.name); //User
+
+        console.log(
+          "new Error().constructor.name:",
+          new Error().constructor.name
+        ); //Error
+        console.log(
+          "new Date().constructor.name:",
+          new Date().constructor.name
+        ); //Date
+        console.log(
+          "new Array().constructor.name:",
+          new Array().constructor.name
+        ); //Array
+        console.log(
+          "BigInt('12312321324234234234234').constructor.name:",
+          BigInt("12312321324234234234234").constructor.name
+        ); //BigInt
+        console.log(
+          "new Function().constructor.name:",
+          new Function().constructor.name
+        ); //Function
+        console.log(
+          "new Number(1).constructor.name:",
+          new Number(1).constructor.name
+        ); //Number
+        console.log(
+          "new String(a).constructor.name:",
+          new String("a").constructor.name
+        ); //String
+        console.log(
+          "new Boolean(false).constructor.name:",
+          new Boolean(false).constructor.name
+        ); //Boolean
+        console.log("/[0-9]?/.constructor.name", /[0-9]?/.constructor.name); //RegExp
+      };
+
+      constructorNameTest();
+
+      // 对象.constructor.toString().indexOf("xxx")
+      // 对象.constructor.toString().indexOf("xxx") 既能获取基本数据类型又能获取引用数据类型还能获取自定义引用数据类型
+      // 因为null undefined没有constructor 不能进行判断
+      const constructorTest = () => {
+        console.log(new Number(1).constructor.toString()); //function Number() { [native code] }
+        console.log(
+          "(1).constructor.toString().indexOf('Number') > -1:",
+          (1).constructor.toString().indexOf("Number") > -1
+        ); //true
+        console.log(
+          "(a).constructor.toString().indexOf('String') > -1:",
+          "a".constructor.toString().indexOf("String") > -1
+        ); //true
+        console.log(
+          "(false).constructor.toString().indexOf('Boolean') > -1:",
+          false.constructor.toString().indexOf("Boolean") > -1
+        ); //true
+        console.log(
+          "Symbol().constructor.toString().indexOf('Symbol') > -1:",
+          Symbol().constructor.toString().indexOf("Symbol") > -1
+        ); //true
+        console.log(
+          "12312321324234234234234n.constructor.toString().indexOf('BigInt') > -1:",
+          12312321324234234234234n.constructor.toString().indexOf("BigInt") > -1
+        ); //true
+
+        console.log(
+          'user.constructor.toString().indexOf("User") > -1:',
+          user.constructor.toString().indexOf("User") > -1
+        ); //true
+
+        console.log(
+          "new Error().constructor.toString().indexOf('Error') > -1:",
+          new Error().constructor.toString().indexOf("Error") > -1
+        ); //true
+        console.log(
+          "new Date().constructor.toString().indexOf('Date') > -1:",
+          new Date().constructor.toString().indexOf("Date") > -1
+        ); //true
+        console.log(
+          "new Array().constructor.toString().indexOf('Array') > -1:",
+          new Array().constructor.toString().indexOf("Array") > -1
+        ); //true
+        console.log(
+          "new Function().constructor.toString().indexOf('Function') > -1:",
+          new Function().constructor.toString().indexOf("Function") > -1
+        ); //true
+        console.log(
+          "new Number(1).constructor.toString().indexOf('Number') > -1:",
+          new Number(1).constructor.toString().indexOf("Number") > -1
+        ); //true
+        console.log(
+          "new String(a).constructor.toString().indexOf('String') > -1:",
+          new String("a").constructor.toString().indexOf("String") > -1
+        ); //true
+        console.log(
+          "new Boolean(false).constructor.toString().indexOf('Boolean') > -1:",
+          new Boolean(false).constructor.toString().indexOf("Boolean") > -1
+        ); //true
+        console.log(
+          "BigInt('12312321324234234234234').constructor.toString().indexOf('BigInt') > -1:",
+          BigInt("12312321324234234234234")
+            .constructor.toString()
+            .indexOf("BigInt") > -1
+        ); //true
+        console.log(
+          "/[0-9]?/.constructor.toString().indexOf('RegExp') > -1",
+          /[0-9]?/.constructor.toString().indexOf("RegExp") > -1
+        ); //true
+      };
+
+      constructorTest();
+
+      // 数据类型转换
+
+      // 1、其他值到布尔类型的值的转换规则
+      // 除了这些假值：undefined、null、false、 0、+0、-0、NaN、"" 布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。
+      // Symbol 可以被强制类型转换为布尔值（显式和隐式结果都是 true ）
+      const convertBooleanTest = () => {
+        console.log("Boolean(1):", Boolean(1)); //true
+        console.log("Boolean(user):", Boolean(user)); //true
+        console.log("Boolean(Symbol()):", Boolean(Symbol())); //true
+
+        console.log("Boolean(false):", Boolean(false)); //false
+        console.log("Boolean(undefined):", Boolean(undefined)); //false
+        console.log("Boolean(null):", Boolean(null)); //false
+        console.log("Boolean(0):", Boolean(0)); //false
+        console.log("Boolean(-0):", Boolean(-0)); //false
+        console.log("Boolean(+0):", Boolean(+0)); //false
+        console.log("Boolean(NaN):", Boolean(NaN)); //false
+        console.log("Boolean(''):", Boolean("")); //false
+      };
+
+      convertBooleanTest();
+
+      // 2、其他值到字符串的转换规则
+      // 全局方法 String() 可以将其他值转换为字符串。或者使用隐式转换通过计算 + ""
+
+      // Null 和 Undefined 类型 ，null 转换为 "null"，undefined 转换为 "undefined"，
+      // Boolean 类型，true 转换为 "true"，false 转换为 "false"
+      // Number 类型的值直接转换
+      // Symbol 类型的值直接转换，但是只允许显式强制类型转换，使用隐式强制类型转换会产生错误
+      // 对于对象来说，会调用 toString()来返回内部属性 [[Class]] 的值，如"[object Object]"。如果对象有自己的 toString() 方法，并且返回的不是基本数据类型则调用valueOf()方法。
+      // 如果valueOf方法返回的不是基本数据类型则报错，如果是基本数据类型则将该值转换为String类型。
+      const convertStringTest = () => {
+        console.log("String(1):", String(1));
+        console.log("String(false):", String(false));
+        console.log("String(1112323212424234n):", String(1112323212142423114n)); //1112323212142423114
+        console.log("String(Symbol()):", String(Symbol())); //Symbol()
+        // console.log("Symbol() + '':", Symbol() + ""); //会报错
+        console.log("String(user):", String(user)); //[object Object]
+        console.log(
+          "String(new Error('customer error')):",
+          String(new Error("customer error"))
+        ); //Error: customer error
+
+        function Animal(name) {
+          this.name = name;
+        }
+        Animal.prototype.toString = function () {
+          console.log("toString 先调用");
+          return { name: "toString" }; //返回的不是基本数据类型则继续调用valueOf方法
+          // return "i am a dog";
+        };
+        Animal.prototype.valueOf = function () {
+          console.log("valueOf 后调用");
+          // return { name: "valueOf" };
+          return "i am a dog"; //返回的是基本数据类型则将该值转换成String类型
+        };
+        const dog = new Animal("dog");
+        console.log("String(dog):", String(dog)); //i am a dog
+      };
+
+      convertStringTest();
+
+      // 3、其他值到数字的转换规则
+      // 全局方法 Number() 可以将字符串转换为数字。
+
+      // undefined 类型的值转换为 NaN。
+      // Null 类型的值转换为 0。
+      // Boolean 类型的值，true 转换为 1，false 转换为 0。
+      // String 类型的值转换如同使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。
+      // BingInt类型转换为Number的时候会精度丢失
+      // Symbol 值不能够被转换为数字（显式和隐式都会产生错误）
+      // 对于对象类型会首先调用 valueOf() 方法。如果没有返回基本类型值，就继续调用 toString()。如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
+      // 如果返回了基本数据类型的值，就将该值转换成Number类型。
+      const convertNumberTest = () => {
+        console.log("Number(undefined):", Number(undefined));
+        console.log("Number(null):", Number(null));
+        console.log("Number(true):", Number(true));
+        console.log("Number(false):", Number(false));
+        console.log("Number(123):", Number("123"));
+        console.log("Number('123a'):", Number("123a"));
+        console.log("Number(''):", Number(""));
+        console.log("Number(1112323212424234n):", Number(1112323212142423114n)); //1112323212142423200
+        // console.log("Number(Symbol()):", Number(Symbol())); //会报错
+
+        console.log("Number(user):", Number(user)); //NaN
+        // 先调用valueOf()返回不是基本数据类型就调用toString()
+        console.log("user.valueOf():", user.valueOf()); //User { name: 'randy', age: 24 }
+        // 调用toString()不是基本数据类型就报错
+        console.log("user.toString():", user.toString()); //[object Object]
+
+        function Animal(name) {
+          this.name = name;
+        }
+        Animal.prototype.toString = function () {
+          console.log("toString 后调用");
+          // return { name: "toString" };
+          return "i am a dog"; //是基本数据类型 返回转换成Number数据类型得到NaN
+        };
+        Animal.prototype.valueOf = function () {
+          console.log("valueOf 先调用"); //不是基本数据类型继续调用toString方法
+          return { name: "valueOf" };
+          // return "i am a dog";
+        };
+        const dog = new Animal("dog");
+        console.log("Number(dog):", Number(dog)); //NaN
+      };
+
+      convertNumberTest();
+
+      // toString valueOf 的执行原理
+      // 对象输出的时候会调用 valueOf 方法(除了 new Date 对象会调用 toString()方法)，返回对象的原始值。
+      // 对象在转换基本类型时，会调用 valueOf 和 toString，先调用哪个方法，主要是要看这个对象倾向于转换为什么。
+      // 如果倾向于转换为 Number 类型的，就优先调用 valueOf；如果倾向于转换为 String 类型，就先调用 toString。
+      // 比如使用了 Number()转换就会先调用 valueOf()方法，如果 valueOf() 没有返回基本类型就会再调用 toString()方法，如果都没返回基本类型则报错。
+      // 比如使用了 String()转换就会先调用 toString()方法，如果 toString()没有返回基本类型就会再调用 valueOf()方法，如果都没返回基本类型则报错。
+      // 如果有 Symbol.toPrimitive 属性的话，则只会调用 Symbol.toPrimitive 方法，toString 和 valueOf 方法就不会调用了。并且该方法只能返回基本类型，否则会报错。
+
+      const toStringValueOfTest = () => {
+        function Animal(name) {
+          this.name = name;
+        }
+        Animal.prototype.toString = function () {
+          console.log("toString");
+          return "toString";
+        };
+        Animal.prototype.valueOf = function () {
+          console.log("valueOf");
+          return "valueOf";
+        };
+        Animal.prototype[Symbol.toPrimitive] = function () {
+          console.log("Symbol.toPrimitive");
+          return "Symbol.toPrimitive";
+        };
+
+        const dog = new Animal("cat");
+        console.log(String(dog)); // Symbol.toPrimitive转字符串得到Symbol.toPrimitive
+        console.log(Number(dog)); // Symbol.toPrimitive转数字得到NaN
+      };
+
+      toStringValueOfTest();
+
+      // parseInt()和Number()转换成数字的区别
+      // parseInt()解析字符串允许含有非数字字符，解析按从左到右的顺序，如果遇到非数字字符就停止。而Number()不允许出现非数字字符，否则会返回 NaN。
+      // 并且parseInt是取整，不会四舍五入
+
+      const parseIntNumberTest = () => {
+        console.log('parseInt("123a"):', parseInt("123a")); // 123
+        console.log('parseInt("123.6"):', parseInt("123.6")); // 123
+        console.log('parseFloat("123.6"):', parseFloat("123.6")); // 123.6
+        console.log('parseFloat("123.6a"):', parseFloat("123.6a")); // 123.6
+        console.log('Number("123a"):', Number("123a")); // NaN
+        console.log('Number("123.3"):', Number("123.3")); // 123.3
+      };
+
+      parseIntNumberTest();
+
+      // + - * / % 操作符
+      // 如果是+操作符，并且有字符串则进行字符串的拼接，如果没有字符串则都转成数字进行计算。（各类型会按数字转，先调用valueOf再调toString）
+      const OperatorTest = () => {
+        console.log("true + 2:", true + 2); // 3
+        console.log("true - 2:", true - 2); //-1
+        console.log("true / 2:", true / 2); //0.5
+        console.log("null + 2:", null + 2); //2
+        console.log("undefined + 2:", undefined + 2); //NaN
+        console.log('"a" + 2:', "a" + 2); //a2
+        console.log('"a" + true', "a" + true); //atrue
+        function Animal(name) {
+          this.name = name;
+        }
+        Animal.prototype.toString = function () {
+          console.log("toString");
+          return "toString";
+        };
+        Animal.prototype.valueOf = function () {
+          console.log("valueOf");
+          return 12;
+        };
+        const dog = new Animal("brid");
+        console.log("dog + 2:", dog + 2); //14
+        console.log("dog - 2:", dog - 2); //10
+        console.log("dog * 2:", dog * 2); //24
+        console.log("dog / 2:", dog / 2); //6
+        console.log("dog % 2:", dog % 2); //0
+      };
+
+      OperatorTest();
+
+      // == 操作符的强制类型转换规则
+      // 字符串和数字之间的相等比较，将字符串转换为数字之后再进行比较
+      // 其他类型和布尔类型之间的相等比较，先将布尔值转换为数字后，true 变 1，false 变 0，再应用其他规则进行比较
+      // null 和 undefined 之间的相等比较，结果为真。其他值和它们进行比较都返回假值
+      // 如果一个操作值为 NaN ，则相等比较返回 false（ NaN 本身也不等于 NaN ）。
+      // 对象和非对象之间的相等比较，对象先调用 valueOf 或者 toString 抽象操作后变为基本类型，再进行比较。
+      // 如果没有重写toString或者valueOf方法默认先调用toString方法，否则重写了啥先调用啥方法，都重写了先调用valueOf方法。
+      // 如果两个操作值都是对象，则比较它们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true，否则，返回 false。
+      const dengyu1Test = () => {
+        console.log("true == '1':", true == "1"); // true
+        console.log("true == 1:", true == 1); // true
+        console.log("false == '0':", false == "0"); // true
+        console.log("false == 0:", false == 0); // true
+        // 布尔先转数字 字符串转数字 1==NaN 返回false
+        console.log("true == 'true':", true == "true"); //false
+        console.log("false == 'false':", false == "false"); //false
+        console.log("null == undefined:", null == undefined); //true
+        console.log("NaN == NaN:", NaN == NaN); //false
+
+        function Animal(name) {
+          this.name = name;
+        }
+        // Animal.prototype.toString = function () {
+        //   console.log("toString");
+        //   return "toString";
+        // };
+        Animal.prototype.valueOf = function () {
+          console.log("valueOf");
+          return 1;
+        };
+        const dog = new Animal("brid");
+        console.log("dog == '[object Object]':", dog == "[object Object]");
+        console.log("dog == true:", dog == true);
+
+        // 是否指向同一地址
+        const dog2 = new Animal("brid");
+        console.log("dog == dog2:", dog == dog2); //false
+        const dog3 = dog;
+        console.log("dog == dog3:", dog == dog3); //true
+      };
+      dengyu1Test();
+
+      // === 操作符 先比较类型再比较值
+      const dengyu2Test = () => {
+        console.log("1 === 1:", 1 === 1); // true
+        console.log("1 === '1':", 1 === "1"); // false
+        function Animal(name) {
+          this.name = name;
+        }
+        const dog = new Animal("brid");
+        const dog2 = new Animal("brid");
+        const dog3 = dog;
+        console.log("dog === dog2:", dog === dog2); //false
+        console.log("dog === dog3:", dog === dog3); //true
+      };
+      dengyu2Test();
+
+      // 布尔值的隐式强制类型转换
+      // if (..) 语句中的条件判断表达式。
+      // for ( .. ; .. ; .. ) 语句中的条件判断表达式（第二个）。
+      // while (..) 和 do..while(..) 循环中的条件判断表达式。
+      // ? : 中的条件判断表达式。
+      // 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。
+
+      // +操作符可以进行一些隐式转换 比如字符串转数字
+      console.log(+"12.3b"); //NaN
+
+      // && ||
+      // && 也可以叫逻辑与，在其操作数中找到第一个虚值表达式并返回它。也使用了短路来防止不必要的工作。
+      // 如果没有找到任何虚值表达式，则返回最后一个表达式的值。
+      console.log(1 && console.log("a") && null && console.log("b") && 2); //a undefined
+      console.log(" " && true && 5); // 5
+      // || 也叫逻辑或，在其操作数中找到第一个真值表达式并返回它。这也使用了短路来防止不必要的工作。
+      // 如果没有找到任何真值表达式，则返回最后一个表达式的值。
+      console.log(null || console.log("a") || 1 || console.log("b")); // a 1
+      console.log(undefined || null); //null
+      // 所以说逻辑与逻辑或返回的不是true false而是某个表达式的值
+    </script>
+  </body>
+</html>
