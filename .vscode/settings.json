@@ -2,6 +2,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[vue]": {
     // "editor.defaultFormatter": "octref.vetur"
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
