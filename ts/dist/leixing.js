@@ -36,6 +36,7 @@ function error(message) {
 // 数组
 const arr1 = [1, 2, 3];
 const arr2 = [4, 5, 6];
+let arr3 = [{ name: "randy", age: 22 }];
 // 元祖
 // 元组类型与数组类型非常相似，表示一个已知元素数量和类型的数组，各元素的类型不必相同。
 const tuple1 = [1, "a"];
@@ -107,3 +108,9 @@ console.log(Direction3.up); // UP
 console.log(Direction3.down); // DOWN
 // 可以按下标取
 console.log(Direction[0]); // left
+const mixed = {
+    id: 1,
+    name: "name",
+    age: 18,
+};
+// 在上述示例中，我们通过交叉类型，使得 IntersectionType 同时拥有了 id、name、age 所有属性，这里我们可以试着将合并接口类型理解为求并集。

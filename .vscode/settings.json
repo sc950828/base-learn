@@ -6,7 +6,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[vue]": {
+    // vetur的格式化
     // "editor.defaultFormatter": "octref.vetur"
+    // volar的格式化
+    // "editor.defaultFormatter": "johnsoncodehk.volar"
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }

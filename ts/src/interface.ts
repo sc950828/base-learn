@@ -73,3 +73,12 @@ const child1: Child = {
     phone: "17673485272",
   },
 };
+
+// interface 和 type
+// interface 只能用于定义对象类型，而 type 的声明方式除了对象之外还可以定义交叉、联合、原始类型等，类型声明的方式适用范围显然更加广泛。
+// interface 方式可以实现接口的 extends 和 implements
+// interface 可以实现接口合并声明
+
+// 类型别名
+type user = { name: string; age: number };
+const user4: user = { name: "randy", age: 25 };

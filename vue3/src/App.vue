@@ -1,14 +1,14 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/old">Old</router-link> |
-    <router-link to="/parent">Parent</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/life">Life</router-link> |
-    <router-link to="/computed">Computed</router-link> |
-    <router-link to="/watch">Watch</router-link> |
-    <router-link to="/router">Router</router-link> |
-    <router-link to="/store">Store</router-link> |
+    <router-link to="/">Home</router-link>|
+    <router-link to="/old">Old</router-link>|
+    <router-link to="/parent">Parent</router-link>|
+    <router-link to="/about">About</router-link>|
+    <router-link to="/life">Life</router-link>|
+    <router-link to="/computed">Computed</router-link>|
+    <router-link to="/watch">Watch</router-link>|
+    <router-link to="/router">Router</router-link>|
+    <router-link to="/store">Store</router-link>|
   </div>
   <router-view />
 </template>
