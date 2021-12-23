@@ -98,6 +98,12 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/debounce",
+    name: "Debounce",
+    component: () =>
+      import(/* webpackChunkName: "debounce" */ "@/views/Debounce.vue"),
+  },
 ];
 
 const router = new VueRouter({

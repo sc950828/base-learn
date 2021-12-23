@@ -55,16 +55,16 @@
       //     console.log("get: ", response);
       //   });
 
-      // // content-type: application/json 默认值是json
-      // axios
-      //   .post("https://jsonplaceholder.typicode.com/posts", {
-      //     title: "title",
-      //     body: "body",
-      //     userId: 2,
-      //   })
-      //   .then((response) => {
-      //     console.log("post: ", response);
-      //   });
+      // content-type: application/json 默认值是json
+      axios
+        .post("https://jsonplaceholder.typicode.com/posts", {
+          title: "title",
+          body: "body",
+          userId: 2,
+        })
+        .then((response) => {
+          console.log("post: ", response);
+        });
 
       // // put是修改，全部替换的修改
       // axios

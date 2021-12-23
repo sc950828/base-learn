@@ -222,6 +222,28 @@
         4
       );
       // clearTimeout(timer2);
+
+      // URLSearchParams
+      // append: ƒ append()
+      // delete: ƒ delete()
+      // entries: ƒ entries()
+      // forEach: ƒ forEach()
+      // get: ƒ ()
+      // getAll: ƒ getAll()
+      // has: ƒ has()
+      // keys: ƒ keys()
+      // set: ƒ ()
+      // sort: ƒ sort()
+      // toString: ƒ toString()
+      // values: ƒ values()
+      const params = new URLSearchParams();
+      params.append("name", "randy");
+      params.append("age", "27");
+      console.log(params);
+      console.log(params.toString()); //name=randy&age=27
+
+      // 不支持的浏览器可以使用qs库
+      // node可以使用querystring库
     </script>
   </body>
 </html>

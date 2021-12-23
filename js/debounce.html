@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>debounce</title>
+  </head>
+  <body>
+    <div style="height: 2000px"></div>
+    <script>
+      // 所谓防抖，就是指触发事件后 n 秒后才执行函数，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。
+      // 非立即执行版
+      function debounce1(func, delay) {
+        let timer = null;
+        // 需要arguments 获取参数列表，所以这里必须是普通函数而不是箭头函数
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (timer) clearTimeout(timer);
+
+          // timer = setTimeout(() => {
+          //   // func.apply(context, args);
+          //   func.call(context, ...args);
+          // }, delay);
+
+          timer = setTimeout(function () {
+            func.apply(context, args);
+            // func.call(context, ...args);
+          }, delay);
+        };
+      }
+
+      // 立即执行版，适用于按钮点击
+      function debounce2(func, delay) {
+        let timer = null;
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (timer) clearTimeout(timer);
+          const canCall = !timer;
+          timer = setTimeout(() => {
+            timer = null;
+          }, delay);
+
+          // if (canCall) func.apply(context, args);
+          if (canCall) func.call(context, ...args);
+        };
+      }
+
+      function debounce3(func, delay, immediate = true) {
+        let timer = null;
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (timer) clearTimeout(timer);
+          if (immediate) {
+            const canCall = !timer;
+            timer = setTimeout(() => {
+              timer = null;
+            }, delay);
+            // if(canCall) func.apply(context, args)
+            if (canCall) func.call(context, ...args);
+          } else {
+            timer = setTimerout(() => {
+              //func.apply(context, args)
+              func.call(context, ...args);
+            }, delay);
+          }
+        };
+      }
+
+      window.addEventListener(
+        "scroll",
+        debounce2(function (e) {
+          console.log(e);
+        }, 1000)
+      );
+    </script>
+  </body>
+</html>

@@ -12,6 +12,7 @@
       <router-link to="/route/72">路由</router-link> |
       <router-link to="/storetest">Store</router-link> |
       <router-link to="/father">Father</router-link> |
+      <router-link to="/debounce">Debounce</router-link> |
     </div>
     <router-view />
   </div>

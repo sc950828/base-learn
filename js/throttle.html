@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>throttle</title>
+  </head>
+  <body>
+    <div style="height: 2000px"></div>
+    <script>
+      // 时间戳版本
+      function throttle1(func, delay) {
+        let pre = 0;
+        return function () {
+          const context = this;
+          const args = arguments;
+          let now = Date.now();
+          if (now - pre > delay) {
+            pre = now;
+            // func.apply(context, args);
+            func.call(context, ...args);
+          }
+        };
+      }
+
+      // 定时器版本
+      function throttle2(func, delay) {
+        let timer = null;
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (!timer) {
+            timer = setTimeout(() => {
+              func.apply(context, args);
+              timer = null;
+            }, delay);
+          }
+        };
+      }
+
+      function throttle3(func, delay, timestamp = true) {
+        let timer = null;
+        let pre = 0;
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (timestamp) {
+            let now = Date.now();
+            if (now - pre > delay) {
+              pre = now;
+              //func.apply(context, args)
+              func.call(context, ...args);
+            }
+          } else {
+            if (!timer) {
+              timer = setTimeout(() => {
+                timer = null;
+                // func.apply(context, args);
+                func.call(context, ...args);
+              }, delay);
+            }
+          }
+        };
+      }
+
+      // window.addEventListener("scroll", function (e) {
+      //   console.log(e);
+      // });
+
+      // window.addEventListener(
+      //   "scroll",
+      //   throttle1(function (e) {
+      //     console.log(e);
+      //   }, 1000)
+      // );
+
+      // window.addEventListener(
+      //   "scroll",
+      //   throttle2(function (e) {
+      //     console.log(e);
+      //   }, 1000)
+      // );
+
+      window.addEventListener(
+        "scroll",
+        throttle3(
+          function (e) {
+            console.log(e);
+          },
+          1000,
+          false
+        )
+      );
+    </script>
+  </body>
+</html>

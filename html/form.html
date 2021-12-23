@@ -181,6 +181,29 @@
         <input type="reset" />
       </div>
     </form>
+
+    <!-- methods -->
+    <h3>表单2</h3>
+    <form action="/html/form" method="get" onsubmit="submit2()">
+      <div>
+        <label for="user_name">用户名</label>
+        <input id="user_name" name="user_name" autofocus required />
+      </div>
+      <div>
+        <label for="password">密码</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="off"
+          value=""
+        />
+      </div>
+      <div>
+        <!-- <button type="submit">提交</button> -->
+        <input type="submit" />
+      </div>
+    </form>
     <script>
       function submit1() {
         alert("submit");
