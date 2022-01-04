@@ -8,6 +8,10 @@
   </head>
   <body>
     <script>
+      // 1个字（word）为2个字节（byte）
+      // 1个字节（byte）占8位（bit）
+      // 1位（bit）在二进制中就是数字0或1
+
       // 创建一个长度为 16 的 buffer 它会分配一个 16 字节（byte）的连续内存空间，并用 0 进行预填充。
       const buffer1 = new ArrayBuffer(16);
       console.log(buffer1);
@@ -25,11 +29,13 @@
       console.log(uint32);
       console.log(float64);
 
-      uint8[0] = 257;
+      uint8[0] = 255;
       console.log(uint8);
 
       // 可以转成各种格式
       const dataView1 = new DataView(buffer1);
+      // 接受三个参数，1.字节序号，2.写入的数据，3.写入方式（true：小端/false|undeifined:大端）
+      dataView1.setFloat64(0, 25, false); // 在第一个字节以大端字节序写入一个值为25的32位整数
       console.log(dataView1);
       console.log(dataView1.getUint8(0));
       console.log(dataView1.getUint16(0));

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>file</title>
+  </head>
+  <body>
+    <script>
+      const blob1 = new Blob(["blob文件"], { type: "text/plain" });
+      console.log(blob1);
+      const file1 = new File(["文件对象"], "test", { type: "text/plain" });
+      // lastModified: 1640589621358
+      // lastModifiedDate: Mon Dec 27 2021 15:20:21 GMT+0800 (中国标准时间) {}
+      // name: "test"
+      // size: 12
+      // type: "text/plain"
+      // webkitRelativePath: ""
+      console.log(file1);
+
+      // 转成stream
+      console.log(file1.stream());
+      // 转成Arraybuffer
+      file1.arrayBuffer().then((res) => {
+        console.log(res);
+      });
+      // 转成文本
+      file1.text().then((res) => {
+        console.log(res);
+      });
+
+      // 生成blob链接
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(file1);
+      a.innerText = "file文件生成的链接哦";
+      document.body.appendChild(a);
+
+      // blob转file
+      const file2 = new File([blob1], "test2", { type: blob1.type });
+      console.log("file2: ", file2);
+
+      // file转blob
+      const blob2 = new Blob([file1], { type: file1.type });
+      console.log("blob2: ", blob2);
+
+      // 文件转Base64
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file1);
+
+      fileReader.onload = () => {
+        console.log(fileReader); // "data:text/plain;base64,5paH5Lu25a+56LGh"
+      };
+
+      // 本地图片转base64
+      const img2base64 = (imgUrl) => {
+        let image = new Image();
+        image.src = imgUrl;
+        return new Promise((resolve) => {
+          image.onload = () => {
+            let canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            var context = canvas.getContext("2d");
+            context.drawImage(image, 0, 0, image.width, image.height);
+            let dataUrl = canvas.toDataURL("image/png");
+            resolve(dataUrl);
+          };
+        });
+      };
+
+      img2base64("../vue2/src/assets/logo.png").then((res) => {
+        console.log(res);
+      });
+
+function dataURLtoBlob(dataurl) {
+  var arr = dataurl.split(","),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
+
+function dataURLtoFile(dataurl, filename) {
+  //将base64转换为文件
+  var arr = dataurl.split(","),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
+    </script>
+  </body>
+</html>

@@ -42,6 +42,21 @@
 
       // base64
       const blob3 = new Blob(["hello", "randy"], { type: "text/plain" });
+
+      // size: 10;
+      // type: "text/plain";
+      console.log(blob3);
+      // 转成stream
+      console.log(blob3.stream());
+      // 转成Arraybuffer
+      blob3.arrayBuffer().then((res) => {
+        console.log(res);
+      });
+      // 转成文本
+      blob3.text().then((res) => {
+        console.log(res);
+      });
+
       const fileReader = new FileReader();
       // readAsArrayBuffer(blob) —— 将数据读取为二进制格式的 ArrayBuffer。
       // readAsText(blob, [encoding]) —— 将数据读取为给定编码（默认为 utf-8 编码）的文本字符串。
@@ -50,6 +65,10 @@
       // 创建base64链接
       // data:[<mediatype>][;base64],<data>。
       fileReader.readAsDataURL(blob3);
+      // fileReader.readAsArrayBuffer(blob3);
+      // fileReader.readAsText(blob3);
+      // fileReader.readAsBinaryString(blob3);
+
       // loadstart —— 开始加载。
       // progress —— 在读取过程中出现。
       // load —— 读取完成，没有 error。
@@ -60,7 +79,7 @@
         console.log(fileReader);
         // reader.result 是结果（如果成功）
         // reader.error 是 error（如果失败）。
-        link2.href = fileReader.result;
+        // link2.href = fileReader.result;
       };
 
       function showFile(input) {
