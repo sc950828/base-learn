@@ -17,6 +17,7 @@ export default defineComponent({
   // v-model类似vue2 里面的.sync修饰符
   setup(props, context) {
     // console.log(props);
+
     // // Attribute (非响应式对象，等同于 $attrs)
     // console.log(context.attrs);
 

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>h5常见问题</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <style>
+      #img1 {
+        pointer-events: none; /* 微信浏览器还需附加该属性才有效 */
+        user-select: none; /* 禁止长按选择文字 */
+        -webkit-touch-callout: none;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        background-color: transparent;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-image: linear-gradient(135deg, #09f, #3c9);
+      }
+
+      .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .ele {
+        position: relative;
+        width: 100px;
+        height: 80px;
+      }
+      .ele::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 1px solid #f66;
+        width: 200%;
+        height: 200%;
+        content: "";
+        transform: scale(0.5);
+        transform-origin: left top;
+      }
+    </style>
+  </head>
+  <body style="height: 1200px">
+    <!-- 纯数字带#和* -->
+    纯数字带#和*<input type="tel" /> <br />
+
+    <!-- 纯数字 -->
+    纯数字<input type="number" pattern="\d*" /> <br />
+
+    <!-- 拨打电话 -->
+    <a href="tel:10086">拨打电话给10086小姐姐</a> <br />
+
+    <!-- 发送短信 -->
+    <a href="sms:10086">发送短信给10086小姐姐</a> <br />
+
+    <!-- 发送邮件 -->
+    <a href="mailto:1287530097@qq.com">发送邮件给randy</a> <br />
+
+    <!-- 选择照片或拍摄照片 -->
+    择照片或拍摄照片 <input type="file" accept="image/*" /> <br />
+
+    <!-- 选择视频或拍摄视频 -->
+    选择视频或拍摄视频 <input type="file" accept="video/*" /> <br />
+
+    <!-- 多选文件 -->
+    多选文件 <input type="file" multiple /> <br />
+
+    <!-- 直接声明autocapitalize=off关闭首字母大写功能和autocorrect=off关闭纠正功能。 -->
+    关闭首字母大写 <input autocapitalize="off" autocorrect="off" />
+
+    <div
+      style="
+        height: 100px;
+        background-color: azure;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+      "
+    >
+      <div id="text1"></div>
+      <div id="text2"></div>
+      <img id="img1" src="./imgs/logo.png" alt="" />
+    </div>
+
+    <input type="text" style="-webkit-appearance: none" />
+
+    <script>
+      const text1 = document.getElementById("text1");
+      const text2 = document.getElementById("text2");
+      text1.innerText = "文字文字文字文字\n文字";
+      text2.innerHTML = "文字文字文字文字<br/>文字";
+    </script>
+
+    <span class="ellipsis" style="width: 100px; display: inline-block">
+      移动端浏览器里点击操作会存在300ms延迟，往往会造成点击延迟甚至点击无效，这个是众所周知的事情。
+    </span>
+
+    <button>按钮</button>
+
+    <div class="ele"></div>
+  </body>
+</html>
