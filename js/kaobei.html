@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>彻底弄懂JS赋值拷贝、浅拷贝、深拷贝</title>
+  </head>
+  <body>
+    <script>
+      const fuzhi = () => {
+        // 基本数据类型
+        let name = "randy";
+        let name2 = name; // 将 name 赋值给 name2
+        name = "demi"; // 修改 name 的值为 'demi'
+        console.log(name); // demi
+        console.log(name2); // randy
+
+        // 引用数据类型
+        const user = { name: "randy" };
+        const user2 = user;
+        user.name = "demi";
+        console.log(user.name); // demi
+        console.log(user2.name); // demi
+      };
+      // fuzhi();
+
+      // 手动实现浅拷贝
+      function shallowCopy(obj) {
+        if (typeof obj === "object" && obj !== null) {
+          let copy = Array.isArray(obj) ? [] : {};
+          // 遍历原对象 obj，将第一层属性赋值给新对象
+          for (var p in obj) {
+            copy[p] = obj[p];
+          }
+          // 返回的新对象就是浅拷贝后的对象
+          return copy;
+        } else {
+          // 如果是基本类型，直接返回
+          return obj;
+        }
+      }
+
+      const qian = () => {
+        const user = {
+          name: "randy",
+          address: { province: "湖南", city: "汨罗" },
+        };
+        const user2 = Object.assign({}, user);
+        const user3 = { ...user };
+        user.name = "demi";
+        user.address.province = "上海";
+        console.log("user：", user); // {name: "demi", address: {province: '上海', city: '汨罗'}}
+        console.log("user2：", user2); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+        console.log("user3：", user3); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+
+        const arr = ["randy", { province: "湖南", city: "汨罗" }];
+        const arr2 = arr.concat([]);
+        const arr3 = arr.slice();
+        const arr4 = Array.from(arr);
+        const arr5 = [...arr];
+
+        arr[0] = "demi";
+        arr[1].province = "上海";
+        console.log("arr：", arr); // {name: "demi", address: {province: '上海', city: '汨罗'}}
+        console.log("arr2：", arr2); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+        console.log("arr3：", arr3); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+        console.log("arr4：", arr4); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+        console.log("arr5：", arr5); // {name: "randy", address: {province: '上海', city: '汨罗'}}
+      };
+      // qian();
+
+      // 递归浅拷贝
+      const _shallowCopy = (obj) => {
+        const copy = Array.isArray(obj) ? [] : {};
+        for (let p in obj) {
+          if (typeof obj[p] === "object") {
+            // 对象类型，继续递归浅拷贝
+            copy[p] = _shallowCopy(obj[p]);
+          } else {
+            copy[p] = obj[p];
+          }
+        }
+        return copy;
+      };
+
+      // 深拷贝
+      const deepCopy = (obj) => {
+        if (typeof obj === "object" && obj !== null) {
+          // 如果是引用类型，进行递归浅拷贝
+          return _shallowCopy(obj);
+        } else {
+          // 如果是基本类型，直接返回
+          return obj;
+        }
+      };
+
+      const shen = () => {
+        // 对象
+        const user = {
+          name: "randy",
+          address: { province: "湖南", city: "汨罗" },
+        };
+        const user2 = JSON.parse(JSON.stringify(user));
+        user.name = "demi";
+        user.address.province = "上海";
+        console.log("user：", user); // {name: "demi", address: {province: '上海', city: '汨罗'}}
+        console.log("user2：", user2); // {name: "randy", address: {province: '湖南', city: '汨罗'}}
+
+        // 数组
+        const arr = ["randy", { province: "湖南", city: "汨罗" }];
+        const arr2 = JSON.parse(JSON.stringify(arr));
+        arr[0] = "demi";
+        arr[1].province = "上海";
+        console.log("arr", arr); // {name: "demi", address: {province: '上海', city: '汨罗'}}
+        console.log("arr2", arr2); // {name: "randy", address: {province: '湖南', city: '汨罗'}}
+      };
+
+      shen();
+    </script>
+  </body>
+</html>

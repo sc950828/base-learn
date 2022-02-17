@@ -72,12 +72,12 @@
       console.log(
         "undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）: ",
         str4
-      );
+      ); // {}
 
       // 或者被转换成 null（出现在数组中时）
       const obj5 = [undefined, function say() {}, Symbol(123)];
       const str5 = JSON.stringify(obj5);
-      console.log("被转换成 null（出现在数组中时）: ", str5);
+      console.log("被转换成 null（出现在数组中时）: ", str5); // [null,null,null]
 
       // 函数、undefined、Symbol 被单独转换时，会返回 undefined
       console.log(
@@ -85,7 +85,7 @@
         JSON.stringify(Symbol(123)),
         JSON.stringify(undefined),
         JSON.stringify(function say() {})
-      );
+      ); // undefined undefined undefined
 
       // 3、所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们
       const s1 = Symbol();
@@ -93,27 +93,27 @@
       console.log(
         "所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们: ",
         JSON.stringify(obj6)
-      );
+      ); // {"a":1,"b":2}
 
       ///4、Date 日期调用了 toJSON() 将其转换为了 string 字符串（同Date.toISOString()），因此会被当做字符串处理。
       const obj7 = { a: 1, b: 2, c: new Date() };
       console.log(
         "Date 日期调用了 toJSON() 将其转换为了 string 字符串（同Date.toISOString()），因此会被当做字符串处理: ",
         JSON.stringify(obj7)
-      );
+      ); //  {"a":1,"b":2,"c":"2022-02-17T06:22:43.145Z"}
       //5、错误对象会被转成空对象
       const obj8 = { a: 1, b: 2, c: new Error("error") };
-      console.log("错误会被转成空对象: ", JSON.stringify(obj8));
+      console.log("错误会被转成空对象: ", JSON.stringify(obj8)); // {"a":1,"b":2,"c":{}}
       //6、正则会被转成空对象
       const obj9 = { a: 1, b: 2, c: new RegExp("\\d", "i") };
-      console.log("正则会被转成空对象: ", JSON.stringify(obj9));
+      console.log("正则会被转成空对象: ", JSON.stringify(obj9)); // {"a":1,"b":2,"c":{}}
 
       // 7、NaN 和 Infinity 格式的数值及 null 都会被当做 null。
       const obj10 = { a: 1, b: 2, c: NaN, d: Infinity, e: null };
       console.log(
         "NaN 和 Infinity 格式的数值及 null 都会被当做 null: ",
         JSON.stringify(obj10)
-      );
+      ); // {"a":1,"b":2,"c":null,"d":null,"e":null}
 
       // 错误
       // 对包含循环引用的对象（对象之间相互引用，形成无限循环）执行此方法，会抛出错误。

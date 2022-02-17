@@ -8,6 +8,59 @@
   </head>
   <body>
     <script>
+      const classtest = () => {
+        class People {
+          // 定义于 class 内的属性属于实例属性
+          _age = 24;
+          // 静态属性
+          static num = 100;
+
+          constructor(name) {
+            // 定义于 constructor 内的属性和方法，即定义在 this 上，属于实例属性和方法。
+            this.name = name;
+            this.say = function () {
+              console.log("say");
+            };
+          }
+
+          // get方法
+          get age() {
+            return this._age;
+          }
+
+          // set方法
+          set age(newAge) {
+            this._age = newAge;
+          }
+
+          // 定义于 class 内的方法会被定义在原型上
+          sing() {
+            return this.name;
+          }
+
+          // 静态方法
+          static hello() {
+            console.log("static hello");
+          }
+        }
+        let p1 = new People("randy");
+
+        console.log(p1);
+        console.log(p1.hasOwnProperty("name")); //true
+        console.log(p1.hasOwnProperty("age")); //true
+        console.log(p1.hasOwnProperty("sing")); //false
+        p1._age = 25; // 能直接改
+        p1.age = 26; // 有set方法才能修改age的值
+        console.log(p1._age);
+        console.log(p1.age);
+
+        // 静态方法和属性只能通过class来访问
+        People.hello(); // static hello
+        console.log(People.num); // 100
+      };
+
+      classtest();
+
       class People {
         count = 10;
         static num = 0;
