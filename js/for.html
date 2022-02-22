@@ -28,20 +28,25 @@
         }
       };
 
+      // switchTest();
+
       const forTest = () => {
-        for (var i = 1; i <= 10; i++) {
-          if (i === 5) {
-            // break终止循环
+        for (var i = 1; i <= 5; i++) {
+          if (i === 3) {
+            // 终止循环 输出1 2
             break;
-            // continue 跳过此次循环
+
+            // 终止循环 输出1 2
+            // return;
+
+            // 跳过此次循环 输出1 2 4 5
             // continue;
           }
           console.log(i);
         }
       };
 
-      switchTest();
-      forTest();
+      // forTest();
 
       const obj1 = Object.create(
         { msg: "原型属性值" },
@@ -67,77 +72,107 @@
         }
       );
 
+      // 对象不能直接用for循环
+      // for (let i = 0; i < obj1.length; i++) {
+      //   console.log(obj1[i]);
+      // }
+
       // 对象不能直接用for of 循环
       // for (const property of obj1) {
       //   console.log(property);
       // }
+
       // 对象不能直接用forEach 循环
       // obj1.forEach((key) => {
       //   console.log(key);
       // });
+
+      // 对象不能直接用map 循环
+      // obj1.map((key) => {
+      //   console.log(key);
+      // });
+
       // entries keys values不能获取Symbol属性 不能获取不可枚举属性 不能获取原型链属性
       for (const entry of Object.entries(obj1)) {
-        console.log("entries: ", entry);
+        console.log("entries: ", entry); // ['name', 'randy']
       }
       for (const key of Object.keys(obj1)) {
-        console.log("keys: ", key);
+        console.log("keys: ", key); // name
       }
       for (const value of Object.values(obj1)) {
-        console.log("values: ", value);
+        console.log("values: ", value); // randy
       }
       // 能获取不可枚举属性 不能获取Symbol属性 不能获取原型链属性
       for (const name of Object.getOwnPropertyNames(obj1)) {
-        console.log("getOwnPropertyNames: ", name);
+        console.log("getOwnPropertyNames: ", name); // name age
       }
       // 只能获取Symbol属性
       for (const symbol of Object.getOwnPropertySymbols(obj1)) {
-        console.log("getOwnPropertySymbols: ", symbol);
+        console.log("getOwnPropertySymbols: ", symbol); // Symbol(test)
       }
-      // 不能获取Symbol属性 不能获取不可枚举属性 但能获取原型链上的属性
-      // 获取的是键
+      // 获取的是键 不能获取Symbol属性 不能获取不可枚举属性 但能获取原型链上的属性
       for (const key in obj1) {
-        console.log("for in: ", key);
+        if (key == "msg") {
+          // continue; // 跳过当次
+          // break; // 跳出循环
+          // return; // 不能使用return 会报错
+        }
+        console.log("for in: ", key); // name msg
       }
       // 不但能获取自身不可枚举属性 还能获取Symbol类型的键 但不能获取原型链上的属性
-      // 它的返回值等同于 Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))
-      console.log("--- Reflect ownKeys ---");
       for (const key of Reflect.ownKeys(obj1)) {
-        console.log("Reflect.ownKeys: ", key);
+        console.log("Reflect.ownKeys: ", key); // name age msg
       }
 
       // 数组遍历
       const arr1 = ["a", "b", "c", "d"];
+
       for (let i = 0; i < arr1.length; i++) {
-        console.log("for: ", arr1[i]);
-      }
-      // 获取的是下标
-      for (const key in arr1) {
-        if (key == 2) {
+        if (i == 2) {
           // continue; // 跳过当次
           // break; // 跳出循环
-          // return; // 跳出循环并且后面语句不执行
+          // return; // 不能使用return 会报错
         }
-        console.log("for in: ", key);
+        console.log("for: ", arr1[i]); // a b c d
       }
+
+      // 获取的是下标
+      for (const index in arr1) {
+        if (index == 2) {
+          // continue; // 跳过当次
+          // break; // 跳出循环
+          // return; // 不能使用return 会报错
+        }
+        console.log("for in: ", index); // 0 1 2 3
+      }
+
       // 获取的是值
-      // 能通过条件跳出循环
       for (const value of arr1) {
         if (value == "c") {
           // continue; // 跳过当次
           // break; // 跳出循环
-          // return; // 跳出循环并且后面语句不执行
+          // return; // 不能使用return 会报错
         }
-        console.log("for of: ", value);
+        console.log("for of: ", value); // a b c d
       }
+
       // 获取的是值
       arr1.forEach((item) => {
         if (item == "c") {
           // continue; // 不支持会报错
           // break; // 不支持会报错
-          // return; // 跳过当次循环
-          // throw "error"; // 抛错能终止但是需要自己处理错误
+          // return; // 跳过当次循环 类似前面的continue
         }
-        console.log("forEach: ", item);
+        console.log("forEach: ", item); // a b c d
+      });
+
+      arr1.map((item) => {
+        if (item == "c") {
+          // continue; // 不支持会报错
+          // break; // 不支持会报错
+          // return; // 跳过当次循环 类似前面的continue
+        }
+        console.log("map: ", item); // a b c d
       });
 
       function Gen(time) {
@@ -150,8 +185,8 @@
 
       // for await of 一定会按顺序执行
       // 先执行同步代码 到了异步代码等待执行完毕后再执行
-      async function test() {
-        let arr = [Gen(2000), Gen(100), Gen(3000)];
+      async function test1() {
+        let arr = [Gen(2000), Gen(1000), Gen(3000)];
         for (let item of arr) {
           console.log(Date.now());
           const res = await item;
@@ -159,9 +194,11 @@
         }
       }
 
+      test1();
+
       // 整个代码块都不执行，等待 arr 当前的值（Promise状态）发生变化之后，才执行代码块的内容。
-      async function test() {
-        let arr = [Gen(2000), Gen(100), Gen(3000)];
+      async function test2() {
+        let arr = [Gen(2000), Gen(1000), Gen(3000)];
         for await (let item of arr) {
           console.log(Date.now());
           const res = item;
@@ -169,7 +206,7 @@
         }
       }
 
-      test();
+      // test2();
     </script>
   </body>
 </html>

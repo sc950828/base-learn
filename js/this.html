@@ -23,10 +23,10 @@
 
       // 对于延时函数内部的回调函数的this指向全局对象window
       setTimeout(function () {
-        console.log(this);
+        console.log(this); //window
       });
       setTimeout(() => {
-        console.log(this);
+        console.log(this); //window
       });
 
       // 普通函数
@@ -44,11 +44,24 @@
       }
       f2();
 
+      const f3 = () => {
+        console.log("箭头函数方法下的this: ", this); //window
+      };
+
+      f3();
+
+      const f4 = () => {
+        "use strict";
+        console.log("严格模式下箭头函数方法下的this: ", this); //window
+      };
+
+      f4();
+
       // 隐式调用
       // 函数作为对象的方法
       // 当函数作为对象里的方法被调用时，它们的 this 是调用该函数的对象。
       // 多层嵌套的对象，内部方法的this指向离被调用函数最近的对象
-      const name = "global name";
+
       const obj1 = {
         name: "randy1",
         say() {
@@ -61,8 +74,8 @@
           },
         },
       };
-      console.log(obj1.name);
-      console.log(obj1.b.name);
+      console.log(obj1.name); // randy1
+      console.log(obj1.b.name); // randy2
 
       // 显示绑定
       // 就是通过 call,apply,bind 的方式，显式的指定 this 所指向的对象。
@@ -72,25 +85,41 @@
       // 严格模式下 this 的值为传入的值 null /undefined。
       // 非严格模式下，实际应用的默认绑定规则，this 指向全局对象(node环境为global，浏览器环境为window)
 
+      var name = "global name";
+      function say(age) {
+        console.log(`${this.name}今年${age}啦!`);
+      }
+      const user = { name: "randy" };
+      const user2 = { name: "randy2" };
+      say(24); // global name今年24啦!
+      say.apply(user, [25]); // randy今年25啦!
+      say.apply(user2, [26]); // randy2今年26啦!
+      say.call(user, 25); // randy今年25啦!
+      say.call(user2, 26); // randy2今年26啦!
+      say.bind(user, 25)(); // randy今年25啦!
+      say.bind(user2, 26)(); // randy2今年26啦!
+      say.apply(null, [25]); // global name今年25啦!
+      say.apply(undefined, [26]); // global name今年26啦!
+
       // new 绑定
       // 构造函数中的this
       // 当一个函数用作构造函数时（使用new关键字），它的this被绑定到正在构造的新对象。
       // 构造器返回的默认值是this所指的那个对象，也可以手动返回其他的对象。
       // 如果构造函数返回了一个新对象 则this指向新对象 否则指向我们创建的对象
-      function C() {
-        this.a = 37;
+      function People() {
+        this.name = "randy";
       }
 
-      var o = new C();
-      console.log(o.a); // 37
+      const p1 = new People();
+      console.log(p1.name); // randy
 
-      function C2() {
-        this.a = 37;
-        return { a: 38 }; //手动设置返回{a:38}对象
+      function People2() {
+        this.name = "randy";
+        return { name: "demi" }; //手动设置返回{ name: 'demi' }对象
       }
 
-      o = new C2();
-      console.log(o.a); // 38
+      const p2 = new People2();
+      console.log(p2.name); // demi
 
       // 绑定的优先级
       // new 绑定 > 显式绑定 > 隐式绑定 > 默认绑定
@@ -98,19 +127,19 @@
       // 事件中的this
       function click1(e) {
         // 触发事件的元素
-        console.log(e.target);
+        console.log(e.target); // <button>事件中的this</button>
         // 绑定事件的元素
-        console.log(e.currentTarget);
+        console.log(e.currentTarget); // <div onclick="click1(event)" id="div1"><button>事件中的this</button></div>
         console.log(this); // window
       }
 
       const div1 = document.getElementById("div1");
       div1.addEventListener("click", function (e) {
         // 触发事件的元素
-        console.log(e.target);
+        console.log(e.target); // <button>事件中的this</button>
         // 绑定事件的元素
-        console.log(e.currentTarget);
-        console.log(this); // 绑定事件的元素
+        console.log(e.currentTarget); // <div onclick="click1(event)" id="div1"><button>事件中的this</button></div>
+        console.log(this); // 绑定事件的元素<div onclick="click1(event)" id="div1"><button>事件中的this</button></div>
         console.log(this === e.currentTarget); // true
       });
 
@@ -121,6 +150,33 @@
       // 箭头函数不能使用 arguments。得使用reset参数
       // 箭头函数不能用于构造函数。
       // 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数
+
+      const obj = {
+        hi: function () {
+          console.log(this);
+          return () => {
+            console.log(this);
+          };
+        },
+        sayHi: function () {
+          return function () {
+            console.log(this);
+            return () => {
+              console.log(this);
+            };
+          };
+        },
+        say: () => {
+          console.log(this);
+        },
+      };
+
+      let hi = obj.hi(); //输出obj对象
+      hi(); //输出obj对象
+      let sayHi = obj.sayHi();
+      let fun1 = sayHi(); //输出window
+      fun1(); //输出window
+      obj.say(); //输出window
 
       // 如何准确判断this
       // 函数是否在 new 中调用(new 绑定)，如果是，那么 this 绑定的是新创建的对象。

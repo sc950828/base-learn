@@ -8,9 +8,100 @@
   </head>
   <body>
     <script>
+      const createTest = () => {
+        const proto = { msg: "原型" };
+
+        const obj = Object.create(proto, {
+          // value的默认值是undefined，writable、enumerable、configurable、默认值都是false
+          name: {
+            // value: "randy", // 属性值
+            // writable: true, // 是否能修改
+            // enumerable: true, // 是否枚举 就是能否遍历出来
+            // configurable: true, // 该属性描述符是否可以被改变并且该属性是否可以被删除
+          },
+          [Symbol("a")]: {
+            // value: "symboltest",
+            // writable: true,
+            // enumerable: true,
+            // configurable: true,
+          },
+        });
+
+        // 这种赋值方式 writable、enumerable、configurable、默认值都是true
+        obj.age = 24;
+
+        console.log(obj); // {age: 24, name: undefined, Symbol(a): undefined}
+        // Object.getOwnPropertyDescriptor() 方法返回指定对象上一个自有属性对应的属性描述符。
+        console.log(Object.getOwnPropertyDescriptor(obj, "name")); // {configurable: false,enumerable: false,value: undefined,writable: false}
+        // Object.getOwnPropertyDescriptors() 方法用来获取一个对象的所有自身属性的描述符。
+        // age: {value: 24, writable: true, enumerable: true, configurable: true}
+        // name: {value: undefined, writable: false, enumerable: false, configurable: false}
+        // Symbol(a): {value: undefined, writable: false, enumerable: false, configurable: false}
+        console.log(Object.getOwnPropertyDescriptors(obj));
+
+        // writable为false的情况下 修改无效
+        obj.name = "demi";
+        // configurable 为false的情况下 删除无效
+        // delete obj.name;
+
+        // Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+        // configurable 为false的情况下 会报错
+        // Object.defineProperty(obj, "name", {
+        //   writable: true,
+        // });
+
+        // Object.defineProperties() 方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。
+        // configurable 为false的情况下 会报错
+        // Object.defineProperties(obj, {
+        //   name: {
+        //     writable: true,
+        //   }
+        // });
+
+        // enumerable为true的情况下 才能进行遍历
+        Object.keys(obj).forEach((key) => {
+          console.log("key:", key); // age
+        });
+        Object.values(obj).forEach((value) => {
+          console.log("value:", value); // 24
+        });
+        Object.entries(obj).forEach((entry) => {
+          console.log("entry:", entry); // [age, 24];
+        });
+        // 该方法例外 能遍历不可枚举属性 但是不包括Symbol 属性
+        Object.getOwnPropertyNames(obj).forEach((name) => {
+          console.log("name:", name); // name age
+        });
+        // 并且不管该`Symbol`属性是否是可枚举，都能遍历出来。
+        Object.getOwnPropertySymbols(obj).forEach((symbolKey) => {
+          console.log("symbol:", symbolKey); // Symbol(a)
+        });
+
+        // 是否拥有某属性
+        console.log(obj.hasOwnProperty("name")); // true
+        console.log(obj.hasOwnProperty("msg")); // false
+
+        // 是否可枚举
+        console.log(obj.propertyIsEnumerable("name")); // false
+
+        // 获取原型
+        console.log(Object.getPrototypeOf(obj)); // {msg: '原型'}
+
+        // 某对象是否是某对象的原型
+        console.log(proto.isPrototypeOf(obj)); // true
+
+        // 设置更新原型
+        Object.setPrototypeOf(obj, null);
+        console.log(Object.getPrototypeOf(obj)); // null
+
+        console.log(obj); // {age: 24, name: undefined, Symbol(a): undefined}
+      };
+
+      createTest();
+
+      const proto = { msg: "原型" };
       // Object.create(proto，[propertiesObject])
       // 创建一个指定原型的对象
-      const proto = { msg: "原型" };
       const obj1 = Object.create(proto, {
         // value的默认值是undefined
         // writable、enumerable、configurable、默认值都是false
@@ -122,70 +213,68 @@
       const obj2 = { name: "demi", phone: "17673485272" };
       const obj3 = { name: "tom", address: "上海" };
       const obj4 = { name: "jack", age: 24 };
-      obj3.address = "汨罗";
-      obj4.age = 25;
-      console.log(
-        "assign: ",
-        obj2,
-        obj3,
-        obj4,
-        Object.assign(obj2, obj3, obj4)
-      );
+      console.log(Object.assign(obj2, obj3, obj4)); // {name: 'jack', phone: '17673485272', address: '上海', age: 24}
+      console.log(obj2); // {name: 'jack', phone: '17673485272', address: '上海', age: 24}
 
       // Object.freeze() 方法可以冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，
       // 不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。
       // 也就是将writable、configurable置为了false
       // freeze() 返回和传入的参数相同的对象。
       // Object.isFrozen()方法判断一个对象是否被冻结。
-      const obj5 = { name: "rose" };
+      const obj5 = { name: "demi" };
+      // {name: {value: 'demi', writable: true, enumerable: true, configurable: true}}
       console.log(
         "getOwnPropertyDescriptors: ",
         Object.getOwnPropertyDescriptors(obj5)
       );
-      console.log("isFrozen: ", Object.isFrozen(obj5));
+      console.log("isFrozen: ", Object.isFrozen(obj5)); // false
       // 冻结
       Object.freeze(obj5);
-      console.log("isFrozen: ", Object.isFrozen(obj5));
+      console.log("isFrozen: ", Object.isFrozen(obj5)); // true
+      // {name: {value: 'demi', writable: false, enumerable: true, configurable: false}}
+      console.log(
+        "getOwnPropertyDescriptors: ",
+        Object.getOwnPropertyDescriptors(obj5)
+      );
       obj5.age = 25; // 不能添加属性
-      obj5.name = "rose2"; // 不能修改属性
+      obj5.name = "randy"; // 不能修改属性
       delete obj5.name; // 不能删除属性
-      // configurable置为了false 不能修改该对象已有属性的可枚举性、可配置性、可写性 会报错
+      // configurable置为了false 不能修改该对象已有属性的可枚举性、可配置性、可写性，也不能删除已有属性
       // Object.defineProperty(obj5, "name", {
       //   writable: false,
       //   enumerable: false,
       //   configurable: false,
       // });
-      console.log(
-        "getOwnPropertyDescriptors: ",
-        Object.getOwnPropertyDescriptors(obj5)
-      );
-      console.log("freeze: ", obj5);
+      console.log("freeze: ", obj5); // {name: 'demi'}
 
       // Object.seal()方法封闭一个对象，阻止添加新属性并将所有现有属性标记为不可配置。当前属性的值只要原来是可写的就可以改变。
       // 也就是将configurable置为了false
-      // Object.isSealed() 方法判断一个对象是否被密封。
-      const obj6 = { name: "timi", age: 24 };
+      const obj6 = { name: "demi" };
+      // {name: {value: 'demi', writable: true, enumerable: true, configurable: true}}
       console.log(
         "getOwnPropertyDescriptors: ",
         Object.getOwnPropertyDescriptors(obj6)
       );
-      console.log("isSealed: ", Object.isSealed(obj6));
+      console.log("isSealed: ", Object.isSealed(obj6)); // false
+      // 对对象进行密封
       Object.seal(obj6);
-      // configurable置为了false 不能修改该对象已有属性的可枚举性、可配置性、可写性 会报错
+      console.log("isSealed: ", Object.isSealed(obj6)); // true
+      // {name: {value: 'demi', writable: true, enumerable: true, configurable: false}}
+      console.log(
+        "getOwnPropertyDescriptors: ",
+        Object.getOwnPropertyDescriptors(obj6)
+      );
+      // configurable置为了false 所以不能修改该对象已有属性的可枚举性、可配置性、可写性，也不能删除已有属性
       // Object.defineProperty(obj6, "name", {
       //   writable: false,
       //   enumerable: false,
       //   configurable: false,
       // });
-      delete obj6.age; // 不能删除值
+      delete obj6.name; // 不能删除值
       obj6.phone = "17673485272"; // 不能添加新属性
-      obj6.age = 25; // 能修改以前是可写的值
-      console.log(
-        "getOwnPropertyDescriptors: ",
-        Object.getOwnPropertyDescriptors(obj6)
-      );
-      console.log("isSealed: ", Object.isSealed(obj6));
-      console.log("seal: ", obj6);
+      obj6.name = "randy"; // 能修改以前是可写的值
+
+      console.log("seal: ", obj6); // {name: 'randy'}
 
       // Object.isExtensible() 方法判断一个对象是否是可扩展的（是否可以在它上面添加新的属性）。
       console.log(
@@ -201,25 +290,39 @@
 
       // Object.preventExtensions()方法让一个对象变的不可扩展，也就是永远不能再添加新的属性。
       const obj7 = { name: "amy" };
+      // {name: {value: 'amy', writable: true, enumerable: true, configurable: true}}
       console.log(
         "getOwnPropertyDescriptors: ",
         Object.getOwnPropertyDescriptors(obj7)
       );
       Object.preventExtensions(obj7);
-      obj7.age = 24; // 不能新增
-      obj7.name = "amy2"; //能修改
-      delete obj7.name; //能删除
+      // {name: {value: 'amy', writable: true, enumerable: true, configurable: true}}
       console.log(
         "getOwnPropertyDescriptors: ",
         Object.getOwnPropertyDescriptors(obj7)
       );
-      console.log("preventExtensions: ", obj7);
 
+      obj7.age = 24; // 不能新增
+      obj7.name = "amy2"; //能修改
+      // delete obj7.name; //能删除
+
+      console.log("preventExtensions: ", obj7); // {name: 'amy2'}
+
+      // false
       console.log(
         "isExtensible: ",
         Object.isExtensible(obj7),
         "阻止扩展的对象不能扩展"
       );
+
+      const entries = new Map([
+        ["name", "randy"],
+        ["age", 24],
+      ]);
+
+      const obj8 = Object.fromEntries(entries);
+
+      console.log(obj8); // { name: "randy", age: 24 }
     </script>
   </body>
 </html>
