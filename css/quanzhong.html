@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>权重计算</title>
+    <style>
+      /* 10000 */
+      .p1 {
+        color: lawngreen !important;
+      }
+
+      /* 0100 */
+      #p2 {
+        color: blue;
+      }
+
+      /* 0110 */
+      #s1 .text {
+        color: lightpink;
+      }
+
+      /* 0020 */
+      .box .text {
+        color: lightblue;
+      }
+
+      /* 0001 */
+      span {
+        color: green;
+      }
+
+      /* 0000 */
+      * {
+        color: black;
+      }
+
+      /* 0020 */
+      .p3.p4 {
+        background-color: darkcyan;
+      }
+
+      /* 0010 */
+      .p3 {
+        background-color: lightpink;
+      }
+
+      /* 0010 */
+      .p4 {
+        background-color: lemonchiffon;
+      }
+
+      /* 0010 */
+      .text2 {
+        background-color: lavender;
+      }
+
+      /* 0010 */
+      p[class="text2"] {
+        background-color: bisque;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="s1">
+      <p class="p1" style="color: red">
+        red 无效行内样式还是会被!important覆盖
+      </p>
+
+      <p id="p2" style="color: red">
+        行内样式权重值为1000，id样式会被覆盖，变为red
+      </p>
+
+      <div class="text">权重计算 大的覆盖小的</div>
+
+      <span>权重计算 大的覆盖小的</span>
+
+      <div class="p3 p4">权重计算 大的覆盖小的</div>
+
+      <p class="text2">权重相同后面的覆盖前面的</p>
+    </div>
+  </body>
+</html>

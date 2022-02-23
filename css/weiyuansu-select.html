@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>伪元素</title>
+    <style>
+      p::selection {
+        background: #000;
+        color: #f00;
+      }
+
+      input::placeholder {
+        color: greenyellow;
+      }
+
+      .div1::first-letter {
+        color: blue;
+      }
+
+      .div2::first-line {
+        color: forestgreen;
+      }
+
+      .div3::before {
+        content: "哈哈";
+        color: aquamarine;
+      }
+
+      .div4::after {
+        content: "哈哈";
+        color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <p>E::selection 设置元素被选择时的字体颜色和背景颜色。</p>
+    <input type="text" placeholder="我的颜色能被设置哦" />
+    <div class="div1">听说第一个字符能被选择到呢？</div>
+    <div class="div2">
+      听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？
+      听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？听说第一行字符能被选择到呢？
+    </div>
+    <div class="div3">伪元素</div>
+    <div class="div4">伪元素</div>
+  </body>
+</html>

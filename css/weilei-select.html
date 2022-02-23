@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>伪类选择器</title>
+    <style>
+      /* 未访问的链接 */
+        a:link {
+        color: #11698e;
+      }
+      /* 已访问过的链接  注:只要是当前浏览器有访问记录的都算作已访问的状态 */
+        a:visited {
+        color: #9fb8ad;
+      }
+      /* 当鼠标悬浮在元素上方时 */
+      /* 注: 为了使点击过后的链接仍然受设置的伪类样式影响，在CSS 定义时 :hover 需设置在 :link 和 :visited 之后 */
+        a:hover {
+        color: #383e56;
+      }
+      /* 被激活的元素 (鼠标点下且为松开时) */
+      /* 注: 为了使点击过后的链接仍然受设置的伪类样式影响，在CSS 定义时 :active 需设置在 :hover 之后 */
+        a:active {
+        color: #fb743e;
+      }
+
+      #input1:focus {
+        color: red;
+      }
+
+      div:target {
+        color: blue;
+      }
+
+      p:not(#p2) {
+        color: red;
+      }
+
+      div:lang(zh) {
+        color: red;
+      }
+
+      input[type="radio"]:enabled {
+        box-shadow: 0 0 0 2px red;
+      }
+
+      input[type="checkbox"]:enabled {
+        box-shadow: 0 0 0 2px red;
+      }
+
+      input[type="radio"]:disabled {
+        box-shadow: 0 0 0 2px greenyellow;
+      }
+
+      input[type="checkbox"]:disabled {
+        box-shadow: 0 0 0 2px greenyellow;
+      }
+
+      input[type="radio"]:checked {
+        box-shadow: 0 0 0 2px gold;
+      }
+
+      input[type="checkbox"]:checked {
+        box-shadow: 0 0 0 2px gold;
+      }
+
+      input[type="radio"]:default {
+        box-shadow: 0 0 0 2px firebrick;
+      }
+
+      input[type="checkbox"]:default {
+        box-shadow: 0 0 0 2px firebrick;
+      }
+
+      input[type="text"]:read-write {
+        background-color: greenyellow;
+      }
+
+      input[type="text"]:read-only {
+        background-color: lightblue;
+      }
+
+      html:root {
+        color: darkorchid;
+      }
+
+      div:empty {
+        background-color: goldenrod;
+        height: 20px;
+      }
+
+      input[type="text"]:required {
+        background-color: lightblue;
+      }
+      input[type="text"]:optional {
+        background-color: darkcyan;
+      }
+
+      .zi:first-child {
+        background-color: lightcyan;
+      }
+
+      .zi:last-child {
+        background-color: lightgreen;
+      }
+
+      .zi:nth-child(2) {
+        background-color: lightgoldenrodyellow;
+      }
+
+      .zi:nth-last-child(2) {
+        background-color: lightpink;
+      }
+
+      /* .zi:nth-child(even) {
+          background-color: lightseagreen;
+        } */
+
+      /* .zi:nth-child(odd) {
+          background-color: lightcyan;
+        } */
+
+      .onlychildtest:only-child {
+        background-color: hotpink;
+      }
+
+      .foo:first-of-type {
+        background-color: lemonchiffon;
+      }
+
+      .foo:last-of-type {
+        background-color: lightsalmon;
+      }
+
+      .foo:nth-of-type(2) {
+        background-color: limegreen;
+      }
+
+      .foo:nth-last-of-type(2) {
+        background-color: linen;
+      }
+
+      .onlytypetest:only-of-type {
+        background-color: darkcyan;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <a target="_blank" href="https://juejin.cn/post/7066648818623709221"
+      >超链接</a
+    >
+
+    <input type="text" id="input1" /> -->
+
+    <!-- <div id="div1">div1</div>
+    <div id="div2">div2</div> -->
+
+    <!-- <p id="p1">p1</p>
+    <p id="p2">p2</p>
+    <p id="p3">p3</p> -->
+
+    <!-- <div lang="zh" id="div1">div1</div>
+    <div id="div2">div2</div>
+    <span>span</span> -->
+
+    <!-- <div>
+      <input type="radio" id="radio1" checked />
+      <label for="radio1">默认选中</label>
+      <input type="radio" id="radio2" disabled />
+      <label for="radio2">未选中-禁用</label>
+      <input type="radio" id="radio3" />
+      <label for="radio3">未选中-可用</label>
+    </div>
+    <div>
+      <input type="checkbox" id="checkbox1" checked />
+      <label for="checkbox1">默认选中</label>
+      <input type="checkbox" id="checkbox2" disabled />
+      <label for="checkbox2">未选中-禁用</label>
+      <input type="checkbox" id="checkbox3" />
+      <label for="checkbox3">未选中-可用</label>
+    </div>
+
+    <div>
+      <input type="text" id="input1" value="input1" />
+      <input type="text" id="input2" value="input2" readonly />
+    </div> -->
+    <h2>root empty required optional</h2>
+
+    <div id="div1">div1</div>
+    <div id="div2"></div>
+    <div>
+      <input type="text" class="input" value="input1" />
+      <input type="text" class="input" value="input2" required />
+    </div>
+
+    <h2>child</h2>
+    <div id="fu1">
+      <!-- <p>p1 我类型不同会对child的判断产生干扰</p> -->
+      <div class="zi">zi1</div>
+      <div class="zi">zi2</div>
+      <div class="zi">zi3</div>
+      <div class="zi">zi4</div>
+      <!-- <p>p2 我类型不同会对child的判断产生干扰</p> -->
+    </div>
+
+    <h2>only child</h2>
+
+    <div id="fu2">
+      <div class="onlychildtest">only-child 唯一子元素才会被命中</div>
+      <!-- <p>p3 我虽然类型不同但是还是会干扰child的判断</p> -->
+    </div>
+
+    <h2>type</h2>
+
+    <div id="fu3">
+      <p>p1</p>
+      <div class="foo">foo1</div>
+      <div class="foo">foo2</div>
+      <div class="foo">foo3</div>
+      <div class="foo">foo4</div>
+      <p>p2</p>
+    </div>
+
+    <h2>only type</h2>
+
+    <div id="fu4">
+      <div class="onlytypetest">only-of-type 唯一子类型才会被命中</div>
+      <p>p3 虽然有两个元素，但我不是div所以不会干扰only type的判断</p>
+    </div>
+  </body>
+</html>

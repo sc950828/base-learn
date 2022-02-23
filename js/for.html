@@ -121,7 +121,7 @@
       }
       // 不但能获取自身不可枚举属性 还能获取Symbol类型的键 但不能获取原型链上的属性
       for (const key of Reflect.ownKeys(obj1)) {
-        console.log("Reflect.ownKeys: ", key); // name age msg
+        console.log("Reflect.ownKeys: ", key); // name age Symbol(test)
       }
 
       // 数组遍历

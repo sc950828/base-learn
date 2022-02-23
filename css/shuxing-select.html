@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>属性选择器</title>
+    <style>
+      div {
+        padding: 10px;
+      }
+
+      [att] {
+        background-color: aqua;
+      }
+
+      [att="val"] {
+        background-color: yellow;
+      }
+
+      [att^="value"] {
+        background-color: pink;
+      }
+
+      [att$="test"] {
+        background-color: lightcyan;
+      }
+
+      [att~="test2"] {
+        background-color: aquamarine;
+      }
+
+      [att|="key"] {
+        background-color: lavenderblush;
+      }
+
+      [att*="so"] {
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div att>att [att]</div>
+    <div att="val">att="val" [att="val"]</div>
+    <div att="value1">att="value1" [att^="value"]</div>
+    <div att="value2">att="value2" [att^="value"]</div>
+    <div att="valuetest">att="valuetest" [att$="test"]</div>
+    <div att="nametest">att="nametest" [att$="test"]</div>
+    <div att="test1 test2 test3">test1 test2 test3 [att~="test2"]</div>
+    <div att="key-test1 ">key-test1 [att|="key"]</div>
+    <div att="key-test2 ">key-test2 [att|="key"]</div>
+    <div att="key value some-test">key value some-test [att*="so"]</div>
+  </body>
+</html>

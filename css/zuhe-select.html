@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组合选择器</title>
+    <style>
+      div {
+        padding: 10px;
+      }
+      .fu1 div {
+        border: 1px solid green;
+      }
+
+      .fu2 > div {
+        border: 1px solid palevioletred;
+      }
+
+      .xiongdi ~ div {
+        color: aquamarine;
+      }
+
+      .xianglin + div {
+        color: greenyellow;
+      }
+
+      .zuhe1,
+      .zuhe2 {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fu1">
+      父亲1
+      <div>
+        儿子1
+        <div>孙子1</div>
+        <div>孙子1</div>
+      </div>
+    </div>
+
+    <div class="fu2">
+      父亲2
+      <div>
+        儿子2
+        <div>孙子2</div>
+        <div>孙子2</div>
+      </div>
+    </div>
+
+    <div>
+      <div>兄弟1</div>
+      <div class="xiongdi">兄弟2</div>
+      <div>兄弟3</div>
+      <div>兄弟4</div>
+    </div>
+
+    <div>
+      <div>相邻1</div>
+      <div class="xianglin">相邻2</div>
+      <div>相邻3</div>
+      <div>相邻4</div>
+    </div>
+
+    <div>
+      <div class="zuhe1">组合1</div>
+      <div class="zuhe2">组合2</div>
+      <div>组合3</div>
+      <div>组合4</div>
+    </div>
+  </body>
+</html>
