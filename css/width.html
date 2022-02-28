@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>width auto height auto</title>
+    <style>
+      .container1 {
+        padding: 20px;
+        margin: 40px;
+        background-color: greenyellow;
+      }
+      .child1 {
+        background-color: lavender;
+        /* width: 100%; */
+        margin: 0 20px;
+        padding: 20px;
+      }
+
+      .container2 {
+        padding: 20px;
+        margin: 40px;
+        background-color: greenyellow;
+      }
+      .child2 {
+        background-color: lavender;
+        width: 100%;
+        margin: 0 20px;
+        padding: 20px;
+      }
+
+      .container3 {
+        margin: 100px;
+        width: auto;
+        background-color: greenyellow;
+      }
+
+      .container4 {
+        margin: auto;
+        width: 500px;
+        background-color: lavender;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container1">
+      <div class="child1">child widtd使用默认值 auto 永远被父元素包裹</div>
+    </div>
+
+    <div class="container2">
+      <div class="child2">
+        child widtd 100%; 如果自身有margin或padding会超出父元素
+      </div>
+    </div>
+
+    <div class="container3">margin: 100px; width: auto;</div>
+
+    <div class="container4">margin: auto; width: 500px;</div>
+  </body>
+</html>

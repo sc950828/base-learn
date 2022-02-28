@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量</title>
+    <style>
+  /* 全局变量 */
+  :root {
+    --main-bg-color: blue;
+  }
+
+  .a {
+    /* 写在类里面的是局部变量 */
+    --color: red;
+    color: var(--color);
+  }
+
+  .b {
+    /* 使用 第一个参数为自定义属性名，第二个参数用作缺省值*/
+    color: var(--main-bg-color, red);
+  }
+    </style>
+  </head>
+  <body>
+    <div class="a">局部变量</div>
+    <div class="b">全局变量</div>
+  </body>
+</html>

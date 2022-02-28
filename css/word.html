@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>word</title>
+    <style>
+.s1 {
+  word-spacing: 100px;
+}
+
+.p1 {
+  white-space: normal;
+}
+.p2 {
+  white-space: nowrap;
+}
+.p3 {
+  white-space: pre;
+}
+.p4 {
+  white-space: pre-wrap;
+}
+.p5 {
+  white-space:pre-line;
+}
+
+.div1 {
+  word-break: normal;
+  background-color: lightpink;
+}
+.div2 {
+  word-break: break-all;
+  background-color: lightblue;
+}
+.div3 {
+  word-break:keep-all;
+  background-color: lightgreen;
+}
+
+.w1 {
+  word-wrap: normal;
+  background-color: lightblue;
+}
+.w2 {
+  word-wrap: break-word;
+  background-color: lightpink;
+}
+    </style>
+  </head>
+  <body>
+<h3>word-spacing</h3>
+<div class="s1">
+  我是谁我是谁我是谁我是谁我是谁我是谁        我是randy
+</div>
+
+<h3>white-space</h3>
+<div class="p1">
+  normal：默认处理方式。   不保留文字最前面的空格，  其它空格做一个空格处理。       空间不够的时候会换行。
+</div>
+<div class="p2">     nowrap：不保留文字最前面的空格，   其它空格做一个空格处理。          空间不够的时候不换行。</div>
+<div class="p3">
+  pre：保留文字的格式并且空间                      不够的时候不会换行。
+</div>
+
+<div class="p4">  pre-wrap：保留文字的格式但是空间                            不够的时候会换行。</div>
+<div class="p5">  pre-line：   不保留文字最前面的空格，    其它空格做一个空格处理。   空间不够的时候会换行。</div>
+
+<h3>word-break</h3>
+<div class="div1">word-break: normal;我是谁我是谁我是谁我是谁我是谁我是谁我是谁我是谁randyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandy</div>
+<div class="div2">word-break: break-all;我是谁我是谁我是谁我是谁我是谁我是谁我是谁我是谁randyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandy</div>
+<div class="div3">keepall我是谁我是谁我是谁我是谁我是谁我是谁我是谁我是谁randyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandy</div>
+
+<h3>word-wrap</h3>
+<p class="w1">word-wrap: normal;我是谁我是谁我是谁我是谁我是谁我是谁我是谁我是谁randyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandy</p>
+<p class="w2">word-wrap: break-word;我是谁我是谁我是谁我是谁我是谁我是谁我是谁randyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandyrandy</p>
+  </body>
+</html>
