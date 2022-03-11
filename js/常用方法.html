@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>常用方法</title>
+  </head>
+  <body style="height: 1000px">
+    <script>
+      const capitalize = ([first, ...rest]) => {
+        console.log(rest);
+        return first.toUpperCase() + rest.join("");
+      };
+
+      console.log(capitalize("fooBar")); // 'FooBar'
+
+      const average = (...nums) =>
+        nums.reduce((acc, val, index) => {
+          console.log(acc, val, index);
+          return acc + val;
+        }, 0) / nums.length;
+
+      console.log(average(1, 2, 3)); // 2
+
+      const bottomVisible = () => {
+        console.log(document.documentElement.clientHeight);
+        console.log(window.scrollY);
+        console.log(document.documentElement.scrollHeight);
+        return (
+          document.documentElement.clientHeight + window.scrollY >=
+          (document.documentElement.scrollHeight ||
+            document.documentElement.clientHeight)
+        );
+      };
+
+      console.log(bottomVisible()); // true
+
+      // \b 匹配一个单词的边界
+      const capitalizeEveryWord = (str) =>
+        str.replace(/\b[a-z]/g, (char) => char.toUpperCase());
+
+      console.log(capitalizeEveryWord("hello world!")); // 'Hello World!'
+
+      const dayOfYear = (date) =>
+        Math.floor(
+          (date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
+        );
+
+      console.log(dayOfYear(new Date())); // 272
+
+      const deepFlatten = (arr) =>
+        [].concat(...arr.map((v) => (Array.isArray(v) ? deepFlatten(v) : v)));
+
+      console.log(deepFlatten([1, [2], [[3], 4], 5])); // [1,2,3,4,5]
+
+      const defer = (fn, ...args) => setTimeout(fn, 1, ...args);
+
+      defer(console.log, "a", "b"); // logs 'b' then 'a'
+
+      // const scrollToTop = () => {
+      //   const c = document.documentElement.scrollTop || document.body.scrollTop;
+      //   console.log(c);
+      //   if (c > 0) {
+      //     // window.requestAnimationFrame(scrollToTop);
+      //     window.scrollTo(100, 0);
+      //   }
+      // };
+      // 一定要异步等文档加载完毕
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 1000);
+
+      // // 事例
+      // scrollToTop();
+    </script>
+  </body>
+</html>

@@ -9,34 +9,47 @@
       .div1 {
         color: red;
       }
+      .div2 {
+        border: 10px solid black;
+      }
     </style>
   </head>
-  <body>
+  <body style="height: 1000px">
     <div id="div1" class="div1" style="font-size: 18px">style测试</div>
+
+    <div id="div2" class="div2">getBoundingClientRect</div>
     <script>
       // style
       const div1 = document.querySelector("#div1");
+      const div2 = document.querySelector("#div2");
+
       console.log("---style---", div1.style, "只能获取到内联样式");
       console.table(div1.style);
+      console.log(div1.style.fontSize);
+      console.log(div1.style.color);
       console.log("---style.cssText---", div1.style.cssText);
-      const priority = div1.style.getPropertyPriority("color");
-      // 返回指定的 CSS 属性是否设置了 "important!" 属性。
-      console.log("---getPropertyPriority---", priority);
       console.log(
         "---getPropertyValue---",
         div1.style.getPropertyValue("font-size")
       );
+
       // 获取指定下标样式值
       console.log("---item---", div1.style.item(0));
       // 设置样式
       // div1.style.fontSize = 600; // 设置无效
-      div1.style.setProperty("font-weight", 600);
+      // div1.style.setProperty("font-weight", 600);
+      div1.style.fontWeight = 700;
       // 移除样式
-      div1.style.removeProperty("font-weight");
+      // div1.style.removeProperty("font-weight");
+      div1.style.fontWeight = "";
+      console.log(div1.style.fontWeight);
+      console.table(div1.style);
 
       // window.getComputedStyle
       // 获取渲染后所有的css信息
       console.log("---getComputedStyle---", window.getComputedStyle(div1));
+      console.log(getComputedStyle(div1).color);
+      console.log(window.getComputedStyle(div1).fontSize);
 
       // getBoundingClientRect
       // 只能获取到位置相关信息
@@ -48,11 +61,17 @@
       // width: 1904
       // x: 8
       // y: 8
-      console.log("----getBoundingClientRect---", div1.getBoundingClientRect());
+      console.log("----getBoundingClientRect---", div2.getBoundingClientRect());
 
       // currentStyle
       //获取渲染后所有的css信息。但只支持 IE
       console.log(div1.currentStyle);
+
+      console.log(div1.classList.value);
+      console.log(div1.className);
+      // div1.className += " div2";
+      console.log(div1.classList);
+      console.log(div1.classList.contains("div2"));
     </script>
   </body>
 </html>
