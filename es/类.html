@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>类</title>
+  </head>
+  <body>
+    <script>
+      // class Animal {
+      //   city = "上海";
+      //   constructor(type) {
+      //     this.type = type;
+      //     this.say = () => {
+      //       console.log("say");
+      //     };
+      //   }
+      //   walk() {
+      //     console.log(`I am walking`);
+      //   }
+      // }
+
+      // let dog = new Animal("dog");
+      // console.log(dog);
+
+      // console.log(dog.hasOwnProperty("walk"));
+
+      // class Animal {
+      //   constructor(type, age) {
+      //     this.type = type;
+      //     this._age = age;
+      //   }
+      //   get age() {
+      //     return this._age;
+      //   }
+      //   set age(val) {
+      //     this._age = val;
+      //   }
+
+      //   get address() {
+      //     return "上海";
+      //   }
+      // }
+
+      // let dog = new Animal("dog", 24);
+      // console.log(dog);
+      // console.log(dog.age);
+      // dog.age = 25;
+      // console.log(dog);
+      // console.log(dog.address);
+
+      // class Animal {
+      //   _age = 0;
+      //   constructor(type) {
+      //     this.type = type;
+      //   }
+      //   get age() {
+      //     return this._age;
+      //   }
+      //   set age(val) {
+      //     // 年龄在1-60岁之间才让他设置成功
+      //     if (val > 0 && val <= 60) {
+      //       this._age = val;
+      //     }
+      //   }
+      // }
+
+      // let dog = new Animal("dog");
+      // console.log(dog.age);
+      // dog.age = 60;
+      // console.log(dog.age);
+      // dog.age = 61;
+      // console.log(dog.age);
+
+      // class Animal {
+      //   static city = "上海";
+      //   constructor(type) {
+      //     this.type = type;
+      //   }
+      //   walk() {
+      //     console.log(`I am walking`);
+      //   }
+      //   static eat() {
+      //     console.log(`I am eating`);
+      //   }
+      // }
+      // let dog = new Animal("dog");
+      // // console.log(dog.city);
+      // // dog.eat();
+
+      // console.log(Animal.city);
+      // Animal.eat();
+
+      class Animal {
+        constructor(type) {
+          this.type = type;
+        }
+        walk() {
+          console.log(`I am walking`);
+        }
+        static eat() {
+          console.log(`I am eating`);
+        }
+      }
+
+      class Dog extends Animal {
+        constructor() {
+          super("dog");
+        }
+        run() {
+          console.log("I can run");
+        }
+      }
+
+      let dog = new Dog("dog");
+      console.log(dog.type); // dog
+      dog.run(); // I can run
+      dog.walk(); // I am walking
+    </script>
+  </body>
+</html>

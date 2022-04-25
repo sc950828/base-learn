@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>异步</title>
+  </head>
+  <body>
+    <script>
+      function fn1(callback) {
+        // 模拟ajax请求获取后端数据，耗时一秒
+        setTimeout(() => {
+          const data = "我是后端返回的结果";
+          callback && callback(data);
+        }, 1000);
+      }
+
+      fn1((data) => {
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>

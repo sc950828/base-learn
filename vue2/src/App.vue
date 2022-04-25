@@ -13,6 +13,7 @@
       <router-link to="/storetest">Store</router-link> |
       <router-link to="/father">Father</router-link> |
       <router-link to="/debounce">Debounce</router-link> |
+      <router-link to="/download">下载</router-link> |
     </div>
     <router-view />
   </div>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上传</title>
+  </head>
+  <body>
+    <div>
+      <input id="uploadFile1" type="file" accept="image/*" />
+      <button onclick="upload1()">单文件上传</button>
+    </div>
+    <div>
+      <input id="uploadFile2" type="file" accept="image/*" multiple />
+      <button onclick="upload2()">多文件上传</button>
+    </div>
+    <div>
+      <input id="uploadFile3" type="file" accept="image/*" webkitdirectory />
+      <button onclick="upload3()">文件夹上传</button>
+    </div>
+    <script>
+      function upload1() {
+        // 获取上传的input元素
+        const uploadFileEle = document.querySelector("#uploadFile1");
+        // 获取文件
+        const files = uploadFileEle.files;
+        console.log(typeof files);
+        let formData = new FormData();
+        formData.append("file", files[0]);
+        // request.post(url, formData, {
+        //   // 监听上传进度
+        //   onUploadProgress: function (progressEvent) {
+        //     const percentCompleted = Math.round(
+        //       (progressEvent.loaded * 100) / progressEvent.total
+        //     );
+        //     console.log(percentCompleted);
+        //   },
+        // });
+      }
+
+      function upload2() {
+        // 获取上传的input元素
+        const uploadFileEle = document.querySelector("#uploadFile2");
+        // 获取文件
+        const files = uploadFileEle.files;
+        let formData = new FormData();
+        console.log(files);
+        Object.values(files).forEach((file, i) => {
+          formData.append("file" + i, file);
+        });
+      }
+
+      function upload3() {
+        // 获取上传的input元素
+        const uploadFileEle = document.querySelector("#uploadFile3");
+        // 获取文件
+        const files = uploadFileEle.files;
+        let formData = new FormData();
+        Object.values(files).forEach((file, i) => {
+          formData.append("file" + i, file);
+        });
+      }
+
+      function generateZipFile(
+        zipName,
+        files,
+        options = { type: "blob", compression: "DEFLATE" }
+      ) {
+        return new Promise((resolve, reject) => {
+          const zip = new JSZip();
+
+          Object.values(files).forEach((file, i) => {
+            zip.file("file" + i, file);
+          });
+          zip.generateAsync(options).then(function (blob) {
+            zipName = zipName || Date.now() + ".zip";
+            const zipFile = new File([blob], zipName, {
+              type: "application/zip",
+            });
+            resolve(zipFile);
+          });
+        });
+      }
+
+      async function uploadFile() {
+        // 获取上传的input元素
+        const uploadFileEle = document.querySelector("#uploadFile4");
+        // 获取文件
+        const files = uploadFileEle.files;
+        // 获取相对路径
+        let webkitRelativePath = fileList[0].webkitRelativePath;
+        // 获取文件夹的名字，用足zip包的名字
+        let zipFileName = webkitRelativePath.split("/")[0] + ".zip";
+        let zipFile = await generateZipFile(zipFileName, fileList);
+      }
+
+      dropAreaEle.addEventListener("drop", handleDrop, false);
+
+      function handleDrop(e) {
+        const files = e.dataTransfer.files;
+        Object.values(files).forEach((file, i) => {
+          formData.append("file" + i, file);
+        });
+        // 省略文件上传代码
+      }
+
+      const IMAGE_MIME_REGEX = /^image\/(jpe?g|gif|png)$/i;
+      const uploadAreaEle = document.querySelector("#uploadArea");
+
+      uploadAreaEle.addEventListener("paste", async (e) => {
+        e.preventDefault();
+        const files = [];
+        if (navigator.clipboard) {
+          let clipboardItems = await navigator.clipboard.read();
+          for (const clipboardItem of clipboardItems) {
+            for (const type of clipboardItem.types) {
+              if (IMAGE_MIME_REGEX.test(type)) {
+                const blob = await clipboardItem.getType(type);
+                files.push(blob);
+              }
+            }
+          }
+        } else {
+          const items = e.clipboardData.items;
+          for (let i = 0; i < items.length; i++) {
+            if (IMAGE_MIME_REGEX.test(items[i].type)) {
+              let file = items[i].getAsFile();
+              files.push(file);
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

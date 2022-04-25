@@ -104,6 +104,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "debounce" */ "@/views/Debounce.vue"),
   },
+  {
+    path: "/download",
+    name: "Download",
+    component: () =>
+      import(/* webpackChunkName: "download" */ "@/views/Download.vue"),
+  },
 ];
 
 const router = new VueRouter({

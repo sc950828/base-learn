@@ -21,11 +21,19 @@
       // 全局环境下，this始终指向全局对象（window），无论是否严格模式；
       console.log("全局环境下的this: ", this); //window
 
-      // 对于延时函数内部的回调函数的this指向全局对象window
+      // 对于延时函数内部的回调函数的this始终指向全局对象window
       setTimeout(function () {
         console.log(this); //window
       });
+      setTimeout(function () {
+        "use strict";
+        console.log(this); //window
+      });
       setTimeout(() => {
+        console.log(this); //window
+      });
+      setTimeout(() => {
+        "use strict";
         console.log(this); //window
       });
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>解构赋值</title>
+  </head>
+  <body>
+    <script>
+      // let [name1, ...rest] = ["Julius", "randy", "demi"];
+
+      // console.log(name1); // Julius
+
+      // console.log(rest[0]); // randy
+      // console.log(rest[1]); // demi
+      // console.log(rest.length); // 2
+
+      // const user = { name: "randy", age: 24 };
+      // const { age, name } = user;
+      // console.log(name, age); // randy 24
+
+      // const { name: n, age: a } = user;
+      // console.log(n, a); // randy 24
+
+      // const { name, age, sex = "male" } = user;
+      // console.log(name, age, sex); // randy 24 male
+
+      // const { name, ...reset } = user;
+      // console.log(name); // randy
+      // console.log(reset); // {age: 24}
+
+      const user2 = {
+        name: "demi",
+        age: 24,
+        address: { province: "湖南", city: "岳阳", area: "汨罗" },
+        likes: ["orange", "apple"],
+      };
+      const {
+        name,
+        age,
+        address: { province, city, area },
+        likes: [fruits1, fruits2],
+      } = user2;
+
+      console.log(name, age, province, city, area, fruits1, fruits2); // demi 24 湖南 岳阳 汨罗 orange apple
+
+      let str = "randy";
+      // let [a, b, c, d, e] = str;
+      // console.log(a, b, c, d, e);
+
+      let [a, ...rest] = str;
+      console.log(a, rest);
+    </script>
+  </body>
+</html>

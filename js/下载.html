@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>下载</title>
+  </head>
+  <body>
+    <a href="./imgs/logo.png" download="test">直接下载图片</a>
+
+    <div class="button" onclick="aDownload1()">
+      a标签下载模拟后端返回ArrayBuffer
+    </div>
+    <div class="button" onclick="aDownload2()">a标签下载模拟后端返回Blob</div>
+    <div class="button" onclick="aDownload3()">a标签下载模拟后端返回Base64</div>
+
+    <div class="button" onclick="showSaveFilePickerDownload()">
+      showSaveFilePicker 下载
+    </div>
+
+    <script>
+      function aDownload1() {
+        // 模拟后端返回ArrayBuffer
+        const str = "hello randy!";
+        let ab = new ArrayBuffer(str.length);
+        let ia = new Uint8Array(ab);
+        for (let i = 0; i < str.length; i++) {
+          ia[i] = str.charCodeAt(i);
+        }
+
+        const a = document.createElement("a");
+        a.download = "test";
+        // 生成blob url。这里可以使用Blob对象或者File对象
+        const blob = new Blob([ia], { type: "text/plain" });
+        a.href = window.URL.createObjectURL(blob);
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        // 释放内存
+        window.URL.revokeObjectURL(a.href);
+        document.body.removeChild(a);
+      }
+
+      function aDownload2() {
+        // 模拟后端返回 Blob
+        const blob = new Blob(["hello", "randy"], { type: "text/plain" });
+
+        const a = document.createElement("a");
+        a.download = "test";
+        // 生成blob url。这里可以使用Blob对象或者File对象
+        a.href = window.URL.createObjectURL(blob);
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        // 释放内存
+        window.URL.revokeObjectURL(a.href);
+        document.body.removeChild(a);
+      }
+
+      // 本地图片转base64，注意链接是本地链接不能是网络地址。
+      const img2base64 = (imgUrl) => {
+        let image = new Image();
+        image.src = imgUrl;
+        return new Promise((resolve) => {
+          image.onload = () => {
+            let canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            var context = canvas.getContext("2d");
+            context.drawImage(image, 0, 0, image.width, image.height);
+            let dataUrl = canvas.toDataURL("image/png");
+            resolve(dataUrl);
+          };
+        });
+      };
+
+      async function aDownload3() {
+        // 模拟后端返回 Base64
+        const b1 = await img2base64("./imgs/logo.png");
+        console.log(b1);
+
+        const a = document.createElement("a");
+        a.download = "test";
+        // 给超链接赋值Base64也是可以的。
+        a.href = b1;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        // 释放内存
+        document.body.removeChild(a);
+      }
+
+      async function download3(blob, filename) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: filename,
+            types: [
+              {
+                description: "text file",
+                accept: {
+                  "text/plain": [".txt"],
+                },
+              },
+              {
+                description: "Jpeg file",
+                accept: {
+                  "image/jpeg": [".jpeg"],
+                },
+              },
+            ],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          return handle;
+        } catch (err) {
+          console.error(err.name, err.message);
+        }
+      }
+
+      function showSaveFilePickerDownload() {
+        const blob = new Blob(["hello", "randy"], { type: "text/plain" });
+
+        download3(blob, "test.txt");
+      }
+    </script>
+  </body>
+</html>

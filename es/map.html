@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map</title>
+  </head>
+  <body>
+    <script>
+      const map = new Map([
+        ["name", "randy"],
+        ["age", 27],
+      ]);
+      map.forEach((value, key) => console.log(value, key));
+
+      for (let [key, value] of map) {
+        console.log(key, value); //
+      }
+
+      for (let key of map.keys()) {
+        console.log(key);
+      }
+
+      for (let value of map.values()) {
+        console.log(value);
+      }
+
+      for (let [key, value] of map.entries()) {
+        console.log(key, value);
+      }
+
+      console.log(map.size);
+
+      const k1 = [1, 2, 3];
+      const k2 = [4, 5, 6];
+      const wm2 = new WeakMap([
+        [k1, "foo"],
+        [k2, "bar"],
+      ]);
+
+      // console.log(wm2.size);
+
+      // for (let key of wm2.keys()) {
+      //   console.log(key);
+      // }
+    </script>
+  </body>
+</html>

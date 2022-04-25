@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>function</title>
+  </head>
+  <body>
+    <script>
+      function foo(x, y = "world") {
+        console.log(x, y); // hello world
+      }
+      foo("hello");
+
+      function foo2(x, y = 2, z) {
+        return x + y + z;
+      }
+      console.log(foo2(1, undefined, 3)); // 6
+
+      function foo3(a, b = 1, c) {
+        // arguments是伪数组，具有length属性
+        console.log(arguments.length);
+      }
+      foo3("a", "b"); //2
+
+      function foo4(a, b = 1, c) {
+        console.log(foo.length);
+      }
+      foo4("a", "b"); // 1
+
+      let hello3 = (name) => name;
+      console.log(hello3("hello3"));
+    </script>
+  </body>
+</html>

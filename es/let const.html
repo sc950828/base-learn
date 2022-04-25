@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>let const</title>
+  </head>
+  <body>
+    <script>
+      // if (true) {
+      //   var a = 5;
+      // }
+      // console.log(a); // 5 2
+
+      // if (true) {
+      //   let a = 5;
+      //   console.log(a);
+      // }
+      // console.log(a);
+      // // Uncaught ReferenceError: a is not defined
+
+      // if (true) {
+      //   const a = 5;
+      //   console.log(a); // 5
+      // }
+      // console.log(a); // Uncaught ReferenceError: a is not defined
+
+      // for (var i = 0; i < 3; i++) {
+      //   var c = 1;
+      //   console.log("循环内:" + i); // 0、1、2
+      // }
+      // console.log("循环外:" + i, c); // 3
+
+      // function bar() {
+      //   var testValue = "inner";
+      // }
+
+      // console.log(testValue); // 报错：ReferenceError: testValue is not defined
+
+      // const c1 = 1;
+      // c1 = 2;
+      // console.log(c1);
+
+      const user = { name: "randy" };
+      user.name = "demi";
+      console.log(user); //{ name: "demi" }
+
+      user = { name: "jack" };
+      console.log(user); // Uncaught TypeError: Assignment to constant variable.
+    </script>
+  </body>
+</html>

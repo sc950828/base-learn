@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件</title>
+  </head>
+  <body>
+    <div id="div1">
+      <span>点我吧1</span>
+    </div>
+    <div id="div2">
+      <span>点我吧2</span>
+    </div>
+    <div id="div3" onclick="click3(event)">
+      <span>点我吧3</span>
+    </div>
+
+    <ul onclick="click4(event)">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <script>
+      const div1 = document.getElementById("div1");
+      div1.addEventListener("click", function (e) {
+        console.log(this); // <div id="div1"><span>点我吧1</span></div>
+        console.log("currentTarget", e.currentTarget); // <div id="div1"><span>点我吧1</span></div>
+        console.log("target", e.target); // <span>点我吧1</span>
+      });
+      div1.addEventListener("click", (e) => {
+        console.log(this); // window
+        console.log("currentTarget", e.currentTarget); // <div id="div1"><span>点我吧1</span></div>
+        console.log("target", e.target); // <span>点我吧1</span>
+      });
+
+      const div2 = document.getElementById("div2");
+      div2.onclick = function (e) {
+        console.log(this); // <div id="div2"><span>点我吧2</span></div>
+        console.log("currentTarget", e.currentTarget); // <div id="div2"><span>点我吧2</span></div>
+        console.log("target", e.target); // <span>点我吧2</span>
+      };
+      // div2.onclick = (e) => {
+      //   console.log(this); // window
+      //   console.log("currentTarget", e.currentTarget); // <div id="div2"><span>点我吧2</span></div>
+      //   console.log("target", e.target); // <span>点我吧2</span>
+      // };
+
+      function click3(e) {
+        console.log(this); // window
+        console.log("currentTarget", e.currentTarget); // <div id="div3"><span>点我吧3</span></div>
+        console.log("target", e.target); // <span>点我吧3</span>
+      }
+      // const click3 = (e) => {
+      //   console.log(this); // window
+      //   console.log("currentTarget", e.currentTarget); // <div id="div3"><span>点我吧3</span></div>
+      //   console.log("target", e.target); // <span>点我吧3</span>
+      // };
+
+      const click4 = (e) => {
+        const event = e || window.event;
+        const target = event.target || event.srcElement;
+        alert(target.innerText);
+      };
+
+      // 监听自定义事件
+      document.addEventListener("test", function (e) {
+        console.log("自定义事件触发了", e);
+      });
+
+      // 创建自定义事件 不能传递参数
+      const myEvent = new Event("test");
+
+      setTimeout(function () {
+        // 触发自定义事件
+        if (document.dispatchEvent) {
+          document.dispatchEvent(myEvent);
+        } else {
+          // 兼容低版本浏览器
+          document.fireEvent(myEvent);
+        }
+      }, 2000);
+
+      document.addEventListener("test2", function (e) {
+        console.log("自定义事件触发了参数是", e.detail);
+      });
+
+      // 创建自定义事件 能传递参数
+      const myEvent2 = new CustomEvent("test2", { detail: { name: "randy" } });
+
+      setTimeout(function () {
+        if (document.dispatchEvent) {
+          document.dispatchEvent(myEvent2);
+        } else {
+          document.fireEvent(myEvent2);
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>

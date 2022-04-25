@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator2</title>
+  </head>
+  <body>
+    <script>
+      // 基于Promise函数的Genertor函数自动执行器
+      function run(gen) {
+        let g = gen();
+
+        function next(data) {
+          // 将指针移动到Generator函数的下一步
+          let result = g.next(data);
+          // 判断是否结束，结束返回value，value是一个Promise
+          if (result.done) return result.value;
+          // 递归
+          result.value.then((data) => {
+            next(data);
+          });
+        }
+
+        next();
+      }
+
+      // 模拟异步方法进行Promise转换
+      let sleepPromise = function (n) {
+        return new Promise(function (resolve, reject) {
+          setTimeout(() => {
+            resolve(n);
+          }, n);
+        });
+      };
+
+      // Generator函数
+      let gen = function* () {
+        let f1 = yield sleepPromise(1000);
+        console.log(f1);
+        let f2 = yield sleepPromise(1500);
+        console.log(f2);
+        let fn = yield sleepPromise(2000);
+        console.log(f2);
+      };
+
+      // 调用Genertor函数自动执行器
+      run(gen);
+    </script>
+  </body>
+</html>

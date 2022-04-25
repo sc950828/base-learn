@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>set</title>
+  </head>
+  <body>
+    <script>
+      const s = new Set(["randy", "demi"]);
+      console.log(s);
+      s.forEach((item) => {
+        console.log(item); // hello // goodbye
+      });
+
+      for (let item of s) {
+        console.log(item);
+      }
+
+      for (let item of s.keys()) {
+        console.log(item);
+      }
+
+      for (let item of s.values()) {
+        console.log(item);
+      }
+
+      for (let item of s.entries()) {
+        console.log(item[0], item[1]);
+      }
+    </script>
+  </body>
+</html>

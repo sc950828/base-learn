@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regexp</title>
+  </head>
+  <body>
+    <script>
+      const str = `
+        <html>
+          <body>
+            <div>第一个div</div>
+            <p>这是一个p</p>
+            <span>span</span>
+            <div>第二个div</div>
+          <body>
+        </html>
+      `;
+
+      function selectDiv(regExp, str) {
+        let matches = [];
+        for (let match of str.matchAll(regExp)) {
+          console.log(match);
+          matches.push(match[1]);
+        }
+        return matches;
+      }
+      const res = selectDiv(/<div>(.*)<\/div>/g, str);
+      console.log(res);
+
+      const str1 = "hello word";
+
+      console.log(str1.replace("o", "哦")); // hell哦 word
+      console.log(str1.replace(/o/g, "哦")); // hell哦 w哦rd
+      console.log(str1.replaceAll("o", "哦")); // hell哦 w哦rd
+      console.log(str1.replaceAll("o", "哦")); // hell哦 w哦rd
+
+      let num5 = 0;
+      let num6 = null;
+      let num7 = undefined;
+
+      // num5 ??= 10;
+      // console.log(num5); // 0
+      // num6 ??= 10;
+      // console.log(num6); // 10
+      // num7 ??= 10;
+      // console.log(num7); // 10
+
+      if (num5 === null || num5 === undefined) {
+        num5 = 10;
+      }
+      console.log(num5); // 0
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator</title>
+  </head>
+  <body>
+    <script>
+      const arr = [1, 2, 3];
+      const it = arr[Symbol.iterator](); // 获取数组中的迭代器
+      console.log(it.next()); // { value: 1, done: false }
+      console.log(it.next()); // { value: 2, done: false }
+      console.log(it.next()); // { value: 3, done: false }
+      console.log(it.next()); // { value: undefined, done: true }
+      for (const iterator of arr) {
+        console.log(iterator);
+      }
+
+      const user = { name: "randy", age: 24, sex: "male" };
+
+      user[Symbol.iterator] = function () {
+        // 获取自身所有能遍历的key组成的数组
+        // const keys = Object.keys(user);
+        // 获取自身所有能遍历的value组成的数组
+        const values = Object.values(user);
+        let i = 0;
+        return {
+          next() {
+            // return {
+            //   // 外部每次执行next都能得到数组中的第i个元素
+            //   value: keys[i++],
+            //   // 如果数组的数据已经遍历完则返回true
+            //   done: i > keys.length,
+            // };
+
+            // 如果想遍历获取value
+            return {
+              // 外部每次执行next都能得到数组中的第i个元素
+              value: values[i++],
+              // 如果数组的数据已经遍历完则返回true
+              done: i > values.length,
+            };
+          },
+        };
+      };
+
+      for (const iterator of user) {
+        console.log(iterator);
+      }
+
+      // 写法很多，function* fn()、function*fn()和function *fn()都可以
+      function* generatorFn() {
+        console.log("a");
+        yield "1";
+        console.log("b");
+        yield "2";
+        console.log("c");
+        return "3";
+      }
+
+      const generatorIt = generatorFn();
+      console.log(generatorIt.next()); // {value: '1', done: false}
+      console.log(generatorIt.next()); // {value: '2', done: false}
+      console.log(generatorIt.next()); // {value: '3', done: true}
+
+      for (const iterator of generatorFn()) {
+        console.log(iterator);
+      }
+
+      function* generatorFn2() {
+        console.log("a");
+        yield console.log("a2");
+        console.log("b");
+        yield console.log("b2");
+        console.log("c");
+      }
+
+      const generatorIt2 = generatorFn2();
+      console.log(generatorIt2.next()); // {value: undefined, done: false}
+      console.log(generatorIt2.next()); // {value: undefined, done: false}
+      console.log(generatorIt2.next()); // {value: undefined, done: true}
+
+      function* generatorFn3() {
+        console.log("a");
+        const res = yield "1";
+        console.log(res); // undefined
+      }
+
+      const generatorIt3 = generatorFn3();
+      generatorIt3.next();
+      generatorIt3.next();
+
+      function* foo() {
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      var f = foo();
+      console.log(f.next());
+      // 输出{value: 1, done: false}
+
+      console.log(f.return("hahaha"));
+      // 由于调用了return方法，所以遍历已结束，done变true 输出{value: "hahaha", done: true}
+
+      console.log(f.next());
+      // 再次调用也只能输出{value: undefined, done: true}
+    </script>
+  </body>
+</html>
