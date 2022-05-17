@@ -1,7 +1,6 @@
 <template>
   <div>
-    <input type="text" :value="value" @change="handleInput" />
-    <div>{{ syncTest }}</div>
+    <input type="text" :value="value1" @input="handleInput" />
     <button @click="updateSyncTestValue">修改syncTest的值</button>
   </div>
 </template>
@@ -9,11 +8,11 @@
 export default {
   // 定义传过来的值名字叫是value 修改值的事件是change事件
   model: {
-    prop: "value",
+    prop: "value1",
     event: "change",
   },
   props: {
-    value: String,
+    value1: String,
     syncTest: String,
   },
   methods: {

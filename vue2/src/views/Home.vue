@@ -7,6 +7,13 @@
       </li>
     </ul>
     <ul>
+      <li v-for="(list, index) of lists" :key="index">
+        <div v-if="index === 0">{{ index }}: {{ list }}</div>
+        <div v-else-if="index === 1">{{ index }}: {{ list }}</div>
+        <div v-else>{{ index }}: {{ list }}</div>
+      </li>
+    </ul>
+    <ul>
       <li v-for="(value, key, index) of obj1" :key="key">
         {{ index }} : {{ key }}: {{ value }}
       </li>
@@ -16,6 +23,16 @@
         {{ index }} : {{ key }}: {{ value }}
       </li>
     </ul>
+    <!-- <ul>
+      <li v-for="(list, index) of lists2" :key="index" v-if="list.show">
+        {{ list.name }}
+      </li>
+    </ul> -->
+
+    <!-- <template v-for="(list, index) of lists" :key="index">
+      <div>{{ index }}: {{ list }}</div>
+    </template> -->
+
     <span v-for="n in 10" :key="n">{{ n }} </span>
     <h3>计算属性</h3>
     <p v-text="fullName"></p>
@@ -37,15 +54,31 @@
     <h3>数组重新赋值</h3>
     <div v-for="item of arr1" :key="item">{{ item }}</div>
     <button @click="click6">数组重新赋值</button>
+
+    <div></div>
+
+    <template>
+      没有特殊指令的标记 (v-if/else-if/else、v-for 或 v-slot) 的 template
+      现在被视为普通元素，并将渲染为原生的 template 元素，而不是渲染其内部内容。
+    </template>
+
+    <basic-button>123</basic-button>
   </div>
 </template>
 <script>
+import "mui-player/dist/mui-player.min.css";
+import { CLIENT_RENEG_LIMIT } from "tls";
 export default {
   name: "Home",
   data() {
     return {
       lists: ["a", "b", "c", "d"],
       obj1: { a: "A", b: "B" },
+      lists2: [
+        { name: "randy", show: true },
+        { name: "demi", show: false },
+        { name: "jack", show: true },
+      ],
       firstName: "randy",
       lastName: "su",
       title1: "title1",
@@ -89,7 +122,7 @@ export default {
         console.log(newVal, oldVal);
       },
       // 深度监听
-      // deep: true,
+      deep: true,
       // 立即执行
       // immediate: true,
     },
@@ -112,6 +145,13 @@ export default {
     // this.fullName = "123";
     // 提供set方法后计算属性的值可以更改了
     // this.fullName2 = "demi yan";
+    console.log(this);
+    setTimeout(() => {
+      console.log(this);
+    });
+    setTimeout(function () {
+      console.log(this);
+    });
   },
   methods: {
     click1() {

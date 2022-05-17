@@ -1,15 +1,14 @@
 <template>
-  <div class="child2">
-    <h3 class="title">child2</h3>
-    <div class="value">{{ name1 }}</div>
+  <div>
+    <!-- <div class="value" v-bind="$attrs">{{ name1 }}</div> -->
     <button @click="changeName1">改变name1值</button>
-    <div>{{ name2 }}</div>
     <button @click="changeName2">改变name2值</button>
   </div>
 </template>
 <script>
 import { defineComponent } from "vue";
 export default defineComponent({
+  inheritAttrs: false,
   props: {
     name1: String,
     name2: String,
@@ -19,7 +18,7 @@ export default defineComponent({
     // console.log(props);
 
     // // Attribute (非响应式对象，等同于 $attrs)
-    // console.log(context.attrs);
+    console.log(context.attrs);
 
     // // 插槽 (非响应式对象，等同于 $slots)
     // console.log(context.slots);
@@ -43,9 +42,7 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
-.child2 {
-  .title {
-    color: red;
-  }
+.title {
+  color: red;
 }
 </style>

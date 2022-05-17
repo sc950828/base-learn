@@ -4,6 +4,9 @@ import router from "./router";
 import store from "./store";
 
 const app = createApp(App);
+
+// app.config.compilerOptions.isCustomElement = (tag) => tag === "basic-button";
+
 app.use(store).use(router).mount("#app");
 
 // console.log(app.config);

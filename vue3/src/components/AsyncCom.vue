@@ -7,7 +7,7 @@
 <script>
 import { defineComponent, inject, ref } from "vue";
 export default defineComponent({
-  setup() {
+  async setup() {
     const inject1 = inject("inject1");
     console.log(inject1.value);
     const ref1 = ref(null);
@@ -16,6 +16,16 @@ export default defineComponent({
       console.log(e);
       console.log(ref1.value);
     };
+
+    const sleep = (times) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, times);
+      });
+    };
+
+    await sleep(2000);
 
     return {
       click1,

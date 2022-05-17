@@ -6,6 +6,7 @@ import store from "./store";
 // Vue.use(Plugin1, { name: "自定义插件" });
 
 Vue.config.productionTip = false;
+Vue.config.ignoredElements = ["basic-button"];
 
 new Vue({
   router,

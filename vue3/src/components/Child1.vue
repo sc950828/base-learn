@@ -1,7 +1,5 @@
 <template>
   <div class="child1">
-    <h3 class="title1">child1</h3>
-    <div class="value">{{ modelValue }}</div>
     <button @click="changeName">改变值</button>
   </div>
 </template>
@@ -10,6 +8,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     modelValue: String,
+    // name: String,
   },
   setup(props, context) {
     // console.log(props);
@@ -26,6 +25,7 @@ export default defineComponent({
     // console.log(context.expose);
     const changeName = () => {
       context.emit("update:modelValue", "demi");
+      // context.emit("update:name", "demi");
     };
     return {
       changeName,

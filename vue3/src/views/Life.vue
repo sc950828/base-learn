@@ -1,5 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <div>{{ name }}</div>
+    <button @click="changeName">changeName</button>
+    <div>user: {{ user.age }}</div>
+
+    <LifeChild
+      :name1="name"
+      @changeChildName="changeChildName"
+      ref="childRef"
+    />
+  </div>
 </template>
 <script>
 import {
@@ -13,15 +23,42 @@ import {
   onErrorCaptured,
   onRenderTracked,
   onRenderTriggered,
+  ref,
+  reactive,
+  provide,
 } from "vue";
+import LifeChild from "@/components/LifeChild";
 export default defineComponent({
+  components: {
+    LifeChild,
+  },
   setup() {
+    const name = ref("randy");
+    const changeName = () => {
+      name.value = "demi";
+    };
+    const user = reactive({ age: 27 });
+
+    const changeChildName = (value) => {
+      name.value = value;
+    };
+
+    const childRef = ref(null);
+
+    provide("fName", "父组件数据");
+    provide("say", () => {
+      console.log("say say say");
+    });
+
     console.log("setup");
+
     onBeforeMount(() => {
       console.log("onBeforeMount");
     });
     onMounted(() => {
       console.log("onMounted");
+      childRef.value.childSay(); // childSay
+      console.log(childRef.value.sex); // male
     });
     onBeforeUpdate(() => {
       console.log("onBeforeUpdate");
@@ -38,12 +75,20 @@ export default defineComponent({
     onErrorCaptured(() => {
       console.log("onErrorCaptured");
     });
-    onRenderTracked(() => {
-      console.log("onRenderTracked");
+    onRenderTracked(({ key, target, type }) => {
+      console.log("onRenderTracked", { key, target, type });
     });
-    onRenderTriggered(() => {
-      console.log("onRenderTriggered");
+    onRenderTriggered(({ key, target, type }) => {
+      console.log("onRenderTriggered", { key, target, type });
     });
+
+    return {
+      name,
+      changeName,
+      user,
+      changeChildName,
+      childRef,
+    };
   },
   // vue2这两个生命周期函数还能用
   beforeCreate() {

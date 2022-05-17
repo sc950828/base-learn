@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Old from "../views/Old.vue";
 import Parent from "../views/Parent.vue";
 
 const routes = [
@@ -8,11 +7,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/old",
-    name: "Old",
-    component: Old,
   },
   {
     path: "/parent",
@@ -26,9 +20,25 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
+    path: "/key",
+    name: "Key",
+    component: () => import(/* webpackChunkName: "key" */ "../views/Key.vue"),
+  },
+  {
     path: "/life",
     name: "Life",
     component: () => import(/* webpackChunkName: "life" */ "../views/Life.vue"),
+  },
+  {
+    path: "/slot",
+    name: "Slot",
+    component: () => import(/* webpackChunkName: "slot" */ "../views/Slot.vue"),
+  },
+  {
+    path: "/customref",
+    name: "CustomRef",
+    component: () =>
+      import(/* webpackChunkName: "customref" */ "../views/CustomRef.vue"),
   },
   {
     path: "/computed",

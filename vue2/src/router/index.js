@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Home,
   },
@@ -51,6 +51,11 @@ const routes = [
     name: "JsxTest",
     // 这种也是异步加载
     component: (resolve) => require(["../views/JsxTest"], resolve),
+  },
+  {
+    path: "/slot",
+    name: "Slot",
+    component: (resolve) => require(["../views/Slot"], resolve),
   },
   {
     path: "/route/:id",
@@ -110,10 +115,22 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "download" */ "@/views/Download.vue"),
   },
+  {
+    path: "/routertest",
+    name: "RouterTest",
+    // alias: "/router",
+    component: () =>
+      import(/* webpackChunkName: "router" */ "@/views/Router.vue"),
+  },
+  {
+    path: "/ref",
+    name: "Ref",
+    component: () => import(/* webpackChunkName: "ref" */ "@/views/Ref.vue"),
+  },
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,
   routes,
 });

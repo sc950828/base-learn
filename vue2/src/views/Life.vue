@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>生命周期</h3>
-    <div @click="click1">{{ title1 }}</div>
-    <div @click="click2">修改传递给子元素的数据</div>
-    <Child1 :title2="title2" />
+    <div>{{ title1 }}</div>
+    <button @click="click1">单独修改父元素数据</button>
+    <button @click="click2">修改传递给子元素的数据</button>
+    <Child1 :title2="title2" @changeChild="changeChild" ref="childRef" />
   </div>
 </template>
 <script>
@@ -12,9 +12,15 @@ export default {
   components: {
     Child1,
   },
+  provide: {
+    name: "父组件数据",
+    say() {
+      console.log("say say say");
+    },
+  },
   data() {
     return {
-      title1: "父元素",
+      title1: "父元素数据",
       title2: "传递给子元素的数据",
     };
   },
@@ -30,10 +36,10 @@ export default {
   mounted() {
     console.log("father mounted");
 
-    setTimeout(() => {
-      // 迫使 Vue 实例重新渲染。注意它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。
-      this.$forceUpdate();
-    }, 2000);
+    // setTimeout(() => {
+    //   // 迫使 Vue 实例重新渲染。注意它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。
+    //   this.$forceUpdate();
+    // }, 2000);
   },
   beforeUpdate() {
     console.log("father beforeUpdate");
@@ -54,10 +60,13 @@ export default {
   },
   methods: {
     click1() {
-      this.title1 = "单独改变了title1";
+      this.title1 = "单独改变了父元素数据";
     },
     click2() {
       this.title2 = "传递给子元素的数据变了！！！";
+    },
+    changeChild(value) {
+      this.title1 = value;
     },
   },
 };
