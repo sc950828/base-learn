@@ -1,7 +1,9 @@
 <template>
   <div>
     <Slot1>
-      <h3>slot</h3>
+      <div>slot1</div>
+      <div>哈哈</div>
+      <Attr></Attr>
     </Slot1>
 
     <h3>老具名插槽</h3>

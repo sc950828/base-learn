@@ -57,15 +57,59 @@ const routes = [
     name: "Slot",
     component: (resolve) => require(["../views/Slot"], resolve),
   },
+
   {
-    path: "/route/:id",
-    name: "Route",
-    // 这种也是异步加载
-    component: (resolve) => require(["../views/Route"], resolve),
-    beforeEnter: (to, from, next) => {
-      console.log("beforeEnter");
-      next();
-    },
+    path: "/router",
+    name: "Router",
+    // 重定向，去子路由 必须传全路径
+    // redirect: "/router/route1",
+    // 相对重定向，不加/相当于替换本身 / 后面的内容，这里会跳转到 /ref去
+    // redirect: "slot",
+    // redirect: { name: "Route1" },
+    // redirect: (to) => {
+    //   return { path: "/router/route1" };
+    // },
+    component: () =>
+      import(/* webpackChunkName: "router" */ "@/views/Router.vue"),
+    children: [
+      {
+        path: "route1",
+        name: "Route1",
+        component: () =>
+          import(/* webpackChunkName: "router" */ "@/views/Routes/Route1.vue"),
+      },
+      {
+        path: "route2/:id",
+        name: "Route2",
+        component: () =>
+          import(/* webpackChunkName: "router" */ "../views/Routes/Route2.vue"),
+        // 请记得，参数一定要在props里面接收
+        // props: true,
+        // props: { id: 72, name: "randy" },
+        props: (route) => {
+          // console.log(route);
+          return { name: "randy", id: route.params.id };
+        },
+      },
+      {
+        path: "route3/:name?",
+        name: "Route3",
+        component: () =>
+          import(/* webpackChunkName: "router" */ "../views/Routes/Route3.vue"),
+      },
+      {
+        path: "route4",
+        name: "Route4",
+        component: () =>
+          import(/* webpackChunkName: "router" */ "../views/Routes/Route4.vue"),
+      },
+      {
+        path: "route6",
+        name: "Route6",
+        component: () =>
+          import(/* webpackChunkName: "router" */ "../views/Routes/Route6.vue"),
+      },
+    ],
   },
   {
     path: "/storetest",
@@ -116,11 +160,10 @@ const routes = [
       import(/* webpackChunkName: "download" */ "@/views/Download.vue"),
   },
   {
-    path: "/routertest",
-    name: "RouterTest",
-    // alias: "/router",
+    path: "/style",
+    name: "Style",
     component: () =>
-      import(/* webpackChunkName: "router" */ "@/views/Router.vue"),
+      import(/* webpackChunkName: "style" */ "@/views/Style.vue"),
   },
   {
     path: "/ref",
@@ -133,10 +176,18 @@ const router = new VueRouter({
   mode: "hash",
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      // vue3 变成了top left
+      return { x: 0, y: 0, behavior: "smooth" };
+    }
+  },
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("beforeEach");
+  // console.log("beforeEach");
   // console.log(to, from);
   // console.log(VueRouter.START_LOCATION);
 
@@ -152,12 +203,12 @@ router.beforeEach((to, from, next) => {
 
 // 所有都处理完后进入该方法，因为支持next所以可以在该方法进行再次跳转
 router.beforeResolve((to, from, next) => {
-  console.log("beforeResolve");
+  // console.log("beforeResolve");
   next();
 });
 
 router.afterEach((to, from) => {
-  console.log("afterEach");
+  // console.log("afterEach");
 });
 
 export default router;

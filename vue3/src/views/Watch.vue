@@ -9,7 +9,21 @@
     <h3>deep</h3>
     <div>{{ user2.name }}</div>
     <div>{{ user2.age }}</div>
+    <div>{{ user2.address.city }}</div>
     <button @click="updateUser2Age">update user2 age</button>
+    <button @click="updateUser2Address">update user2 address</button>
+
+    <h3>watch invalidate</h3>
+    <div>{{ invalidate.name }}</div>
+    <button @click="updateInvalidateName">updateInvalidateName</button>
+
+    <h3>watch flush options</h3>
+    <div>{{ flushOptions.name }}</div>
+    <div>{{ flushOptions.num }}</div>
+    <button @click="updateFlushOptionsName">updateFlushOptionsName</button>
+    <button @click="updateFlushOptionsNameAndNum">
+      updateFlushOptionsNameAndNum
+    </button>
 
     <h3>watchEffect</h3>
     <div>{{ user3.name }}</div>
@@ -53,6 +67,7 @@ export default defineComponent({
     //   }
     // );
 
+    // 一个改变 回调函数就会触发
     watch(
       [() => user1.name, () => user1.age],
       ([newVal1, newVal2], [oldVal1, oldVal2]) => {
@@ -72,14 +87,15 @@ export default defineComponent({
       user1.age += 1;
     };
 
-    const user2 = reactive({ name: "randy2", age: 27 });
+    const user2 = reactive({
+      name: "randy2",
+      age: 27,
+      address: { city: "汨罗" },
+    });
     const clearWatch = watch(
       () => ({ ...user2 }),
       (newVal, oldVal) => {
         console.log(newVal, oldVal);
-      },
-      {
-        // deep: true,
       }
     );
     const updateUser2Age = () => {
@@ -89,6 +105,70 @@ export default defineComponent({
     // setTimeout(() => {
     //   clearWatch();
     // }, 5000);
+
+    // deep，开启深度监听
+    watch(
+      // 浅拷贝只能解决第一层问题，多层 还是会返回一样的新老值。
+      () => ({ ...user2 }),
+      // () => user2,
+      (newVal, oldVal) => {
+        console.log(newVal, oldVal);
+      },
+      {
+        deep: true,
+      }
+    );
+    const updateUser2Address = () => {
+      user2.address.city += "!";
+    };
+
+    // 清除副作用
+    const invalidate = reactive({ name: "onInvalidate" });
+    watch(
+      () => ({ ...invalidate }),
+      (newVal, oldVal, onInvalidate) => {
+        onInvalidate(() => {
+          console.log("清除副作用");
+        });
+        console.log(newVal, oldVal);
+      }
+    );
+
+    const updateInvalidateName = () => {
+      invalidate.name += "!";
+    };
+
+    // options
+    const flushOptions = reactive({ name: "flushOptions", num: 1 });
+    watch(
+      () => ({ ...flushOptions }),
+      (newVal, oldVal) => {
+        console.log(newVal, oldVal);
+      },
+      {
+        // flush: "pre", // 默认
+        // flush: "post",
+        // flush: "sync",
+        // 立即执行
+        // immediate: true,
+        // 调试
+        // onTrack(e) {
+        //   console.log("onTrack: ", e);
+        // },
+        // onTrigger(e) {
+        //   console.log("onTrigger:", e);
+        // },
+      }
+    );
+
+    const updateFlushOptionsName = () => {
+      flushOptions.name += "!";
+    };
+
+    const updateFlushOptionsNameAndNum = () => {
+      flushOptions.name += "!";
+      flushOptions.num++;
+    };
 
     // 会自动收集依赖，当里面用到的数据发生变化时就会自动触发watchEffect
     // watchEffect 不需要手动传入依赖
@@ -109,6 +189,8 @@ export default defineComponent({
         console.log("watchEffect", user3.name, user3.age);
       },
       {
+        // flush: "pre", // 默认
+        // flush: "post",
         flush: "sync",
         // onTrack(e) {
         //   console.log("onTrack: ", e);
@@ -135,18 +217,21 @@ export default defineComponent({
       console.log("watchEffect", text.value);
     });
 
+    // 监听原数组需要deep，否则监听副本数组
     const arr = reactive(["a", "b", "c"]);
     const addArr = () => {
       arr.push("哈");
     };
 
+    // 监听原数组，返回的新老值是一样的
     watch(
+      // () => arr,
       () => [...arr],
       (newVal, oldVal) => {
         console.log(newVal, oldVal);
       },
       {
-        deep: true,
+        // deep: true,
       }
     );
 
@@ -157,6 +242,12 @@ export default defineComponent({
       updateUser1NameAndAge,
       user2,
       updateUser2Age,
+      updateUser2Address,
+      invalidate,
+      updateInvalidateName,
+      flushOptions,
+      updateFlushOptionsName,
+      updateFlushOptionsNameAndNum,
       user3,
       updateUser3Age,
       updateUser3NameAndAge,

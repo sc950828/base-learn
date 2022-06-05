@@ -12,4 +12,7 @@ new Vue({
   router,
   store,
   render: (h) => h(App),
+  data: {
+    name: "根组件",
+  },
 }).$mount("#app");

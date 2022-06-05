@@ -32,8 +32,13 @@
     {{ name4 }}
     <Child6 v-model="name4" />
 
-    <h3 class="title7">异步组件</h3>
+    <h3 class="title7">props emit</h3>
+    <Child7 :msg="msg" @changeMsg="handleChangeMsg"></Child7>
 
+    <h3 class="title7">ref</h3>
+    <RefChild :msg="msg" ref="ref1"></RefChild>
+
+    <h3 class="title7">异步组件</h3>
     <!-- <AsyncPage /> -->
 
     <Suspense>
@@ -47,19 +52,26 @@
 
     <component :is="'Child1'"> </component>
     <component :is="Child2"> </component>
-    <!-- is始终渲染组件 -->
     <section is="vue:Child1"></section>
     <!-- <section :is="'Child1'"></section> -->
   </div>
 </template>
 <script>
-import { defineComponent, ref, defineAsyncComponent, provide } from "vue";
+import {
+  defineComponent,
+  ref,
+  defineAsyncComponent,
+  provide,
+  onMounted,
+} from "vue";
 import Child1 from "@/components/Child1";
 import Child2 from "@/components/Child2";
 import Child3 from "@/components/Child3";
 import Child4 from "@/components/Child4";
 import Child5 from "@/components/Child5";
 import Child6 from "@/components/Child6";
+import Child7 from "@/components/Child7";
+import RefChild from "@/components/RefChild";
 
 export default defineComponent({
   components: {
@@ -69,6 +81,8 @@ export default defineComponent({
     Child4,
     Child5,
     Child6,
+    Child7,
+    RefChild,
     // 无配置项异步组件
     AsyncPage: defineAsyncComponent(() => import("@/components/AsyncCom.vue")),
     // 有配置项异步组件
@@ -86,6 +100,8 @@ export default defineComponent({
     const name2 = ref("randy");
     const name3 = ref("randy");
     const name4 = ref("randy");
+    const msg = ref("message");
+    const ref1 = ref(null);
 
     provide("inject1", name1);
 
@@ -96,14 +112,33 @@ export default defineComponent({
       console.log(data.value);
     };
 
+    const handleChangeMsg = (newValue) => {
+      msg.value = newValue;
+    };
+
+    onMounted(() => {
+      console.log(ref1.value);
+      console.log(ref1.value.name);
+      console.log(ref1.value.user);
+      ref1.value.say();
+      // console.log(ref1.value.$data);
+      // console.log(ref1.value.$props);
+      // console.log(ref1.value.$el);
+      console.log(ref1.value.$parent);
+      console.log(ref1.value.$root);
+    });
+
     return {
       name1,
       name2,
       name3,
       name4,
+      msg,
+      handleChangeMsg,
       handleSubmit,
       handleClick,
       Child2,
+      ref1,
     };
   },
 });

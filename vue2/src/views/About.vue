@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h3>父子组件传值 事件</h3>
+    <h3>v-model 默认value属性和input事件</h3>
     {{ value1 }}
     <Child2 v-model="value1" />
 
@@ -23,16 +23,24 @@
     <!-- is始终渲染组件 -->
     <!-- <section is="Child3"></section> -->
 
-    <h3>v-model用在自定义组件上 sync修饰符</h3>
+    <h3>v-model用在自定义组件上 .sync修饰符</h3>
     {{ value2 }}
     {{ syncValue }}
     <Child4 v-model="value2" :syncTest.sync="syncValue" />
+
+    <h3>props $emit v-on</h3>
+    <Child5 :msg="msg" @changeMsg="handleChangeMsg"></Child5>
+
+    <Child6 ref="child6" :msg="msg"></Child6>
   </div>
 </template>
 <script>
 import Child2 from "@/components/Child2";
 import Child3 from "@/components/Child3";
 import Child4 from "@/components/Child4";
+import Child5 from "@/components/Child5";
+import Child6 from "@/components/Child6";
+
 export default {
   provide() {
     return {
@@ -44,6 +52,8 @@ export default {
     Child2,
     Child3,
     Child4,
+    Child5,
+    Child6,
   },
   data() {
     return {
@@ -57,6 +67,7 @@ export default {
         age: 24,
         address: "汨罗",
       },
+      msg: "我会传递给子组件",
     };
   },
   methods: {
@@ -69,6 +80,19 @@ export default {
     say2() {
       console.log("say2");
     },
+
+    handleChangeMsg(newVal) {
+      this.msg = newVal;
+    },
+  },
+  mounted() {
+    // console.log(this.$children);
+    // console.log(this.$refs.child6);
+    // console.log(this.$refs.child6.$data);
+    // console.log(this.$refs.child6.$props);
+    // console.log(this.$refs.child6.$el);
+    // console.log(this.$refs.child6.name);
+    // console.log(this.$refs.child6.title);
   },
 };
 </script>

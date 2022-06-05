@@ -3,6 +3,7 @@
     <div>{{ name }}</div>
     <button @click="changeName">changeName</button>
     <div>user: {{ user.age }}</div>
+    <button @click="changeUserAge">changeUserAge</button>
 
     <LifeChild
       :name1="name"
@@ -43,6 +44,10 @@ export default defineComponent({
       name.value = value;
     };
 
+    const changeUserAge = () => {
+      user.age = 72;
+    };
+
     const childRef = ref(null);
 
     provide("fName", "父组件数据");
@@ -57,8 +62,8 @@ export default defineComponent({
     });
     onMounted(() => {
       console.log("onMounted");
-      childRef.value.childSay(); // childSay
-      console.log(childRef.value.sex); // male
+      // childRef.value.childSay(); // childSay
+      // console.log(childRef.value.sex); // male
     });
     onBeforeUpdate(() => {
       console.log("onBeforeUpdate");
@@ -86,16 +91,17 @@ export default defineComponent({
       name,
       changeName,
       user,
+      changeUserAge,
       changeChildName,
       childRef,
     };
   },
-  // vue2这两个生命周期函数还能用
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
-  created() {
-    console.log("created");
-  },
+  // vue2选项式写法都还是支持的
+  // beforeCreate() {
+  //   console.log("beforeCreate");
+  // },
+  // created() {
+  //   console.log("created");
+  // },
 });
 </script>

@@ -48,7 +48,7 @@ export default {
   methods: {
     click1() {
       this.title1 = "子元素数据被修改";
-      this.$emit("changeChild", this.title1);
+      // this.$emit("changeChild", this.title1);
     },
     childSay() {
       console.log("child say");

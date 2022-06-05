@@ -25,10 +25,10 @@ export default {
     };
   },
   beforeCreate() {
-    console.log("father beforeCreate");
+    console.log("father beforeCreate", this.$data);
   },
   created() {
-    console.log("father created");
+    console.log("father created", this.$data);
   },
   beforeMount() {
     console.log("father beforeMount");

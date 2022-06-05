@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" :value="value1" @input="handleInput" />
+    <input type="text" :value="customValue" @input="handleInput" />
     <button @click="updateSyncTestValue">修改syncTest的值</button>
   </div>
 </template>
@@ -8,16 +8,16 @@
 export default {
   // 定义传过来的值名字叫是value 修改值的事件是change事件
   model: {
-    prop: "value1",
-    event: "change",
+    prop: "customValue",
+    event: "customInput",
   },
   props: {
-    value1: String,
+    customValue: String,
     syncTest: String,
   },
   methods: {
     handleInput(e) {
-      this.$emit("change", e.target.value);
+      this.$emit("customInput", e.target.value);
     },
     updateSyncTestValue() {
       this.$emit("update:syncTest", "new syncTest value");

@@ -19,12 +19,10 @@ export default {
     // 获取没在props中定义的但是传递过来的属性
     console.log(this.$attrs);
     console.log(this.$listeners);
+
     console.log(this.$root);
     console.log(this.$parent);
-    console.log("子组件通过this.parent访问父组件属性", this.$parent.obj1);
-    // 调用父组件方法
-    this.$parent.say();
-    // 通过provide和inject获取父元素传递的属性或方法
+
     this.say();
   },
   methods: {},

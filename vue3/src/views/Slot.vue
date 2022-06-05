@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>默认插槽</h3>
     <Slot1>
       <h3>slot</h3>
     </Slot1>

@@ -32,7 +32,7 @@ export default defineComponent({
     const name = ref("child randy");
     const changeName = () => {
       name.value = "child demi";
-      emit("changeChildName", name.value);
+      // emit("changeChildName", name.value);
     };
 
     const fName = inject("fName", "haha");
@@ -88,12 +88,12 @@ export default defineComponent({
       say,
     };
   },
-  // vue2这两个生命周期函数还能用
-  beforeCreate() {
-    console.log("child beforeCreate");
-  },
-  created() {
-    console.log("child created");
-  },
+  // vue2选项式写法都还是支持的
+  // beforeCreate() {
+  //   console.log("child beforeCreate");
+  // },
+  // created() {
+  //   console.log("child created");
+  // },
 });
 </script>

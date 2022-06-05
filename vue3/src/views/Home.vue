@@ -22,10 +22,6 @@
     <button @click="plus2">plus2</button>
     <button @click="decrease2">decrease2</button>
 
-    <h3>Vue.reactive</h3>
-    <div>reac1 name: {{ reac1?.name }}</div>
-    <button @click="updateReac1Name">updateReac1Name</button>
-
     <basic-button>123</basic-button>
   </div>
 </template>

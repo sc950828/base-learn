@@ -1,7 +1,6 @@
 <template>
   <div>
     <input type="text" :value="value" @input="handleInput" />
-    <!-- <input type="text" :value="value" @change="handleInput" /> -->
   </div>
 </template>
 <script>

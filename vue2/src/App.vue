@@ -10,13 +10,13 @@
       <router-link to="/alive">Alive</router-link> |
       <router-link to="/jsxtest">JsxTest</router-link> |
       <router-link to="/slot">Slot</router-link> |
-      <router-link to="/route/72">路由</router-link> |
       <router-link to="/storetest">Store</router-link> |
       <router-link to="/father">Father</router-link> |
       <router-link to="/debounce">Debounce</router-link> |
       <router-link to="/download">下载</router-link> |
+      <router-link to="/style">样式</router-link> |
       <router-link to="/ref">ref</router-link> |
-      <router-link to="/routertest">路由源码</router-link> |
+      <router-link to="/router">路由</router-link> |
     </div>
     <router-view />
   </div>
