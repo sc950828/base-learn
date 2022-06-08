@@ -27,7 +27,9 @@ function MemoHook() {
       </div>
 
       <CallbackHook1 count={count} say={callback1}></CallbackHook1>
-      {/* <CallbackHook1 count={count} say={callback2}></CallbackHook1> */}
+
+      {/* 可以被缓存 */}
+      <CallbackHook1 count={count} say={callback2}></CallbackHook1>
 
       <div>{name}</div>
       <div>

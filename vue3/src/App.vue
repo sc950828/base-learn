@@ -3,6 +3,7 @@
     <router-link to="/">Home</router-link>|
     <router-link to="/parent">Parent</router-link>|
     <router-link to="/about">About</router-link>|
+    <router-link to="/base">Base</router-link>|
     <router-link to="/key">Key</router-link>|
     <router-link to="/slot">Slot</router-link>|
     <router-link to="/jsx">Jsx</router-link>|

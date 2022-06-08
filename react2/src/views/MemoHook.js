@@ -11,9 +11,14 @@ function MemoHook() {
   // console.log("useMemo1");
   // });
 
+  // 这种也没什么意义，只在初始化运行一次
+  // const useMemo2 = useMemo(() => {
+  //   console.log("useMemo2");
+  // }, []);
+
   // 1. 用来缓存值，当依赖变化值才变，类似vue里面的computed
-  const useMemo2 = useMemo(() => {
-    // console.log("useMemo2", count);
+  const useMemo3 = useMemo(() => {
+    // console.log("useMemo3", count);
     // 返回值等于useMemo的返回值
     return count;
   }, [count]);
@@ -30,11 +35,11 @@ function MemoHook() {
 
   return (
     <div>
-      <div>useMemo2,我是依赖count{useMemo2}</div>
-      <div>{count}</div>
+      <div>count{count}</div>
       <div>
         <button onClick={() => setCount(count + 1)}>add count</button>
       </div>
+      <div>useMemo3,我是依赖count{useMemo3}</div>
 
       {/* 依赖 count，按理来说只有count改变才会重新渲染，但是name改变也会重新渲染 */}
       {/* <MemoHook1 count={count}></MemoHook1> */}

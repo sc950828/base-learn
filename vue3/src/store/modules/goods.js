@@ -33,7 +33,6 @@ export default {
     ) {
       console.log("goods actions: ", state, rootState, getters, rootGetters);
       // commit("setUserNameMutation", payload);
-      // commit("setUserNameMutation", payload);
       commit("setUserNameMutation", payload, { root: true });
     },
 
@@ -42,8 +41,8 @@ export default {
       payload
     ) {
       console.log("goods actions: ", state, rootState, getters, rootGetters);
-      // dispatch("setGoodsAction", payload);
-      dispatch("setGoodsAction", payload);
+      // dispatch("setUserNameAction", payload);
+      dispatch("setUserNameAction", payload, { root: true });
     },
 
     // 注册非命名空间的action
