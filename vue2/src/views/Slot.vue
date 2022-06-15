@@ -66,8 +66,8 @@
     </Slot2>
 
     <h3>内联模板 Attribute</h3>
-    <Attr> <div>我在父组件定义的</div> </Attr>
-    <Attr inline-template> <div>我在父组件定义的</div> </Attr>
+    <Attr> <section>我在父组件定义的</section> </Attr>
+    <Attr inline-template> <section>我在父组件定义的</section> </Attr>
   </div>
 </template>
 <script>

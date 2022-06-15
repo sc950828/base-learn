@@ -63,6 +63,20 @@
     </template>
 
     <basic-button>123</basic-button>
+
+    <el-button @click="testItem.dialogVisible = true"
+      >点击打开 Dialog</el-button
+    >
+
+    <el-dialog title="提示" :visible.sync="testItem.dialogVisible" width="30%">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -91,6 +105,7 @@ export default {
         name: "randy4",
       },
       arr1: ["a", "b", "c"],
+      testItem: {},
 
       // 以 _ 或 $ 开头的 property 不会被 Vue 实例代理，因为它们可能和 Vue 内置的 property、API 方法冲突。
       // _title3: "_title3",
@@ -152,6 +167,10 @@ export default {
     setTimeout(function () {
       console.log(this);
     });
+  },
+  mounted() {
+    // this.testItem.dialogVisible = false;
+    this.$set(this.testItem, "dialogVisible", false);
   },
   methods: {
     click1() {
