@@ -5,6 +5,8 @@ import Life from "./views/Life";
 import Router from "./views/Router";
 import Store from "./views/Store";
 import Async from "./views/Async";
+import Debounce from "./views/Debounce";
+import Throttle from "./views/Throttle";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Link to="/router">Router</Link>
         <Link to="/store">Store</Link>
         <Link to="/async">Async</Link>
+        <Link to="/debounce">防抖</Link>
+        <Link to="/throttle">节流</Link>
       </div>
 
       <Switch>
@@ -23,6 +27,8 @@ function App() {
         <Route path="/router" component={Router}></Route>
         <Route path="/store" component={Store}></Route>
         <Route path="/async" component={Async}></Route>
+        <Route path="/debounce" component={Debounce}></Route>
+        <Route path="/throttle" component={Throttle}></Route>
       </Switch>
     </div>
   );
