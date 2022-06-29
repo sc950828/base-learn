@@ -1,8 +1,7 @@
-import { Module, Store } from "vuex";
-import { InjectionKey } from "vue";
-import { User, ITest1 } from "../interfaces";
+import { Module } from "vuex";
+import { IRootState, ITest1State } from "../interfaces";
 
-const Test1: Module<ITest1, User> = {
+const Test1: Module<ITest1State, IRootState> = {
   state: {
     name: "test1",
     count: 0,
@@ -11,12 +10,10 @@ const Test1: Module<ITest1, User> = {
     getTest1Name(state) {
       return state.name;
     },
-    getAllName(state, getters, rootState, rootGetters) {
+    getAllName(state, rootState) {
       return state.name + rootState.age;
     },
   },
 };
-
-export const key: InjectionKey<Store<ITest1>> = Symbol();
 
 export default Test1;

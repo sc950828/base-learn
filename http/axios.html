@@ -64,15 +64,15 @@
       //   });
 
       // content-type: application/json 默认值是json
-      axios
-        .post("https://jsonplaceholder.typicode.com/posts", {
-          title: "title",
-          body: "body",
-          userId: 2,
-        })
-        .then((response) => {
-          console.log("post: ", response);
-        });
+      // axios
+      //   .post("https://jsonplaceholder.typicode.com/posts", {
+      //     title: "title",
+      //     body: "body",
+      //     userId: 2,
+      //   })
+      //   .then((response) => {
+      //     console.log("post: ", response);
+      //   });
 
       // // put是修改，全部替换的修改
       // axios
@@ -265,7 +265,7 @@
       // 添加请求拦截器
       axios.interceptors.request.use(
         function (config) {
-          // config默认值
+          // config默认值，跟create(config)的参数是一样的
 
           // adapter: ƒ (e)
           // data: undefined
@@ -311,28 +311,35 @@
           return response;
         },
         (error) => {
+          // error的参数
+          // code,
+          // config,
+          // message,
+          // name,
+          // request,
+          // response
           console.log("interceptors.response error: ", error);
           // 对响应错误做点什么
-          // error有response、message、request属性 一般我们返回response就可以了
+          // error有response、message、request等属性 一般我们返回response就可以了
           return Promise.reject(error.response);
         }
       );
 
-      axios
-        .get("https://jsonplaceholder.typicode.com/comments", {
-          params: { postId: 1 },
-        })
-        .catch((error) => {
-          // 跟正常响应的response一样，只是status不会在200-299里面
+      // axios
+      //   .get("https://jsonplaceholder.typicode.com/comments", {
+      //     params: { postId: 1 },
+      //   })
+      //   .catch((error) => {
+      //     // 跟正常响应的response一样，只是status不会在200-299里面
 
-          // config: {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
-          // data: {}
-          // headers: {cache-control: 'max-age=43200', content-length: '2', content-type: 'application/json; charset=utf-8', expires: '-1', pragma: 'no-cache'}
-          // request: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
-          // status: 404
-          // statusText: ""
-          console.log(error);
-        });
+      //     // config: {transitional: {…}, transformRequest: Array(1), transformResponse: Array(1), timeout: 0, adapter: ƒ, …}
+      //     // data: {}
+      //     // headers: {cache-control: 'max-age=43200', content-length: '2', content-type: 'application/json; charset=utf-8', expires: '-1', pragma: 'no-cache'}
+      //     // request: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+      //     // status: 404
+      //     // statusText: ""
+      //     console.log(error);
+      //   });
 
       // axios.all()、axios.spread()两个辅助函数用于处理同时发送多个请求，可以实现在多个请求都完成后再执行一些逻辑。
       // 注意：该方法是axios的静态方法，不是axios实例的方法！
@@ -348,7 +355,7 @@
       const get3 = () => {
         return axios.get("https://jsonplaceholder.typicode.com/posts1/2");
       };
-      // 一个失败都失败，返回错误的那个promise 类似Promise.all
+      // 一个失败都失败，返回错误的那个promise 类似 Promise.all
       axios
         .all([get1(), get2(), get3()])
         .then(
@@ -385,35 +392,36 @@
       //   });
 
       // 无论是否成功，全部结果都返回到resolve中
-      Promise.allSettled([get1(), get2(), get3()])
-        .then((res) => {
-          console.log("Promise.allSettled: ", res);
-        })
-        .catch((err) => {
-          console.log("Promise.allSettled error: ", err);
-        });
-
-      const getPosts1 = () => {
-        return axios.get("https://jsonplaceholder.typicode.com/posts/1");
-      };
-      const getPosts2 = () => {
-        return axios.get("https://jsonplaceholder.typicode.com/posts/2");
-      };
-      const getPosts3 = () => {
-        return axios.get("https://jsonplaceholder.typicode.com/posts/3");
-      };
+      // Promise.allSettled([get1(), get2(), get3()])
+      //   .then((res) => {
+      //     console.log("Promise.allSettled: ", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("Promise.allSettled error: ", err);
+      //   });
 
       // for wait of
-      async function test2() {
-        let arr = [getPosts1(), getPosts2(), getPosts3()];
-        for (item of arr) {
-          console.log(new Date().toLocaleTimeString());
-          const { data } = await item;
-          console.log(data);
-        }
-      }
 
-      test2();
+      // const getPosts1 = () => {
+      //   return axios.get("https://jsonplaceholder.typicode.com/posts/1");
+      // };
+      // const getPosts2 = () => {
+      //   return axios.get("https://jsonplaceholder.typicode.com/posts/2");
+      // };
+      // const getPosts3 = () => {
+      //   return axios.get("https://jsonplaceholder.typicode.com/posts/3");
+      // };
+
+      // async function test2() {
+      //   let arr = [getPosts1(), getPosts2(), getPosts3()];
+      //   for (item of arr) {
+      //     console.log(new Date().toLocaleTimeString());
+      //     const { data } = await item;
+      //     console.log(data);
+      //   }
+      // }
+
+      // test2();
     </script>
   </body>
 </html>

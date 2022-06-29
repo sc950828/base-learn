@@ -1,0 +1,40 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frotend": "echo \"前端服务启动啦\"",
+    "server": "echo \"后端服务启动啦\"",
+    "all1": "npm run frotend && npm run server",
+    "all2": "npm run frotend & npm run server",
+    "all3": "npm-run-all frotend server",
+    "all4": "npm-run-all --parallel frotend server",
+    "all5": "concurrently \"npm run frotend\" \"npm run server\"",
+    "lint": "eslint js/*.js",
+    "lint:fix": "eslint js/*.js --fix",
+    "prelint": "eslint js/*.js --fix",
+    "postlint": "echo \"eslint执行完毕\"",
+    "var1": "echo $npm_package_author_name",
+    "var2": "echo $npm_package_config_say",
+    "var3": "cross-var echo %npm_package_config_say%",
+    "var4": "cross-var echo $npm_package_config_say",
+    "env1": "cross-env NODE_ENV=staging"
+  },
+  "config": {
+    "say": "hello randy"
+  },
+  "keywords": [],
+  "author": "randy",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.2.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.18.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "cross-var": "^1.1.0",
+    "element-ui": "^2.15.9"
+  }
+}

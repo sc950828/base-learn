@@ -1,31 +1,35 @@
-// 泛型
-// 这个变量代表了传入的类型，然后再返回这个变量，它是一种特殊的变量，只用于表示类型而不是值。
-
-function returnItem<T>(param: T): T {
-  return param;
+function returnItem<T>(para: T): T {
+  return para;
 }
 
-function returnItem2<T, U>(tuple: [T, U]): [U, T] {
+console.log(returnItem<string>("randy"));
+console.log(returnItem<number>(1));
+
+// 多个类型
+function swap<T, U>(tuple: [T, U]): [U, T] {
   return [tuple[1], tuple[0]];
 }
 
-// 泛型变量
-function getArrayLength<T>(arr1: Array<T>) {
-  return arr1.length;
+console.log(swap<number, string>([7, "seven"])); // ['seven', 7]
+
+// 默认类型
+type Gen1 = {
+  name: string;
+};
+
+async function genfun1() {
+  // async function fetchApi<T>(path: string): Promise<T> {
+  async function fetchApi<T = Gen1>(path: string): Promise<T> {
+    const response = await fetch(`https://example.com/api${path}`);
+    return response.json();
+  }
+
+  const result = await fetchApi("/users");
+
+  // console.log(result.name) // Error
+  console.log(result.name); // OK
 }
 
-function getArrayLength2<T>(arr1: T[]) {
-  return arr1.length;
-}
-
-// 泛型接口
-interface ReturnItem<T> {
-  (param: T): T;
-}
-
-const returnItem3: ReturnItem<number> = (param) => param;
-
-// 泛型类
 class Stack<T> {
   private arr: T[] = [];
 
@@ -38,10 +42,13 @@ class Stack<T> {
   }
 }
 
-// 泛型约束
-type Params = number | string;
+const stack1 = new Stack<number>();
+stack1.push(1);
 
-class Stack2<T extends Params> {
+// 泛型约束
+type Union1 = string | number;
+
+class Stack2<T extends Union1> {
   private arr: T[] = [];
 
   public push(item: T) {
@@ -52,21 +59,14 @@ class Stack2<T extends Params> {
     this.arr.pop();
   }
 }
-const sta1 = new Stack2<string>();
-const sta2 = new Stack2<number>();
-// 报错
-const sta3 = new Stack2<boolean>();
 
-// 索引类型
-function getValue<T extends object, U extends keyof T>(obj: T, key: U) {
-  return obj[key];
-}
+const stack2 = new Stack2<string>();
+const stack3 = new Stack2<number>();
+// const stack4 = new Stack2<boolean>(); // 类型“boolean”不满足约束“Union1”
 
-const user3 = { name: "randy", age: 24 };
-getValue(user3, "age");
+// interface Inter4<T> {
+//   param: T
+// }
 
-// new
-// 参数 type 的类型 {new(): T} 就表示此泛型 T 是可被构造的，在被实例化后的类型是泛型 T。
-function Factory<T>(type: { new (): T }) {
-  return new type();
-}
+// const param1: Inter4<string> = {param: 123} // Error 不能将类型“number”分配给类型“string”。
+// const param2: Inter4<string> = {param: 'randy'} // OK

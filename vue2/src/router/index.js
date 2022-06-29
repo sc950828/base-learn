@@ -45,6 +45,28 @@ const routes = [
     // 这种也是异步加载
     component: (r) =>
       require.ensure([], () => r(require("../views/Alive.vue")), "alive"),
+    children: [
+      {
+        path: "a1",
+        name: "A1",
+        // 这种也是异步加载
+        component: (resolve) => require(["../views/alives/A1"], resolve),
+        children: [
+          {
+            path: "a1-1",
+            name: "A1-1",
+            // 这种也是异步加载
+            component: (resolve) => require(["../views/alives/A1-1"], resolve),
+          },
+        ],
+      },
+      {
+        path: "a2",
+        name: "A2",
+        // 这种也是异步加载
+        component: (resolve) => require(["../views/alives/A2"], resolve),
+      },
+    ],
   },
   {
     path: "/jsxtest",

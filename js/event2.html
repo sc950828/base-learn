@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件2</title>
+  </head>
+  <body style="height: 1000px">
+    <button onclick="removeScroll()">scroll1</button>
+    <script>
+      const removeScroll = () => {
+        window.removeEventListener("scroll", handleScroll1);
+        window.removeEventListener("wheel", handleWheel1);
+      };
+
+      const handleScroll1 = () => {
+        console.log("scroll");
+      };
+
+      window.addEventListener("scroll", handleScroll1);
+
+      const handleWheel1 = () => {
+        console.log("wheel");
+      };
+
+      window.addEventListener("wheel", handleWheel1);
+    </script>
+  </body>
+</html>

@@ -1,94 +1,79 @@
 "use strict";
-class Animal {
-    constructor(name, age) {
+// 类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象
+// 相对es中的类 扩充了访问修饰符 public private protected
+class People1 {
+    constructor(name) {
+        this.count = 1;
+        this.num = 10;
+        console.log("parent constructor");
         this.name = name;
+        // 构造函数里面定义的属性和方法会挂载到实例上
+        // 外部定义的属性会挂载到实例上，定义的方法会挂载在原型上
+        // this.info = "哈哈";
+        // this.hi = () => {
+        //   console.log("hi");
+        // };
+    }
+    get sex() {
+        return this._sex;
+    }
+    set sex(val) {
+        this._sex = val;
+    }
+    say() {
+        console.log("say");
+    }
+    say1() {
+        console.log(this.name + " say");
+    }
+    say2() {
+        console.log("say");
+    }
+    sayCount() {
+        // 能访问到
+        console.log(this.count);
+    }
+}
+class Child1 extends People1 {
+    // 构造函数是先调用子类再调用父类
+    constructor(name, age) {
+        console.log("child constructor");
+        // 调用父类的构造函数
+        super(name);
         this.age = age;
     }
-    // 成员都默认为 public
-    say() {
-        console.log("Animal say");
+    sayCount2() {
+        // 能访问到
+        console.log(this.count);
     }
 }
-const dog = new Animal("dog", 24);
-console.log(dog);
-console.log(dog.age);
-// 不能访问私有变量
-console.log(dog.name);
-// 不能访问protected修饰的变量
-console.log(dog.sex);
-dog.say();
-class Cat extends Animal {
-    constructor(name, age, sex) {
-        super(name, age);
-        // 第二种定义函数的方法
-        this.say2 = (str) => str;
-        this.say4 = () => {
-            console.log(this);
-        };
-        this.sex = sex;
-    }
-    saySex() {
-        console.log(this.sex);
-    }
-    // 重写
-    say() {
-        console.log("Cat say");
-    }
-    // 可选参数
-    say3(str) {
-        console.log(this, str);
-    }
-    say5() {
-        console.log("外面访问不到我哦");
-    }
-    // 默认值
-    say6(str = "say6") {
-        console.log(str);
-    }
-    // 剩余参数
-    say7(str1, ...strs) {
-        console.log(str1, strs);
-    }
-}
-const cat1 = new Cat("cat", 19, "male");
-console.log(cat1);
-cat1.say();
-cat1.saySex();
-console.log(cat1.say2("hello"));
-cat1.say3();
-cat1.say4();
-// 私有方法只能在类内部访问
-cat1.say5();
-cat1.say6();
-cat1.say7("haha", "lala", "xixi");
-// 类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象
-// get set 方法
-class Test1 {
-    constructor() {
-        this._name = "";
-    }
-    get name() {
-        return this._name;
-    }
-    set name(name) {
-        this._name = name;
-    }
-}
-const test1 = new Test1();
-test1.name;
-// 静态属性和方法
-class Test2 {
-    static say() {
-        console.log("静态属性num: ", this.num);
-    }
-}
-Test2.num = 0;
-Test2.num++;
-Test2.say();
-const test2 = new Test2();
-// 实例访问不到静态属性
-test2.num;
-test2.say();
-// 抽象类
-class Test3 {
-}
+// console.log(People1);
+// console.log(People1.prototype);
+const p1 = new People1("randy");
+console.log(p1);
+p1.say1();
+p1.sayCount();
+// 无法分配到 "num" ，因为它是只读属性。
+// p1.num = 100;
+console.log(p1.num);
+// 属性“_sex”为私有属性，只能在类“People1”中访问
+// console.log(p1._sex);
+// 提供get set 方法就能访问和设置值啦
+p1.sex = "男";
+console.log(p1.sex);
+// 属性“count”受保护，只能在类“People1”及其子类中访问
+// 本实例和子实例都不能访问
+// p1.count = 1
+// console.log(p1.count)
+// 不显示定义构造函数 默认会调用父类构造函数
+// const c1 = new Child1("demi");
+// console.log(c1);
+const c2 = new Child1("demi", 24);
+console.log(c2);
+c2.sayCount2();
+// 无法分配到 "num" ，因为它是只读属性。
+// c2.num = 11
+console.log(c2.num);
+// 本实例和子实例都不能访问
+// c2.count = 1;
+// console.log(c2.count);

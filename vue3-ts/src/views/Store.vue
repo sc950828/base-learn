@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <div>test1Name: {{ test1Name }}</div>
-    <div>allName: {{ allName }}</div>
-    <div>test1Count: {{ test1Count }}</div>
+    <div>rootName: {{ rootName }}</div>
+    <div>getRootInfo: {{ getRootInfo }}</div>
+    <div>getRootName: {{ getRootName }}</div>
+    <!-- <div>test1Name: {{ test1Name }}</div> -->
+    <!-- <div>allName: {{ allName }}</div> -->
+    <!-- <div>test1Count: {{ test1Count }}</div> -->
   </div>
 </template>
 
@@ -17,11 +20,15 @@ export default defineComponent({
   setup() {
     // const store = useStore(key);
     const store = useStore();
+    // store.state.aa;
+    // store.state.test1.
 
     return {
-      test1Name: store.state.test1.name,
-      allName: store.getters.getAllName,
-      test1Count: store.state.test1.count,
+      rootName: store.state.name,
+      getRootInfo: store.getters.getRootInfo,
+      getRootName: store.getters.getRootName,
+      // test1Name: store.state.test1.name,
+      // test1Count: store.state.test1.count,
     };
   },
 });
