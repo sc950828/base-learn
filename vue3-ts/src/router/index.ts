@@ -25,6 +25,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "pinia" */ "../views/Pinia.vue"),
   },
+  {
+    path: "/axios",
+    name: "Axios",
+    component: () =>
+      import(/* webpackChunkName: "axios" */ "../views/Axios.vue"),
+  },
 ];
 
 const router = createRouter({
