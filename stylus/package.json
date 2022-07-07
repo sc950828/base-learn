@@ -1,0 +1,17 @@
+{
+  "name": "stylustest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "styl1": "stylus src/stylus1.styl -o dist/stylus1.css"
+  },
+  "keywords": [
+    "stylus"
+  ],
+  "author": "randy",
+  "license": "ISC",
+  "devDependencies": {
+    "stylus": "^0.58.1"
+  }
+}

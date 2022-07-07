@@ -94,3 +94,12 @@ const user9: UserWithoutEmail = {
   id: "1",
   name: "randy",
 };
+
+// infer
+
+type ElementOf<T> = T extends Array<infer E> ? E : T;
+
+type Tuple = string[];
+
+type TupleToUnion = ElementOf<Tuple>; // string
+type TupleToUnion2 = ElementOf<number[]>; // number

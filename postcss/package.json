@@ -4,14 +4,13 @@
   "description": "postcss",
   "main": "index.js",
   "scripts": {
-    "css1": "postcss src/post1.css -o dist/post1.css",
-    "css2": "postcss -h"
+    "pc1": "postcss src/post1.css -o dist/post1.css"
   },
   "author": "randy",
   "license": "ISC",
   "devDependencies": {
-    "postcss": "^8.3.11",
-    "postcss-cli": "^9.0.2"
+    "postcss": "^8.4.14",
+    "postcss-cli": "^10.0.0"
   },
   "dependencies": {
     "autoprefixer": "^10.4.0"

@@ -2,27 +2,6 @@
   color: red;
   font-size: 16px;
 }
-@media (min-width: 768px) {
-  .element {
-    font-size: 1.2rem;
-  }
-}
-.name1 {
-  color: red;
-  font-size: 16px;
-}
-.name2 {
-  color: red;
-  font-size: 16px;
-}
-.name3 {
-  color: red;
-  font-size: 18px;
-}
-.name4 {
-  color: red;
-  font-size: 18px;
-}
 nav ul {
   background: blue;
 }

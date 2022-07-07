@@ -1,0 +1,32 @@
+.goods-wrap {
+  display: flex;
+  background-color: rgb(247, 248, 250);
+  margin-bottom: 20px;
+}
+
+.info {
+  padding: 16px 16px 16px 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  color: rgb(50, 50, 51);
+  font-size: 16px;
+}
+
+.description {
+  color: rgb(100, 101, 102);
+}
+
+.price-num {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  font-size: 18px;
+}
