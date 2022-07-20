@@ -4,10 +4,11 @@
   "description": "babel learn",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "index1": "babel src/index1.js --out-dir dist",
     "index2": "babel src/index2.js --out-dir dist",
-    "index3": "babel src/index3.js --out-dir dist"
+    "index3": "babel src/index3.js --out-dir dist",
+    "index4": "babel src/index4.js --out-dir dist",
+    "index5": "babel src/index5.js --out-dir dist"
   },
   "keywords": [
     "babel"
@@ -17,10 +18,11 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
-    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/plugin-transform-arrow-functions": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.18.6",
     "@babel/preset-env": "^7.16.4"
   },
   "dependencies": {
-    "@babel/runtime": "^7.16.3"
+    "@babel/polyfill": "^7.12.1"
   }
 }
