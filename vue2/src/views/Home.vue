@@ -174,7 +174,9 @@ export default {
   },
   methods: {
     click1() {
+      // debugger;
       this.title1 = this.title1 + 1;
+      // debugger;
     },
     click2() {
       this.obj3.name = "demi";
