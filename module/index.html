@@ -1,0 +1,29 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>module 测试</title>
+  </head>
+  <body>
+    <!-- <script type="module">
+      import say, { hello } from "./index1.js";
+      say();
+      hello();
+    </script> -->
+    <!-- <script type="module" src="./index1.js"></script> -->
+
+    <script type="module">
+      import say, { hello } from "./index1.js";
+      say();
+      hello();
+    </script>
+
+    <!-- 引入和内联不能共存，同时定义只会运行引入脚本 -->
+    <!-- type="module" 默认会被 defer修饰 -->
+    <script src="./index2.js">
+      // 2不会被输出来
+      console.log(2)
+    </script>
+  </body>
+</html>
