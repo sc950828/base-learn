@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOMContentLoaded</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("hello world");
+      });
+      window.addEventListener("load", function () {
+        console.log("hello world 2");
+      });
+
+      // for (var i = 0; i < 1000000000; i++) {
+      //   // 这个同步脚本将延迟 DOM 的解析。
+      //   // 所以 DOMContentLoaded 事件稍后将启动。
+      // }
+    </script>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <img
+      src="http://139.196.87.99:5000/images/upload_7d362fcacf4d149ad7ef5c7691b62d8f"
+      alt=""
+    />
+  </body>
+</html>

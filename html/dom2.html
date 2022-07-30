@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dom2</title>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+
+    <script>
+      const qs = document.querySelectorAll("li");
+      const ts = document.getElementsByTagName("li");
+
+      console.log(qs);
+      console.log(ts);
+
+      const clickPage = () => {
+        const ul = document.getElementsByTagName("ul")[0];
+        const li = document.createElement("li");
+        const text = document.createTextNode("3");
+        li.append(text);
+        ul.append(li);
+        console.log(qs.length); // 2
+        console.log(ts.length); // 3
+      };
+
+      document.addEventListener("click", clickPage);
+    </script>
+
+    <ul id="ul">
+      <li id="li"><a href="#" id="link">a</a></li>
+    </ul>
+    <script>
+      function clickUl(e) {
+        // console.log(this); // ul
+        console.log(this.id); // ul
+        // console.log(e.target); // a
+        // console.log(e.currentTarget); // ul
+      }
+      const clickUl2 = () => {
+        console.log(this); // window
+        console.log(this.id);
+      };
+
+      const ul = document.getElementById("ul");
+      // ul.addEventListener("click", clickUl);
+      ul.addEventListener("click", clickUl, true);
+      // ul.addEventListener("click", clickUl2);
+      const li = document.getElementById("li");
+      // li.addEventListener("click", clickUl);
+      li.addEventListener("click", clickUl, true);
+      const link = document.getElementById("link");
+      // link.addEventListener("click", clickUl);
+      link.addEventListener("click", clickUl, true);
+    </script>
+
+    <script>
+      var x = 10;
+      if (null || console.log("hello") || x > 5) {
+        console.log("hello");
+      }
+
+      var counter = 0;
+      const arr = [1, 2, 3];
+      for (let index = 0; index < arr.length; index++) {
+        counter++;
+      }
+
+      console.log(counter);
+
+      console.log(Math.PI);
+    </script>
+
+    <script>
+      const m1 = (p1) => {
+        const m1 = (p2) => {
+          return p1 * p2;
+        };
+        return m1;
+      };
+
+      const mf = m1(10);
+      console.log(mf(10));
+    </script>
+
+    <input type="text" id="name" value="Hi" />
+    <script>
+      const in1 = document.getElementById("name");
+      console.log(in1.value + "hello world");
+      const in2 = document.querySelector("#name");
+      console.log(in2.value + "hello world");
+    </script>
+
+    <script>
+      let obj = {
+        age: 20,
+        setAge: (newAge) => {
+          this.age = newAge;
+        },
+        // getAge: () => {
+        //   console.log(this);
+        //   return this.age;
+        // },
+        getAge() {
+          console.log(this);
+
+          return this.age;
+        },
+        say1() {
+          console.log(this.age);
+        },
+        say2() {
+          console.log(this.getAge());
+        },
+      };
+
+      obj.setAge(57);
+      obj.say1();
+      obj.say2();
+      // console.log(window);
+
+      (function (window) {
+        console.log(1);
+        var obj = {};
+        obj.dream = function () {
+          console.log("i like");
+        };
+
+        window.od = obj;
+      });
+
+      od.dream();
+    </script>
+  </body>
+</html>

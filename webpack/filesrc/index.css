@@ -1,0 +1,23 @@
+.box {
+  background-image: url("./img1.jpeg");
+  width: 300px;
+  height: 200px;
+}
+
+.svg-box {
+  background-image: url("./compute.svg");
+  width: 300px;
+  height: 200px;
+}
+
+@font-face {
+  font-family: "MyFont";
+  src: url("./1644225200443733.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.text {
+  font-family: MyFont;
+  margin: 20px;
+}

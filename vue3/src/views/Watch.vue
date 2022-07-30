@@ -36,6 +36,7 @@
     <h3>arr deep</h3>
     <div v-for="value of arr" :key="value">{{ value }}</div>
     <button @click="addArr">add arr</button>
+    <button @click="updateArrItem">update arr</button>
   </div>
 </template>
 <script>
@@ -54,12 +55,28 @@ export default defineComponent({
     // source: 可以支持 string,Object,Function,Array; 用于指定要侦听的响应式变量
     // callback: 执行的回调函数
     // options：支持 deep、immediate 和 flush 选项。
+
+    // 一个改变 都会触发，并且获取不到老值
+    // watch(user1, (newVal, oldVal) => {
+    //   console.log(newVal, oldVal);
+    // });
+
+    // 浅拷贝 能看到新老值
+    // watch(
+    //   () => ({ ...user1 }),
+    //   (newVal, oldVal) => {
+    //     console.log(newVal, oldVal);
+    //   }
+    // );
+
+    // 监听单个属性
     // watch(
     //   () => user1.name,
     //   (newVal, oldVal) => {
     //     console.log(newVal, oldVal);
     //   }
     // );
+
     // watch(
     //   () => user1.age,
     //   (newVal, oldVal) => {
@@ -68,13 +85,13 @@ export default defineComponent({
     // );
 
     // 一个改变 回调函数就会触发
-    watch(
-      [() => user1.name, () => user1.age],
-      ([newVal1, newVal2], [oldVal1, oldVal2]) => {
-        console.log(newVal1, newVal2);
-        console.log(oldVal1, oldVal2);
-      }
-    );
+    // watch(
+    //   [() => user1.name, () => user1.age],
+    //   ([newVal1, newVal2], [oldVal1, oldVal2]) => {
+    //     console.log(newVal1, newVal2);
+    //     console.log(oldVal1, oldVal2);
+    //   }
+    // );
 
     const updateUser1Name = () => {
       user1.name += "!";
@@ -87,37 +104,89 @@ export default defineComponent({
       user1.age += 1;
     };
 
+    // 递归拷贝
+    const _shallowCopy = (obj) => {
+      const copy = Array.isArray(obj) ? [] : {};
+      for (let p in obj) {
+        if (typeof obj[p] === "object") {
+          // 对象类型，继续递归浅拷贝
+          copy[p] = _shallowCopy(obj[p]);
+        } else {
+          copy[p] = obj[p];
+        }
+      }
+      return copy;
+    };
+
+    // 深拷贝
+    const deepCopy = (obj) => {
+      if (typeof obj === "object" && obj !== null) {
+        // 如果是引用类型，进行递归拷贝
+        return _shallowCopy(obj);
+      } else {
+        // 如果是基本类型，直接返回
+        return obj;
+      }
+    };
+
     const user2 = reactive({
       name: "randy2",
       age: 27,
       address: { city: "汨罗" },
     });
     const clearWatch = watch(
-      () => ({ ...user2 }),
+      // 这种监听方式能监听到所有属性改变，但是新老值是一样的，都是新值
+      // user2,
+
+      // 引用数据类型可以直接监听，但是新老值是一样的，都是新值
+      // user2.address,
+
+      // 这种方式监听不到，除非开启 deep：true，并且新老值是一样的
+      // () => user2,
+
+      // 基本数据类型不能直接监听
+      // user2.age,
+
+      // 除非是监听某个基础属性
+      // () => user2.age,
+
+      // 这种方式也不行，意思就是 箭头函数里面只有普通属性，才能监听到。除非开启 deep：true，并且新老值是一样的
+      // () => user2.address,
+
+      // 这种浅拷贝方式可以监听到第一层，并且子属性新老值不一样。要监听深度必须开启deep：true，并且孙子新老值是一样的
+      // () => ({ ...user2 }),
+
+      // 深拷贝能深度监听，并且属性新老值不一样
+      // () => deepCopy(user2),
+
       (newVal, oldVal) => {
         console.log(newVal, oldVal);
+      },
+      {
+        // deep: true,
       }
     );
-    const updateUser2Age = () => {
-      user2.age++;
-    };
     // 返回值是清除监听器
     // setTimeout(() => {
     //   clearWatch();
     // }, 5000);
 
     // deep，开启深度监听
-    watch(
-      // 浅拷贝只能解决第一层问题，多层 还是会返回一样的新老值。
-      () => ({ ...user2 }),
-      // () => user2,
-      (newVal, oldVal) => {
-        console.log(newVal, oldVal);
-      },
-      {
-        deep: true,
-      }
-    );
+    // watch(
+    //   // 浅拷贝只能解决第一层问题，多层 还是会返回一样的新老值。
+    //   () => ({ ...user2 }),
+    //   // () => user2,
+    //   (newVal, oldVal) => {
+    //     console.log(newVal, oldVal);
+    //   },
+    //   {
+    //     deep: true,
+    //   }
+    // );
+
+    const updateUser2Age = () => {
+      user2.age++;
+    };
     const updateUser2Address = () => {
       user2.address.city += "!";
     };
@@ -218,15 +287,27 @@ export default defineComponent({
     });
 
     // 监听原数组需要deep，否则监听副本数组
-    const arr = reactive(["a", "b", "c"]);
+    const arr = reactive(["a", "b", "c", { name: "randy" }]);
     const addArr = () => {
       arr.push("哈");
+    };
+    const updateArrItem = () => {
+      arr[3].name = "demi";
     };
 
     // 监听原数组，返回的新老值是一样的
     watch(
+      // 能监听到，但是新老值是一样的
+      arr,
+
+      // 这种方式监听不到，除非开启深度监听。并且新老值一样
       // () => arr,
-      () => [...arr],
+
+      // 浅拷贝能监听到第一层，并且新老值不一样
+      // () => [...arr],
+
+      // 监听多层，并且需要新老值不一样，需要使用深拷贝
+      // () => deepCopy(arr),
       (newVal, oldVal) => {
         console.log(newVal, oldVal);
       },
@@ -254,6 +335,7 @@ export default defineComponent({
       text,
       arr,
       addArr,
+      updateArrItem,
     };
   },
 });

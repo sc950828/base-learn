@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        // // "useBuiltIns": "entry",
+        // // "useBuiltIns": false,
+        "corejs": "3"
+      }
+    ]
+  ],
+
+  // "targets": "last 2 Chrome versions"
+
+  "plugins": [["@babel/plugin-transform-runtime"]]
+  // "plugins": [["@babel/plugin-transform-runtime"]]
+  // "plugins": ["@babel/plugin-transform-arrow-functions"]
+}

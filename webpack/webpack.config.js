@@ -3,11 +3,12 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // 1.引入
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// 引入插件
+// 引入插件 必须有output才能起作用
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "development",
+  // entry 默认读取的是src下的index.js
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
