@@ -7,17 +7,19 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // 处理js
 module.exports = {
   mode: "development",
-  // './src/index.js' //webpack的默认配置
-  entry: "./jssrc/es1.js",
+  entry: "./tssrc/index1.ts",
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "./jsdist"),
+    path: path.resolve(__dirname, "./tsdist"),
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        use: ["babel-loader"],
+        test: /\.ts?$/,
+        use: "babel-loader",
+
+        // ts-loader必须安装typescript和ts-loader并且还需要配置文件tsconfig.josn
+        // use: ["ts-loader"],
         exclude: /node_modules/, //排除 node_modules 目录
       },
     ],
@@ -26,7 +28,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // 模板html文件的位置，我们这里是在根目录下
-      template: "./jssrc/index.html",
+      template: "./tssrc/index.html",
     }),
     new CleanWebpackPlugin(),
   ],

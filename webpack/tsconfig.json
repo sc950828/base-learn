@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es5" // 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES6'/'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'
+    // "declaration": true, // 生成相应的 '.d.ts' 文件
+    // "outDir": "./tsdist" // 输出目录
+  },
+  "exclude": ["./node_modules"]
+}

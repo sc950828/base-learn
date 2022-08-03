@@ -1,19 +1,41 @@
+// 该配置是 ts和js共享，需要按需注释
+
+// js编译配置
+// {
+//   // @babel/polyfill 版本默认会安装 "corejs": 2
+//   // 如果配置的是 corejs 3 还需要单独安装 npm install --save core-js@3
+
+//   "presets": [
+//     [
+//       "@babel/preset-env",
+//       {
+//         "useBuiltIns": "usage",
+//         // // "useBuiltIns": "entry",
+//         // // "useBuiltIns": false,
+//         "corejs": "3"
+//       }
+//     ]
+//   ],
+
+//   // "targets": "last 2 Chrome versions"
+
+//   // 这里走 polyfill需要再安装 @babel/runtime-corejs3
+//   // "plugins": [["@babel/plugin-transform-runtime", { "corejs": "3" }]]
+//   "plugins": [["@babel/plugin-transform-runtime"]]
+
+//   // "plugins": ["@babel/plugin-transform-arrow-functions"]
+// }
+
+// 编译ts的配置
 {
   "presets": [
     [
       "@babel/preset-env",
       {
         "useBuiltIns": "usage",
-        // // "useBuiltIns": "entry",
-        // // "useBuiltIns": false,
         "corejs": "3"
       }
-    ]
-  ],
-
-  // "targets": "last 2 Chrome versions"
-
-  "plugins": [["@babel/plugin-transform-runtime"]]
-  // "plugins": [["@babel/plugin-transform-runtime"]]
-  // "plugins": ["@babel/plugin-transform-arrow-functions"]
+    ],
+    "@babel/preset-typescript"
+  ]
 }
