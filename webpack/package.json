@@ -8,7 +8,10 @@
     "webpack1": "webpack",
     "webpack-js": "webpack --config ./webpack-js.config.js",
     "webpack-file": "webpack --config ./webpack-file.config.js",
-    "webpack-ts": "webpack --config ./webpack-ts.config.js"
+    "webpack-ts": "webpack --config ./webpack-ts.config.js",
+    "dev": "cross-env MODE=development webpack-dev-server --config ./webpack-dev.config.js",
+    "staging": "cross-env MODE=staging webpack --config ./webpack-dev.config.js",
+    "build": "cross-env MODE=production webpack --config ./webpack-dev.config.js"
   },
   "keywords": [
     "webpack"
@@ -41,10 +44,12 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
     "core-js": "^3.24.1",
+    "cross-env": "^7.0.3",
     "node-sass": "^7.0.1",
     "sass-loader": "^13.0.2"
   }
