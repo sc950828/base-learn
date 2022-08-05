@@ -1,0 +1,23 @@
+{
+  // 如果配置的是 corejs 3 还需要单独安装 npm install --save core-js@3
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        // // "useBuiltIns": "entry",
+        // // "useBuiltIns": false,
+        "corejs": "3"
+      }
+    ],
+    [
+      "@babel/preset-typescript", // 引用Typescript插件
+
+      {
+        "allExtensions": true // ?支持所有文件扩展名
+      }
+    ]
+  ],
+
+  "plugins": [["@babel/plugin-transform-runtime"]]
+}

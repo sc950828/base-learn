@@ -39,7 +39,7 @@ module.exports = {
         // type: "asset",
         // generator: {
         //   // 输出文件位置以及文件名
-        //   filename: "[name].[ext]",
+        //   filename: "[name][ext]",
         // },
         // parser: {
         //   dataUrlCondition: {
