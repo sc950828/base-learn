@@ -3,6 +3,7 @@
   <img src="./logo.png" alt="logo" />
   <div class="img"></div>
   <div>{{ user.name }} 今年 {{ user.age }} 岁啦</div>
+  <button @click="say">say</button>
 </template>
 
 <script lang="ts">
@@ -10,7 +11,7 @@ interface IUser {
   name: string;
   age: number;
 }
-
+import { say } from "./help1";
 import { defineComponent, reactive } from "vue";
 
 export default defineComponent({
@@ -20,6 +21,7 @@ export default defineComponent({
 
     return {
       user,
+      say,
     };
   },
 });

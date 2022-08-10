@@ -1,0 +1,21 @@
+// 该配置是 ts和js共享，需要按需注释
+
+// js编译配置
+{
+  // 如果配置的是 corejs 3 还需要单独安装 npm install --save core-js@3
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        // // "useBuiltIns": "entry",
+        // // "useBuiltIns": false,
+        "corejs": "3"
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+
+  "plugins": [["@babel/plugin-transform-runtime"]]
+}

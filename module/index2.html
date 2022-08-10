@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IIFE模式：匿名函数自调用(闭包)</title>
+  </head>
+  <body>
+    <script>
+      // 这样我们就可以通过 myModule.getName() 来获取 name，并且实现 name 属性的私有化，即外部调用不到
+      const myModule = (function () {
+        const name = "闭包模块";
+
+        const getName = () => {
+          return name;
+        };
+
+        return { getName };
+      })();
+
+      console.log(myModule.name); // undefined
+      console.log(myModule.getName()); // 闭包模块
+
+      // 这样我们就可以通过 myModule.getName() 来获取 name，并且实现 name 属性的私有化，即外部调用不到
+      const myModule2 = (function (myModule) {
+        const name = "闭包模块2";
+
+        const getName = () => {
+          return name;
+        };
+
+        const getFullName = () => {
+          return name + myModule.getName();
+        };
+
+        return { getName, getFullName };
+      })(myModule);
+
+      console.log(myModule2.name); // undefined
+      console.log(myModule2.getName()); // 闭包模块2
+      console.log(myModule2.getFullName()); // 闭包模块2闭包模块
+    </script>
+  </body>
+</html>

@@ -3,39 +3,18 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
 
 const config = {
-  entry: "./src/index.ts", // 入口文件
+  entry: "./src/index.jsx", // 入口文件
   output: {
     filename: "[name].js", // 添加哈希值，防止缓存
     path: path.resolve(__dirname, "dist"), // 输出文件夹
   },
   module: {
     rules: [
-      // {
-      //   test: /\.jsx?$/,
-      //   loader: "babel-loader",
-      //   exclude: /node_modules/, //排除 node_modules 目录
-      // },
-
       {
-        test: /\.(jsx?|tsx?)$/i,
+        test: /\.jsx?$/,
         loader: "babel-loader",
-        // use: [
-        //   {
-        //     loader: "ts-loader",
-        //     // 为 .vue 文件自动添加 ts 后缀，方便 ts-loader 解析
-        //     options: {
-        //       appendTsSuffixTo: [/\.vue$/],
-        //     },
-        //   },
-        // ],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.vue$/, // 处理 .vue 文件
-        loader: "vue-loader",
         exclude: /node_modules/, //排除 node_modules 目录
       },
       {
@@ -47,12 +26,11 @@ const config = {
         type: "asset",
         generator: {
           // 输出文件位置以及文件名
-          filename: "[name][ext]",
-          // outputPath: "assets",
+          filename: "[name].[ext]",
         },
         parser: {
           dataUrlCondition: {
-            maxSize: 1 * 1024, // 超过10kb不转 base64
+            maxSize: 10 * 1024, // 超过10kb不转 base64
           },
         },
       },
@@ -63,7 +41,7 @@ const config = {
     ],
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx", ".vue"],
+    extensions: [".js"],
   },
   devServer: {
     static: path.resolve(__dirname, "./dist"), // 静态文件目录
@@ -77,7 +55,11 @@ const config = {
     }),
     new CleanWebpackPlugin(), // 清除旧资源
     new MiniCssExtractPlugin(),
-    new VueLoaderPlugin(), // 这里 vue 需要额外添加一个插件，将定义的 .js 、 .css 规则应用到 .vue 文件中
+
+    // ProvidePlugin 的作用就是不需要 import 或 require 就可以在项目中到处使用。
+    new webpack.ProvidePlugin({
+      React: "react",
+    }),
   ],
 };
 
@@ -87,8 +69,7 @@ module.exports = (env, argv) => {
     config.mode = "development";
     config.devtool = "eval-cheap-module-source-map"; //开发环境下使用
   } else if (process.env.MODE === "staging") {
-    // config.mode = "production";
-    config.mode = "development";
+    config.mode = "production";
     config.devtool = "source-map";
   } else {
     config.mode = "production";
