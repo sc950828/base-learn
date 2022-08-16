@@ -192,6 +192,18 @@ const routes = [
     name: "Ref",
     component: () => import(/* webpackChunkName: "ref" */ "@/views/Ref.vue"),
   },
+  {
+    path: "/dynamic",
+    name: "Dynamic",
+    component: () =>
+      import(/* webpackChunkName: "dynamic" */ "@/views/Dynamic.vue"),
+  },
+  {
+    path: "/image",
+    name: "Image",
+    component: () =>
+      import(/* webpackChunkName: "image" */ "@/views/Image.vue"),
+  },
 ];
 
 const router = new VueRouter({

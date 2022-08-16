@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+  name: "Child6Name",
   props: ["msg"],
   data() {
     return {

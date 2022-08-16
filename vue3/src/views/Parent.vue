@@ -36,7 +36,18 @@
     <Child7 :msg="msg" @changeMsg="handleChangeMsg"></Child7>
 
     <h3 class="title7">ref</h3>
-    <RefChild :msg="msg" ref="ref1"></RefChild>
+    <RefChild
+      :msg="msg"
+      ref="ref1"
+      class="ref-child"
+      style="color: aqua"
+      id="refChild"
+      @cl="
+        () => {
+          console.log(1);
+        }
+      "
+    ></RefChild>
 
     <h3 class="title7">异步组件</h3>
     <!-- <AsyncPage /> -->
@@ -118,14 +129,14 @@ export default defineComponent({
 
     onMounted(() => {
       console.log(ref1.value);
-      console.log(ref1.value.name);
-      console.log(ref1.value.user);
-      ref1.value.say();
+      // console.log(ref1.value.name);
+      // console.log(ref1.value.user);
+      // ref1.value.say();
       // console.log(ref1.value.$data);
       // console.log(ref1.value.$props);
       // console.log(ref1.value.$el);
-      console.log(ref1.value.$parent);
-      console.log(ref1.value.$root);
+      // console.log(ref1.value.$parent);
+      // console.log(ref1.value.$root);
     });
 
     return {

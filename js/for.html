@@ -31,6 +31,7 @@
       // switchTest();
 
       const forTest = () => {
+        // for
         for (var i = 1; i <= 5; i++) {
           if (i === 3) {
             // 终止循环 输出1 2
@@ -110,15 +111,21 @@
       for (const symbol of Object.getOwnPropertySymbols(obj1)) {
         console.log("getOwnPropertySymbols: ", symbol); // Symbol(test)
       }
+
       // 获取的是键 不能获取Symbol属性 不能获取不可枚举属性 但能获取原型链上的属性
-      for (const key in obj1) {
-        if (key == "msg") {
-          // continue; // 跳过当次
-          // break; // 跳出循环
-          // return; // 不能使用return 会报错
+      function objForIn() {
+        for (const key in obj1) {
+          if (key == "msg") {
+            // continue; // 跳过当次
+            // break; // 跳出循环
+            // return; // 跳出循环
+          }
+          console.log("for in: ", key); // name msg
         }
-        console.log("for in: ", key); // name msg
       }
+
+      // objForIn();
+
       // 不但能获取自身不可枚举属性 还能获取Symbol类型的键 但不能获取原型链上的属性
       for (const key of Reflect.ownKeys(obj1)) {
         console.log("Reflect.ownKeys: ", key); // name age Symbol(test)
@@ -127,44 +134,59 @@
       // 数组遍历
       const arr1 = ["a", "b", "c", "d"];
 
-      for (let i = 0; i < arr1.length; i++) {
-        if (i == 2) {
-          // continue; // 跳过当次
-          // break; // 跳出循环
-          // return; // 不能使用return 会报错
+      function arrFor() {
+        for (let i = 0; i < arr1.length; i++) {
+          if (i == 2) {
+            // continue; // 跳过当次
+            // break; // 跳出循环
+            // return; // 跳出循环
+          }
+          console.log("arr for: ", arr1[i]); // a b c d
         }
-        console.log("for: ", arr1[i]); // a b c d
       }
+      arrFor();
 
       // 获取的是下标
-      for (const index in arr1) {
-        if (index == 2) {
-          // continue; // 跳过当次
-          // break; // 跳出循环
-          // return; // 不能使用return 会报错
+      function arrForIn() {
+        for (const index in arr1) {
+          if (index == 2) {
+            // continue; // 跳过当次
+            // break; // 跳出循环
+            // return; // 跳出循环
+          }
+          console.log("arr for in: ", index); // 0 1 2 3
         }
-        console.log("for in: ", index); // 0 1 2 3
       }
 
-      // 获取的是值
-      for (const value of arr1) {
-        if (value == "c") {
-          // continue; // 跳过当次
-          // break; // 跳出循环
-          // return; // 不能使用return 会报错
-        }
-        console.log("for of: ", value); // a b c d
-      }
+      arrForIn();
 
       // 获取的是值
-      arr1.forEach((item) => {
-        if (item == "c") {
-          // continue; // 不支持会报错
-          // break; // 不支持会报错
-          // return; // 跳过当次循环 类似前面的continue
+      function arrForOf() {
+        for (const value of arr1) {
+          if (value == "c") {
+            // continue; // 跳过当次
+            // break; // 跳出循环
+            // return; // 跳出循环
+          }
+          console.log("arr for of: ", value); // a b c d
         }
-        console.log("forEach: ", item); // a b c d
-      });
+      }
+
+      arrForOf();
+
+      // 获取的是值
+      function arrForEach() {
+        arr1.forEach((item) => {
+          if (item == "c") {
+            // continue; // 不支持会报错
+            // break; // 不支持会报错
+            return; // 跳过当次循环 类似前面的continue
+          }
+          console.log("arr forEach: ", item); // a b c d
+        });
+      }
+
+      arrForEach();
 
       arr1.map((item) => {
         if (item == "c") {

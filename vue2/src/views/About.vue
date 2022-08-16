@@ -87,7 +87,7 @@ export default {
   },
   mounted() {
     // console.log(this.$children);
-    // console.log(this.$refs.child6);
+    console.log(this.$refs.child6);
     // console.log(this.$refs.child6.$data);
     // console.log(this.$refs.child6.$props);
     // console.log(this.$refs.child6.$el);
