@@ -30,6 +30,7 @@ import store from "./store";
 // }, 3000);
 
 ReactDOM.render(
+  // redux
   <Provider store={store}>
     <BrowserRouter>
       <App />

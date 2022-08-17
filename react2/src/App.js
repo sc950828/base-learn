@@ -39,6 +39,7 @@ import Route4 from "./views/Routes/Route4";
 import Route5 from "./views/Routes/Route5";
 import Route6 from "./views/Routes/Route6";
 import Store from "./views/Store";
+import Mobx from "./views/Mobx";
 
 import routes from "./routerConfig/routes";
 
@@ -81,6 +82,7 @@ function App() {
         <Link to="/customhook">CustomHook</Link>
         <Link to="/router">Router</Link>
         <Link to="/store">Store</Link>
+        <Link to="/mobx">Mobx</Link>
       </div>
 
       <Routes>
@@ -148,6 +150,7 @@ function App() {
         </Route>
 
         <Route path="/store" element={<Store />}></Route>
+        <Route path="/mobx" element={<Mobx />}></Route>
       </Routes>
 
       {elements}
