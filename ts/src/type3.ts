@@ -10,11 +10,11 @@ const test1: Foo = {
 
 // is关键字，方法返回ture就代表is表达式成立
 // function isString(test: any): boolean {
-function isString(test: any): test is string {
+export function isString(test: any): test is string {
   return typeof test === "string";
 }
 
-function example(foo: number | string) {
+export function example(foo: number | string) {
   if (isString(foo)) {
     console.log("it is a string" + foo);
     console.log(foo.length); // string function

@@ -3,7 +3,7 @@
 // 相对es中的类 扩充了访问修饰符 public private protected
 class People1 {
   name: string;
-  private _sex: string;
+  private _sex: string = "male";
   protected count: number = 1;
   public readonly num: number = 10;
 

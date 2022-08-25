@@ -33,9 +33,9 @@ interface Inter2 {
 // const a1 = new A1()
 
 class Son extends A1 implements Inter1, Inter2 {
-  age: number;
-  name: string;
-  name2: string;
+  age: number = 20;
+  name: string = "demi";
+  name2: string = "randy";
 
   hi() {
     console.log("hi");

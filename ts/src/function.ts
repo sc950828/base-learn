@@ -28,12 +28,23 @@ const fun_5: fun5Type = (num1: number, str1: string) => {
 
 // 可选参数
 type Add = (x: number, y: number, z?: number) => number;
-let add: Add = (arg1, arg2, arg3) => arg1 + arg2 + arg3;
+let add: Add = (arg1, arg2, arg3) => {
+  if (arg3) {
+    return arg1 + arg2 + arg3;
+  }
+  return arg1 + arg2;
+};
 add(1, 2); // success   3
 add(1, 2, 3); // success   6
 
 type Add2 = (y: number, x?: number) => number;
-let add2: Add2 = (arg1, arg2) => arg1 + arg2;
+let add2: Add2 = (arg1, arg2) => {
+  if (arg2) {
+    return arg1 + arg2;
+  }
+
+  return arg1;
+};
 
 add2(1);
 

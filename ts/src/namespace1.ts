@@ -1,4 +1,4 @@
-namespace SomeNameSpace1 {
+export namespace SomeNameSpace1 {
   export const a1 = 1;
   export const str1 = "randy";
   export const say = () => {
@@ -6,7 +6,7 @@ namespace SomeNameSpace1 {
   };
 }
 
-namespace SomeNameSpace2 {
+export namespace SomeNameSpace2 {
   export const a1 = 1;
   export const str1 = "randy";
   export const say = () => {
