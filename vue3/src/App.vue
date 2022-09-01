@@ -7,6 +7,7 @@
     <router-link to="/key">Key</router-link>|
     <router-link to="/slot">Slot</router-link>|
     <router-link to="/jsx">Jsx</router-link>|
+    <router-link to="/render">Render</router-link>|
     <router-link to="/life">Life</router-link>|
     <router-link to="/customref">CustomRef</router-link>|
     <router-link to="/computed">Computed</router-link>|

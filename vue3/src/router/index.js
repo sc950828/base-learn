@@ -45,6 +45,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "jsx" */ "../views/Jsx.jsx"),
   },
   {
+    path: "/render",
+    name: "Render",
+    component: () =>
+      import(/* webpackChunkName: "render" */ "../views/Render.vue"),
+  },
+  {
     path: "/customref",
     name: "CustomRef",
     component: () =>

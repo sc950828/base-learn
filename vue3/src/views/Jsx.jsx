@@ -1,6 +1,7 @@
 import { ref, defineComponent, reactive } from "vue";
 
-const App = defineComponent({
+// jsx文件里面只能写js，类似js文件
+export default defineComponent({
   setup() {
     const count = ref(1);
     const user = reactive({ name: "randy" });
@@ -19,5 +20,3 @@ const App = defineComponent({
     );
   },
 });
-
-export default App;
