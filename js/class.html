@@ -23,6 +23,7 @@
             };
           }
 
+          // get set设置的属性还是会在原型上
           // get方法
           get age() {
             return this._age;
@@ -47,7 +48,7 @@
 
         console.log(p1);
         console.log(p1.hasOwnProperty("name")); //true
-        console.log(p1.hasOwnProperty("age")); //true
+        console.log(p1.hasOwnProperty("age")); //false
         console.log(p1.hasOwnProperty("sing")); //false
         p1._age = 25; // 能直接改
         p1.age = 26; // 有set方法才能修改age的值
@@ -123,6 +124,7 @@
 
       class Dog extends Animal {
         constructor(name, age) {
+          // 调用父类的构造函数
           super(name);
           // this.name = name;
 

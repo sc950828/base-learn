@@ -18,6 +18,9 @@
           };
         }
 
+        // 设置静态属性
+        Child.info = "static";
+
         const Father = {
           sayFather() {
             console.log("child sayFather", this.name, this.age);
@@ -26,20 +29,31 @@
         };
         // 原型继承
         Child.prototype = Father;
+        console.log("Child.prototype", Child.prototype);
+
         // c1
         let c1 = new Child("randy", 24);
         console.log(c1);
+        console.log("c1.__proto__", c1.__proto__);
         c1.say(); // child say randy 24
         c1.sayFather(); // child sayFather randy 24
         console.log(c1.colors); // ['red', 'blue']
         console.log(c1.fatherColors); // ['green', 'yellow']
+
         // c2
         let c2 = new Child("demi", 25);
         console.log(c2);
+        console.log("c2.__proto__", c2.__proto__);
         c2.say(); // child say demi 25
         c2.sayFather(); // child sayFather demi 25
         console.log(c2.colors); // ['red', 'blue']
         console.log(c2.fatherColors); // ['green', 'yellow']
+
+        // 得到实例的 __proto__ === 构造函数的prototype
+        console.log(
+          "Child.prototype === c1.__proto__",
+          Child.prototype === c1.__proto__
+        );
 
         // 修改属性
         c1.colors.push("black");
@@ -218,7 +232,7 @@
         console.log("子类的原型会臃肿 c1.__proto__", c1.__proto__);
       };
 
-      // zuhe();
+      zuhe();
 
       const jisheng = () => {
         function CreateObj(obj) {
@@ -362,7 +376,6 @@
 
         const c1 = new Child("randy", 24, "male");
         console.log(c1);
-        console.log(c1.colors); // ['blue', 'red']
         console.log(c1._colors); // ['blue', 'red']
         c1.say(); //child say randy 24 male
         c1.sayFather(); // child sayFather randy 24
@@ -388,20 +401,25 @@
         );
       };
 
-      classtest();
+      // classtest();
 
-      function People1(name, age) {
-        this.name = name;
-        this.age = age;
-        this.sayName = function () {
-          console.log(this.name);
-        };
+      // new测试
+      function newTest() {
+        function People1(name, age) {
+          this.name = name;
+          this.age = age;
+          this.sayName = function () {
+            console.log(this.name);
+          };
 
-        return { name: "demi" };
+          return { name: "demi" };
+        }
+
+        const pp = new People1("randy", 26);
+        console.log(pp);
       }
 
-      const pp = new People1("randy", 26);
-      console.log(pp);
+      // newTest();
     </script>
   </body>
 </html>

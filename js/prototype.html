@@ -14,16 +14,63 @@
 
       // 我们可以通过obj.__proto__或者 Object.getPrototypeOf(obj)或者 obj.constructor.prototype 获取对象的原型。
 
+      // function Test() {}
+
+      // Test.prototype = { name: "randy" };
+      // console.log(Test);
+      // console.log(Test.__proto__);
+      // console.log(Function);
+      // console.log(Function.prototype);
+
+      // console.log(
+      //   "Test.__proto__ === Function.prototype:",
+      //   Test.__proto__ === Function.prototype
+      // );
+      // console.log(
+      //   "Function.__proto__ === Function.prototype:",
+      //   Function.__proto__ === Function.prototype
+      // );
+      // console.log(
+      //   "Object.__proto__ === Function.prototype:",
+      //   Object.__proto__ === Function.prototype
+      // );
+      // console.log(
+      //   "Function.prototype.__proto__ === Object.prototype:",
+      //   Function.prototype.__proto__ === Object.prototype
+      // );
+      // console.log(
+      //   "Object.prototype.__proto__ === null:",
+      //   Object.prototype.__proto__ === null
+      // );
+
+      // console.log(Test.prototype);
+      // console.log(
+      //   "Test.prototype.__proto__ === Object.prototype:",
+      //   Test.prototype.__proto__ === Object.prototype
+      // );
+      // console.log(
+      //   "Test.prototype.__proto__.__proto__ === Object.prototype.__proto__ === null:",
+      //   Test.prototype.__proto__.__proto__ === null
+      // );
+
       function People(name, age) {
         this.name = name;
         this.age = age;
       }
 
-      const p1 = new People("randy", 24);
+      console.log(People.__proto__);
+      console.log(People.prototype);
       console.log(
-        "p1.__proto__ === People.prototype: ",
-        p1.__proto__ === People.prototype
+        "People.prototype.constructor === People:",
+        People.prototype.constructor === People
       );
+
+      const p1 = new People("randy", 24);
+      console.log("Object.getPrototypeOf(p1):", Object.getPrototypeOf(p1));
+      console.log(
+        "People.prototype === p1.__proto__:",
+        People.prototype === p1.__proto__
+      ); // true
 
       console.log(
         "People.__proto__ === Function.prototype: ",
