@@ -44,3 +44,7 @@ child1 beforeDestroy
 child1 destroyed
 father destroyed
 ```
+
+### 修改源码入口
+
+修改 vue-cli-server 里面的 lib 目录里面的 config 里面的 base.js 98 行

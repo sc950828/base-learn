@@ -19,6 +19,7 @@
       <router-link to="/router">路由</router-link> |
       <router-link to="/dynamic">动态组件</router-link> |
       <router-link to="/image">图片加载</router-link> |
+      <router-link to="/yuanma1">源码分析1</router-link> |
     </div>
     <router-view />
 
@@ -33,6 +34,13 @@ export default {
   components: {
     // ExtendCom,
   },
+  props: {
+    num: Number,
+  },
+  data() {
+    return {};
+  },
+
   mounted() {
     // 使用Vue.extend创建的组件能实例化
     const AlertComponent = Vue.extend({
@@ -62,6 +70,15 @@ export default {
     // const instance2 = new AlertComponent2().$mount("#app");
     // console.log(instance2);
     // console.log(AlertComponent2);
+
+    // vue静态属性
+    // console.log("Vue.version", Vue.version);
+    // console.log("Vue.config", Vue.config);
+    // console.log("Vue.util", Vue.util);
+    // console.log("Vue.options", Vue.options);
+
+    // console.log("$isServer", Vue.$isServer);
+    // console.log("$ssrContext", Vue.$ssrContext);
   },
 };
 </script>

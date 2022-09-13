@@ -204,6 +204,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "image" */ "@/views/Image.vue"),
   },
+  {
+    path: "/yuanma1",
+    name: "YuanMa1",
+    component: () =>
+      import(/* webpackChunkName: "yuanma" */ "@/views/YuanMa1.vue"),
+  },
 ];
 
 const router = new VueRouter({

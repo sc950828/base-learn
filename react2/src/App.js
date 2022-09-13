@@ -3,7 +3,7 @@ import { Routes, Route, Link, Navigate, useRoutes } from "react-router-dom";
 import Home from "./views/Home";
 import Function1 from "./views/Function1";
 import ClassState from "./views/ClassState";
-import Com1 from "./views/Com1";
+import Com1 from "./views/Com";
 import Clock from "./views/Clock";
 import Event1 from "./views/Event1";
 import If from "./views/If";
