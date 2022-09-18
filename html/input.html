@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>input</title>
+  </head>
+  <body>
+    <!-- change只有在失去焦点或enter的时候才会触发 -->
+    onchange：<input type="text" onchange="handleChange(event)" />
+    oninput：<input type="text" oninput="handleInput(event)" />
+
+    <!-- 栈 先进后出 -->
+    <!-- 队列 先进先出-->
+
+    <script src="../"></script>
+
+    <script>
+      const handleChange = (e) => {
+        console.log(e);
+      };
+      const handleInput = (e) => {
+        console.log(e);
+      };
+
+      function People(name) {
+        this.name = name;
+      }
+
+      // 原型继承
+      // 构造继承
+      // 组合继承
+      // 寄生继承
+      // 寄生组合继承
+      // class继承
+      People.prototype.say = function () {
+        console.log(this.name);
+      };
+
+      const p1 = new People("randy");
+      // p1.say = function () {
+      //   console.log(this.name);
+      // };
+
+      const p2 = new People("demi");
+      // p2.say = function () {
+      //   console.log(this.name);
+      // };
+
+      // null
+
+      // call() apply() bind()
+
+      p1.say();
+      p2.say();
+      console.log(p1.__proto__ == People.prototype);
+
+      // global
+      // then
+      // timeout
+
+      // 异步
+      // 宏任务 setTimeout setInterval
+      setTimeout(() => {
+        console.log("timeout");
+      }, 1000);
+
+      // addEventListener()
+      // removeEventListener()
+
+      // 微任务 Promise.then
+      Promise.resolve().then(() => {
+        console.log("then");
+      });
+
+      // 全局
+      console.log("global");
+
+      const user = { name: "randy" };
+
+      const _user = new Proxy(user, {
+        get(val, key) {
+          return val[key] + "代理";
+        },
+      });
+
+      console.log(_user.name);
+    </script>
+  </body>
+</html>

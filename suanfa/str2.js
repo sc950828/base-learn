@@ -25,13 +25,13 @@ function isPalindrome2(str) {
     if (str[index] !== str[len - 1 - index]) {
       return false;
     }
-    return true;
   }
-
-  return str === newStr;
+  return true;
 }
 console.log("yessey:", isPalindrome2("yessey"));
 console.log("randy:", isPalindrome2("randy"));
+console.log("-121:", isPalindrome2("-121"));
+console.log("1231:", isPalindrome2("1231"));
 
 // 双指针
 function isPalindrome3(str) {

@@ -6,6 +6,7 @@ import ClassState from "./views/ClassState";
 import Com1 from "./views/Com";
 import Clock from "./views/Clock";
 import Event1 from "./views/Event1";
+import Event2 from "./views/Event2";
 import If from "./views/If";
 import For from "./views/For";
 import Parent1 from "./views/Parent1";
@@ -55,6 +56,7 @@ function App() {
         <Link to="/com1">Com1</Link>
         <Link to="/clock">Clock</Link>
         <Link to="/event1">Event1</Link>
+        <Link to="/event2">Event2</Link>
         <Link to="/if">If</Link>
         <Link to="/for">For</Link>
         <Link to="/parent1">Parent1</Link>
@@ -92,6 +94,7 @@ function App() {
         <Route path="/com1" element={<Com1 />}></Route>
         <Route path="/Clock" element={<Clock />}></Route>
         <Route path="/event1" element={<Event1 />}></Route>
+        <Route path="/event2" element={<Event2 />}></Route>
         <Route path="/if" element={<If />}></Route>
         <Route path="/for" element={<For />}></Route>
         <Route path="/parent1" element={<Parent1 />}></Route>
