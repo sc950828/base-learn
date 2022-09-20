@@ -17,7 +17,7 @@ export default defineComponent({
 
     // 渲染函数写法
     // 渲染函数其实也可以定义成jsx文件，定义成jsx文件后 就不能写template和style标签了
-    return () => h("div", { class: "color" }, "hello randy");
+    return () => h("div", { class: "color" }, "hello " + user.name);
   },
 });
 </script>

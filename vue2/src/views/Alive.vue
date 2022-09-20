@@ -13,7 +13,9 @@
     <router-link to="/alive/a1">a-1</router-link> |
     <router-link to="/alive/a2">a-2</router-link> |
     <router-link to="/alive/a1/a1-1">a1/a1-1</router-link>
-    <keep-alive include="A1,A1-1">
+
+    <!-- name始终取得是组件自身的name -->
+    <keep-alive include="A1">
       <router-view></router-view>
     </keep-alive>
   </div>

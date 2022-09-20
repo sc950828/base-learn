@@ -17,6 +17,7 @@
     <router-link to="/ref">Ref</router-link>|
     <router-link to="/router">Router</router-link>|
     <router-link to="/store">Store</router-link>|
+    <router-link to="/alive">Alive</router-link>|
   </div>
   <router-view />
 </template>

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div>
-      <input type="text" v-model="value1" />
-    </div>
+    <div>alive2： <input type="text" v-model="value1" /></div>
   </div>
 </template>
 <script>

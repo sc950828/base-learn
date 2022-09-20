@@ -25,6 +25,7 @@ export default {
   },
   mounted() {
     console.log(this.$slots);
+    // console.log(this.$slots.default({ user: this.user1 }));
     // console.log(this.$scopedSlots);
   },
 };

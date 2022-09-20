@@ -14,7 +14,8 @@
 
     <template>
       没有特殊指令的标记 (v-if/else-if/else、v-for 或 v-slot) 的 template
-      现在被视为普通元素，并将渲染为原生的 template 元素，而不是渲染其内部内容。
+      现在被视为普通元素，并将渲染为原生的 template
+      空元素，而不是渲染其内部内容。
     </template>
   </div>
 </template>

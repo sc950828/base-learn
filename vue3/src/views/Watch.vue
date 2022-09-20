@@ -338,5 +338,15 @@ export default defineComponent({
       updateArrItem,
     };
   },
+
+  // 选项式写法 只有数组被替换才会被触发
+  watch: {
+    arr: {
+      handler(val, oldVal) {
+        console.log("arr list changed", val, oldVal);
+      },
+      // deep: true,
+    },
+  },
 });
 </script>

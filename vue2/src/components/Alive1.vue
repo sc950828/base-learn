@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <input type="text" v-model="value1" />
+      alive1：<input type="text" v-model="value1" />
       <!-- 默认 子组件也会被缓存 并且 activated deactivated 会早于父组件触发-->
       <!-- <child /> -->
 

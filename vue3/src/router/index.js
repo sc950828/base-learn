@@ -170,6 +170,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "store" */ "../views/Store.vue"),
   },
+  {
+    path: "/alive",
+    name: "Alive",
+    component: () =>
+      import(/* webpackChunkName: "alive" */ "../views/Alive.vue"),
+  },
 ];
 
 const router = createRouter({
