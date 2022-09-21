@@ -25,22 +25,24 @@
       const uint32 = new Uint32Array(buffer1);
       const float64 = new Float64Array(buffer1);
       console.log(uint8);
-      console.log(uint16);
-      console.log(uint32);
-      console.log(float64);
+      // console.log(uint16);
+      // console.log(uint32);
+      // console.log(float64);
 
       uint8[0] = 255;
       console.log(uint8);
+
+      console.log(uint8.buffer);
 
       // 可以转成各种格式
       const dataView1 = new DataView(buffer1);
       // 接受三个参数，1.字节序号，2.写入的数据，3.写入方式（true：小端/false|undeifined:大端）
       dataView1.setFloat64(0, 25, false); // 在第一个字节以大端字节序写入一个值为25的32位整数
       console.log(dataView1);
-      console.log(dataView1.getUint8(0));
-      console.log(dataView1.getUint16(0));
-      console.log(dataView1.getUint32(0));
-      console.log(dataView1.getFloat64(0));
+      console.log(dataView1.getUint8(0)); // 64
+      console.log(dataView1.getUint16(0)); // 16441
+      console.log(dataView1.getUint32(0)); // 1077477376
+      console.log(dataView1.getFloat64(0)); // 25
     </script>
   </body>
 </html>

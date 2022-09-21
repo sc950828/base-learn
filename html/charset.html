@@ -65,6 +65,12 @@
       // eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行
       eval('console.log("eval执行啦");var a = 123');
       console.log(a);
+
+      console.log(encodeURI("编码randy~!@#$&*()=:/,;?+'"));
+      console.log(decodeURI("%E7%BC%96%E7%A0%81randy~!@#$&*()=:/,;?+'"));
+
+      console.log(encodeURIComponent("编码randy~!*()'")); // %E7%BC%96%E7%A0%81randy~!*()'
+      console.log(decodeURIComponent("%E7%BC%96%E7%A0%81randy~!*()'")); // 编码randy~!*()'
     </script>
   </body>
 </html>
