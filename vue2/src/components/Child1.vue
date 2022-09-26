@@ -5,7 +5,10 @@
     <button v-on:click="click1">修改子元素数据</button>
 
     <div>provide inject传递过来的数据： {{ name }}</div>
+    <div>provide inject传递过来的数据： {{ title }}</div>
+    <div>provide inject传递过来的数据： user.name: {{ user.name }}</div>
     <div>provide inject传递过来的方法<button @click="say">say</button></div>
+    <div>provide inject传递过来的方法<button @click="say2">say2</button></div>
   </div>
 </template>
 <script>
@@ -14,7 +17,7 @@ export default {
   props: {
     title2: String,
   },
-  inject: ["name", "say"],
+  inject: ["name", "say", "title", "user", "say2"],
   data() {
     return {
       title1: "Child1",

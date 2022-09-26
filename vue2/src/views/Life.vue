@@ -3,6 +3,8 @@
     <div>{{ title1 }}</div>
     <button @click="click1">单独修改父元素数据</button>
     <button @click="click2">修改传递给子元素的数据</button>
+    <div>user.name {{ user.name }}</div>
+
     <Child1 :title2="title2" @changeChild="changeChild" ref="childRef" />
   </div>
 </template>
@@ -12,16 +14,22 @@ export default {
   components: {
     Child1,
   },
-  provide: {
-    name: "父组件数据",
-    say() {
-      console.log("say say say");
-    },
+  provide() {
+    return {
+      // 所以 provide 提供的基本数据类型不具备响应式的
+      name: "父组件provide数据",
+      title: this.title1,
+      say: this.click1,
+      // 但是引用数据类型是具备响应式
+      user: this.user,
+      say2: this.click5,
+    };
   },
   data() {
     return {
       title1: "父元素数据",
       title2: "传递给子元素的数据",
+      user: { name: "randy" },
     };
   },
   beforeCreate() {
@@ -67,6 +75,9 @@ export default {
     },
     changeChild(value) {
       this.title1 = value;
+    },
+    click5() {
+      this.user.name = "demi";
     },
   },
 };

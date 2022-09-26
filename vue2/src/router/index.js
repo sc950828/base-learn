@@ -210,6 +210,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "yuanma" */ "@/views/YuanMa1.vue"),
   },
+  {
+    path: "/yuanma11",
+    name: "YuanMa11",
+    component: () =>
+      import(/* webpackChunkName: "yuanma" */ "@/views/YuanMa1.vue"),
+  },
+  {
+    path: "/yuanma2",
+    name: "YuanMa2",
+    component: () =>
+      import(/* webpackChunkName: "yuanma" */ "@/views/YuanMa2.vue"),
+  },
 ];
 
 const router = new VueRouter({

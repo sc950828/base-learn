@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3>child3</h3>
     <div>{{ fullName }}</div>
     <div>{{ name }} {{ age }}</div>
     <!-- onClick事件控制在此处 -->
@@ -16,8 +17,9 @@ export default {
     age: Number,
   },
   created() {
-    // 获取没在props中定义的但是传递过来的属性
+    // 获取没在props中定义的但是传递过来的属性，除了class和style
     console.log(this.$attrs);
+    // 接收的是除去原生事件
     console.log(this.$listeners);
 
     console.log(this.$root);

@@ -20,6 +20,7 @@
       <router-link to="/dynamic">动态组件</router-link> |
       <router-link to="/image">图片加载</router-link> |
       <router-link to="/yuanma1">源码分析1</router-link> |
+      <router-link to="/yuanma2" tag="span">源码分析2</router-link> |
     </div>
     <router-view />
 

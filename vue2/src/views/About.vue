@@ -11,6 +11,7 @@
         :fullName="fullName"
         v-bind="obj1"
         @click="click1"
+        @doubleClick.native="say"
         class="child3"
         id="child3"
         style="color: blue"
