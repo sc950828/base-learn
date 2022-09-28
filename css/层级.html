@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>z-index</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+      }
+
+      .div1 {
+        background-color: antiquewhite;
+        position: absolute;
+        left: 50px;
+        z-index: 2;
+      }
+
+      /* 父元素定义层级了，子元素再怎么定义高层级也是没有用的 */
+      /* 如果父元素没设置z-index，子元素还是比z-index大小 */
+      .div2 {
+        background-color: aqua;
+        position: absolute;
+        top: 50px;
+        z-index: 1;
+      }
+
+      .div2-1 {
+        position: relative;
+        z-index: 10;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">div1</div>
+    <div class="div2">
+      div2
+      <section class="div2-1">div2-1</section>
+    </div>
+  </body>
+</html>

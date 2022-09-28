@@ -4,28 +4,57 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>sticky</title>
     <style>
+      body {
+        margin: 0;
+      }
+
       .container {
         height: 2000px;
       }
+
       .box {
         height: 200px;
         background-color: lawngreen;
       }
+
       .child {
-        background-color: lightblue;
         width: 100px;
         height: 100px;
         position: sticky;
         top: 20px;
+        left: 30px;
+      }
+      .child1 {
+        background-color: lightblue;
+        /* z-index: 2; */
+      }
+      .child2 {
+        background-color: lightpink;
+      }
+
+      .section {
+        height: 300px;
+        overflow: scroll;
       }
     </style>
   </head>
   <body>
+    <!-- 需注意当 `position: sticky` 的父元素的 `overflow` 属性设置了默认值 `visible` 以外的值时，
+      `position: sticky` 将失效。
+
+    `position: sticky`是相对最近的可滚动元素来计算的，也就是`overflow`不为`visible`的元素。 -->
     <div class="container">
       <div class="box"></div>
-      <div class="child"></div>
+      <!-- 任意父节点的 overflow 属性必须是 visible否则会失效 -->
+      <div class="section">
+        <div class="box"></div>
+        <div class="child child1">1</div>
+        <div class="child child2">2</div>
+        <div class="box"></div>
+      </div>
+      <div class="box"></div>
     </div>
   </body>
 </html>
