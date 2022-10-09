@@ -205,6 +205,12 @@ const routes = [
       import(/* webpackChunkName: "image" */ "@/views/Image.vue"),
   },
   {
+    path: "/array",
+    name: "Array",
+    component: () =>
+      import(/* webpackChunkName: "array" */ "@/views/Array.vue"),
+  },
+  {
     path: "/yuanma1",
     name: "YuanMa1",
     component: () =>

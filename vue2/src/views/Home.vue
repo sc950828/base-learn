@@ -210,7 +210,7 @@ export default {
         // this.arr1[this.arr1.length] = Math.random().toFixed("2");
         // 数组新属性需要使用Vue.set或者this.$set添加新属性
         this.$set(this.arr1, this.arr1.length, Math.random().toFixed("2"));
-        // 或者使用数组的编译方法 push pop unshit shift splice reverse sort
+        // 或者使用数组的变异方法 push pop unshit shift splice reverse sort
         // this.arr1.push(Math.random().toFixed("2"));
       } else {
         this.arr1 = ["A", "B", "C", "D"];
