@@ -42,24 +42,24 @@
     <script>
       const box1 = document.querySelector(".box1");
       document.write("mac上 滚动条宽度15px，所以宽度400px变385px了" + "<br />");
-      // document.write("box1 clientWidth: " + box1.clientWidth + "<br />");
-      // document.write("box1 clientHeight: " + box1.clientHeight + "<br />");
-      // document.write("box1 clientLeft: " + box1.clientLeft + "<br />");
-      // document.write("box1 clientTop: " + box1.clientTop + "<br />");
+      document.write("box1 clientWidth: " + box1.clientWidth + "<br />");
+      document.write("box1 clientHeight: " + box1.clientHeight + "<br />");
+      document.write("box1 clientLeft: " + box1.clientLeft + "<br />");
+      document.write("box1 clientTop: " + box1.clientTop + "<br />");
 
-      // box1.scrollBy(20, 10);
-      // document.write("box1 scrollWidth: " + box1.scrollWidth + "<br />");
-      // document.write("box1 scrollHeight: " + box1.scrollHeight + "<br />");
-      // document.write("box1 scrollLeft: " + box1.scrollLeft + "<br />");
-      // document.write("box1 scrollTop: " + box1.scrollTop + "<br />");
+      box1.scrollBy(20, 10);
+      document.write("box1 scrollWidth: " + box1.scrollWidth + "<br />");
+      document.write("box1 scrollHeight: " + box1.scrollHeight + "<br />");
+      document.write("box1 scrollLeft: " + box1.scrollLeft + "<br />");
+      document.write("box1 scrollTop: " + box1.scrollTop + "<br />");
 
-      // document.write("box1 offsetWidth: " + box1.offsetWidth + "<br />");
-      // document.write("box1 offsetHeight: " + box1.offsetHeight + "<br />");
-      // document.write(
-      //   "box1 offsetParent: " + box1.offsetParent.tagName + "<br />"
-      // );
-      // document.write("box1 offsetLeft: " + box1.offsetLeft + "<br />");
-      // document.write("box1 offsetTop: " + box1.offsetTop + "<br />");
+      document.write("box1 offsetWidth: " + box1.offsetWidth + "<br />");
+      document.write("box1 offsetHeight: " + box1.offsetHeight + "<br />");
+      document.write(
+        "box1 offsetParent: " + box1.offsetParent.tagName + "<br />"
+      );
+      document.write("box1 offsetLeft: " + box1.offsetLeft + "<br />");
+      document.write("box1 offsetTop: " + box1.offsetTop + "<br />");
 
       document.write("screen.width: " + screen.width + "<br/>");
       document.write("screen.height: " + screen.height + "<br/>");
@@ -99,16 +99,6 @@
       document.write("window.pageYOffset: " + window.pageYOffset + "<br/>");
       document.write("window.scrollX: " + window.scrollX + "<br/>");
       document.write("window.scrollY: " + window.scrollY + "<br/>");
-
-      const elementIsVisibleInViewport = (el) => {
-        const { top, left, bottom, right } = el.getBoundingClientRect();
-        const { innerHeight, innerWidth } = window;
-        return (
-          top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth
-        );
-      };
-
-      console.log(elementIsVisibleInViewport(box1));
     </script>
   </body>
 </html>
