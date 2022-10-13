@@ -208,27 +208,27 @@
       // for await of 一定会按顺序执行
       // 先执行同步代码 到了异步代码等待执行完毕后再执行
       async function test1() {
-        let arr = [Gen(2000), Gen(1000), Gen(3000)];
+        let arr = [3, 2, 1];
         for (let item of arr) {
-          console.log(Date.now());
-          const res = await item;
-          console.log(res);
+          console.log(Date.now()); // 这个会先打印
+          const res = await Gen(1000 * item);
+          console.log(res); // res会等异步有了结果再打印
         }
       }
 
-      test1();
+      // test1();
 
       // 整个代码块都不执行，等待 arr 当前的值（Promise状态）发生变化之后，才执行代码块的内容。
       async function test2() {
         let arr = [Gen(2000), Gen(1000), Gen(3000)];
         for await (let item of arr) {
-          console.log(Date.now());
+          console.log(Date.now()); // 这个和res是一起打印
           const res = item;
           console.log(res);
         }
       }
 
-      // test2();
+      test2();
     </script>
   </body>
 </html>

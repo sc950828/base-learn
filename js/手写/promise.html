@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>promise</title>
+  </head>
+  <body>
+    <script>
+      // 定义Promise/A+规范的三种状态
+      const PENDING = "pending";
+      const FULFILLED = "fulfilled";
+      const REJECTED = "rejected";
+
+      class MyPromise {
+        // 定义两个数组，存储回调
+        resolveQueue = [];
+        rejectQueue = [];
+        status = PENDING;
+        value = null;
+
+        _runMicroTask(callback) {
+          // 使用浏览器MutationObserver WEB.API实现then方法的微任务机制
+          let count = 0;
+          const observer = new MutationObserver(callback);
+          // 创建文本节点，节约资源
+          const textNode = document.createTextNode(String(count));
+          observer.observe(textNode, {
+            // 当文本改变时触发回调
+            characterData: true,
+          });
+          // 改变文本，回调callback触发
+          textNode.data = String(++count);
+        }
+
+        constructor(executor) {
+          // 实现resolve
+          const resolve = (val) => {
+            const run = () => {
+              // 对应规范中的"状态只能由pending到fulfilled或rejected"
+              if (this.status !== PENDING) {
+                return;
+              }
+              // 变更状态
+              this.status = FULFILLED;
+              // 存储最近一次执行的值
+              this.value = val;
+              while (this.resolveQueue.length) {
+                const callback = this.resolveQueue.shift();
+                callback(val);
+              }
+            };
+            this._runMicroTask(run);
+          };
+
+          // 实现reject
+          const reject = (val) => {
+            const run = () => {
+              // 对应规范中的"状态只能由pending到fulfilled或rejected"
+              if (this.status !== PENDING) {
+                return;
+              }
+              // 变更状态
+              this.status = REJECTED;
+              // 存储最近一次执行的值
+              this.value = val;
+              while (this.rejectQueue.length) {
+                const callback = this.rejectQueue.shift();
+                callback(val);
+              }
+            };
+            this._runMicroTask(run);
+          };
+
+          // new Promise()时立即执行executor,并传入resolve和reject
+          try {
+            executor(resolve, reject);
+          } catch (error) {
+            reject(error);
+          }
+        }
+
+        // 存储回调
+        then(resolveFun, rejectFun) {
+          // 根据规范，如果then的参数不是function，我们需要手动创建相应函数，让链式调用继续往下执行
+          typeof resolveFun !== "function"
+            ? (resolveFun = (value) => value)
+            : null;
+          typeof rejectFun !== "function"
+            ? (rejectFun = (reason) => {
+                throw new Error(
+                  reason instanceof Error ? reason.message : reason
+                );
+              })
+            : null;
+
+          return new MyPromise((resolve, reject) => {
+            // 定义新方法
+            const _resolveFun = (val) => {
+              // 执行老方法获取结果，以便区分返回的是普通值还是promise
+              try {
+                const result = resolveFun(val);
+
+                result instanceof MyPromise
+                  ? result.then(resolve, reject)
+                  : resolve(result);
+              } catch (error) {
+                reject(error);
+              }
+            };
+
+            const _rejectFun = (val) => {
+              // 执行老方法获取结果，以便区分返回的是普通值还是promise
+              try {
+                const result = rejectFun(val);
+
+                result instanceof MyPromise
+                  ? result.then(resolve, reject)
+                  : resolve(result);
+              } catch (error) {
+                reject(error);
+              }
+            };
+
+            switch (this.status) {
+              case PENDING:
+                // 将回调添加进各自队列
+                this.resolveQueue.push(_resolveFun);
+                this.rejectQueue.push(_rejectFun);
+                break;
+              case FULFILLED:
+                _resolveFun(this.value);
+                break;
+              case REJECTED:
+                _rejectFun(this.value);
+                break;
+            }
+          });
+        }
+
+        //静态的resolve方法
+        static resolve(value) {
+          if (value instanceof MyPromise) return value; // 根据规范, 如果参数是Promise实例, 直接return这个实例
+          return new MyPromise((resolve) => resolve(value));
+        }
+
+        //静态的reject方法
+        static reject(reason) {
+          return new MyPromise((resolve, reject) => reject(reason));
+        }
+
+        catch(rejectFn) {
+          return this.then(undefined, rejectFn);
+        }
+
+        finally(callback) {
+          return this.then(
+            (res) => {
+              callback();
+              return MyPromise.resolve(res);
+            },
+            (err) => {
+              callback();
+              return MyPromise.reject(err);
+            }
+          );
+        }
+
+        static all(promiseArr) {
+          return new MyPromise((resolve, reject) => {
+            const length = promiseArr.length;
+            let count = 0;
+            let values = [];
+
+            for (let i = 0; i < length; i++) {
+              const p = promiseArr[i];
+              // MyPromise.resolve()处理传入值不为Promise的情况
+              MyPromise.resolve(p).then(
+                (res) => {
+                  values[i] = res;
+                  count++;
+                  if (count === length) {
+                    resolve(values);
+                  }
+                },
+                (err) => {
+                  // 只要子元素promise中有任何一个reject，则返回的promise rejected
+                  reject(err);
+                }
+              );
+            }
+          });
+        }
+
+        // 添加静态race方法
+        static race(promiseArr) {
+          return new MyPromise((resolve, reject) => {
+            for (let p of promiseArr) {
+              // MyPromise.resolve()处理传入值不为Promise的情况
+              MyPromise.resolve(p).then(
+                (res) => {
+                  resolve(res);
+                },
+                (err) => {
+                  reject(err);
+                }
+              );
+            }
+          });
+        }
+      }
+
+      const mp1 = new MyPromise((resolve, reject) => {
+        resolve("success");
+        // reject(new Error(123));
+        // throw new Error("出错啦");
+        // setTimeout(() => {
+        //   resolve("success");
+        //   // reject("error");
+        // });
+      });
+
+      mp1
+        .then(
+          (res) => {
+            console.log(res);
+            throw new Error("出错啦");
+          },
+          (err) => {
+            console.log(err);
+          }
+        )
+        .catch((err) => {
+          console.log("catch err", err);
+          return 123;
+        })
+        .finally(() => {
+          console.log("不管成功失败我都会执行");
+        })
+        .then((res) => {
+          console.log(res);
+        });
+
+      // const mp2 = MyPromise.resolve("all success");
+      // const mp3 = MyPromise.resolve("all success2");
+
+      // MyPromise.all([mp2, mp3]).then(
+      //   (res) => {
+      //     console.log(res);
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //   }
+      // );
+
+      // const mp4 = MyPromise.resolve("race success");
+      // const mp5 = MyPromise.reject("race error");
+
+      // MyPromise.race([mp4, mp5]).then(
+      //   (res) => {
+      //     console.log(res);
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //   }
+      // );
+
+      // setTimeout(() => {
+      //   mp1.then((res) => {
+      //     console.log(res);
+      //   });
+      // });
+
+      // 值穿透
+      // mp1
+      //   .then()
+      //   .then()
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+
+      // 链式调用
+      // mp1
+      //   .then((res) => {
+      //     console.log(res);
+      //     return "success2";
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //     return new MyPromise((resolve, reject) => {
+      //       setTimeout(() => {
+      //         resolve("success3");
+      //       });
+      //     });
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+
+      // 多次调用
+      // mp1.then((res) => {
+      //   console.log(res);
+      // });
+
+      // console.log(mp1);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>async await</title>
+  </head>
+  <body>
+    <script>
+      const p1 = Promise.resolve("success1");
+      const p2 = Promise.resolve("success2");
+      const p3 = Promise.resolve("success3");
+
+      const test = async () => {
+        const result3 = await p3;
+        console.log(result3);
+        const result1 = await p1;
+        console.log(result1);
+        const result2 = await p2;
+        console.log(result2);
+      };
+
+      console.log("同步代码执行啦");
+
+      // test(); // success3 success1 success2
+
+      // async await 返回的是promise
+      // .then((res) => {
+      //   console.log(res);
+      // });
+
+      function* myGenerator() {
+        const result3 = yield p3;
+        console.log(result3);
+        const result1 = yield p1;
+        console.log(result1);
+        const result2 = yield p2;
+        console.log(result2);
+      }
+
+      // 手动执行迭代器
+      // const gen = myGenerator();
+      // gen.next().value.then((res3) => {
+      //   gen.next(res3).value.then((res1) => {
+      //     gen.next(res1).value.then((res2) => {
+      //       gen.next(res2);
+      //     });
+      //   });
+      // });
+
+      // const _run = (gen) => {
+      //   // 获取迭代器
+      //   const it = gen();
+      //   // 封装递归方法
+      //   const _next = (val) => {
+      //     const result = it.next(val);
+      //     if (result.done) return result.value;
+      //     result.value.then((res) => {
+      //       _next(res);
+      //     });
+      //   };
+
+      //   // 第一次调用
+      //   _next();
+      // };
+
+      // _run(myGenerator);
+
+      const p4 = Promise.resolve("success4");
+      const p5 = Promise.resolve("success5");
+      const p6 = Promise.reject("error6");
+
+      function* myGenerator2() {
+        try {
+          const result4 = yield p4;
+          console.log(result4);
+          const result5 = yield p5;
+          console.log(result5);
+          const result6 = yield p6;
+          console.log(result6);
+        } catch (error) {
+          console.log("异常被捕获啦", error);
+        }
+      }
+
+      const _run2 = (gen) => {
+        return new Promise((resolve, reject) => {
+          // 获取迭代器
+          const it = gen(); // 封装递归方法
+
+          const _next = (val) => {
+            let result = null;
+            try {
+              result = it.next(val);
+            } catch (error) {
+              reject(error);
+            }
+            if (result.done) return resolve(result.value);
+            Promise.resolve(result.value).then(
+              (res) => {
+                _next(res);
+              },
+              (err) => {
+                it.throw(err);
+              }
+            );
+          };
+
+          // 第一次调用
+          _next();
+        });
+      };
+
+      _run2(myGenerator2);
+    </script>
+  </body>
+</html>

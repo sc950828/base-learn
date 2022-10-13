@@ -8,177 +8,200 @@
   </head>
   <body>
     <script>
-      function fun1() {
-        return new Promise((resolve, reject) => {
-          const num = Math.ceil(Math.random() * 10);
-          if (num < 5) {
-            resolve(num);
-          } else {
-            reject("数字太大");
-          }
-        });
-      }
+      // function fun1() {
+      //   return new Promise((resolve, reject) => {
+      //     const num = Math.ceil(Math.random() * 10);
+      //     if (num < 5) {
+      //       resolve(num);
+      //     } else {
+      //       reject("数字太大");
+      //     }
+      //   });
+      // }
 
-      function fun2() {
-        const num = Math.ceil(Math.random() * 10);
-        if (num < 5) {
-          return Promise.resolve(num);
-        } else {
-          return Promise.reject("数字太大");
-        }
-      }
+      // fun1().then(
+      //   (res) => {
+      //     console.log(res);
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //   }
+      // );
 
-      fun1().then(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      // fun1()
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
 
-      fun1()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // function fun3() {
+      //   return Promise.resolve(1);
+      // }
 
-      function fun3() {
-        return Promise.resolve(1);
-      }
-
-      fun3()
-        .then((res) => {
-          console.log(res);
-          return "success";
-        })
-        .then((res) => {
-          console.log(res); // success
-        });
+      // fun3()
+      //   .then((res) => {
+      //     console.log(res);
+      //     return "success";
+      //   })
+      //   .then((res) => {
+      //     console.log(res); // success
+      //   });
 
       function fun4() {
-        return Promise.resolve(1);
+        return Promise.resolve("fun4 success1");
       }
 
       fun4()
         .then((res) => {
-          console.log(res); // 1
-          return Promise.resolve("success2");
+          console.log(res); // fun4 success1
+          // 返回普通值
+          // return "fun4 success2";
+
+          // 返回promise
+          // return new Promise((resolve, reject) => {
+          //   resolve("fun4 success2");
+          // });
+
+          // .then((res) => {
+          //   console.log("新promise", res);
+          // });
+
+          throw new Error(123);
         })
         .then((res) => {
-          console.log(res); // success2
-        });
-
-      function fun5() {
-        return Promise.resolve(1);
-      }
-
-      fun5()
-        .then((res) => {
-          console.log(res); // 1
-        })
-        .then((res) => {
-          console.log(res); // undefined
-        });
-
-      function fun6() {
-        return Promise.resolve("fun6");
-      }
-
-      fun6()
-        .then(
-          (res) => {
-            console.log("then1 resolve方法" + res);
-            return Promise.reject("error1");
-          },
-          (err) => {
-            console.log("then1 reject方法" + err);
-          }
-        )
-        .then(
-          (res) => {
-            console.log("then2 resolve方法" + res);
-          },
-          (err) => {
-            console.log("then2 reject方法" + err);
-          }
-        );
-
-      fun6()
-        .then((res) => {
-          console.log("then1 resolve方法" + res);
-          return Promise.reject("error1");
-        })
-        .then((res) => {
-          console.log("then2 resolve方法" + res);
-          return Promise.reject("error2");
+          console.log(res); // fun4 success2
         })
         .catch((err) => {
-          console.log("catch方法" + err);
-        });
-
-      function fun7() {
-        return Promise.resolve("fun7");
-      }
-
-      fun7()
-        .then()
-        .then()
+          console.log("catch", err);
+          return 1234;
+        })
+        .finally((res) => {
+          console.log(res);
+          return 12345;
+        })
         .then((res) => {
           console.log(res);
         });
 
-      function fun8() {
-        return Promise.reject("fun8");
-      }
+      console.log("同步代码");
 
-      fun8()
-        .catch((err) => {
-          console.log(err);
-          // throw new Error("11");
-        })
-        .then(
-          (res) => {
-            console.log("resolve" + res);
-          },
-          (err) => {
-            console.log("reject" + err);
-          }
-        );
+      // function fun5() {
+      //   return Promise.resolve(1);
+      // }
 
-      function fun9() {
-        return Promise.reject("fun9");
-      }
+      // fun5()
+      //   .then((res) => {
+      //     console.log(res); // 1
+      //   })
+      //   .then((res) => {
+      //     console.log(res); // undefined
+      //   });
 
-      fun9()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          console.log("不管resolve还是reject我都会执行");
-        });
+      // function fun6() {
+      //   return Promise.resolve("fun6");
+      // }
 
-      function fun10() {
-        return Promise.resolve("fun10");
-      }
-      function fun11() {
-        return Promise.reject("fun11");
-      }
-      function fun12() {
-        return Promise.reject("fun12");
-      }
-      Promise.all([fun10(), fun11(), fun12()])
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err); // fun11
-        });
+      // fun6()
+      //   .then(
+      //     (res) => {
+      //       console.log("then1 resolve方法" + res);
+      //       return Promise.reject("error1");
+      //     },
+      //     (err) => {
+      //       console.log("then1 reject方法" + err);
+      //     }
+      //   )
+      //   .then(
+      //     (res) => {
+      //       console.log("then2 resolve方法" + res);
+      //     },
+      //     (err) => {
+      //       console.log("then2 reject方法" + err);
+      //     }
+      //   );
+
+      // fun6()
+      //   .then((res) => {
+      //     console.log("then1 resolve方法" + res);
+      //     return Promise.reject("error1");
+      //   })
+      //   .then((res) => {
+      //     console.log("then2 resolve方法" + res);
+      //     return Promise.reject("error2");
+      //   })
+      //   .catch((err) => {
+      //     console.log("catch方法" + err);
+      //   });
+
+      // function fun7() {
+      //   return Promise.resolve("fun7");
+      // }
+
+      // // 值穿透
+      // fun7()
+      //   .then()
+      //   .then()
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+
+      // function fun8() {
+      //   return Promise.reject("fun8");
+      // }
+
+      // // catch还可以继续.then会走到resolve里面
+      // fun8()
+      //   .catch((err) => {
+      //     console.log(err);
+      //     // throw new Error("11");
+      //   })
+      //   .then(
+      //     (res) => {
+      //       console.log("resolve" + res);
+      //     },
+      //     (err) => {
+      //       console.log("reject" + err);
+      //     }
+      //   );
+
+      // // finally 都会执行
+      // function fun9() {
+      //   return Promise.reject("fun9");
+      // }
+
+      // fun9()
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   })
+      //   .finally(() => {
+      //     console.log("不管resolve还是reject我都会执行");
+      //   });
+
+      // function fun10() {
+      //   return Promise.resolve("fun10");
+      // }
+      // function fun11() {
+      //   // return Promise.reject("fun11");
+      //   return Promise.resolve("fun11");
+      // }
+      // function fun12() {
+      //   return Promise.reject("fun12");
+      //   // return Promise.resolve("fun12");
+      // }
+      // // 都成功才成功，成功返回一个数组
+      // // 一个失败就是失败，返回失败的结果
+      // Promise.all([fun10(), fun11(), fun12()])
+      //   .then((res) => {
+      //     console.log("all resolve", res); // ['fun10', 'fun11', 'fun12']
+      //   })
+      //   .catch((err) => {
+      //     console.log("all reject", err); // fun12
+      //   });
 
       function fun13() {
         return new Promise(function (resolve, reject) {
@@ -190,68 +213,90 @@
       function fun14() {
         return new Promise(function (resolve, reject) {
           setTimeout(() => {
-            return resolve("fun14");
+            // return resolve("fun14");
+            return reject("fun14");
           }, 1000);
         });
       }
 
+      // 值返回第一个，不管成功失败
       Promise.race([fun13(), fun14()])
         .then((res) => {
-          console.log("race resolve" + res); // race resolvefun14
+          console.log("race resolve", res); // race resolvefun14
         })
         .catch((err) => {
-          console.log("race error" + err);
+          console.log("race reject", err);
         });
 
-      function fun15() {
-        return new Promise(function (resolve, reject) {
-          throw new Error("这是一个错误");
-        });
-      }
+      // // 只会进入then 结果都有
+      // Promise.allSettled([fun13(), fun14()])
+      //   .then((res) => {
+      //     console.log("allSettled resolve", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("allSettled reject", err);
+      //   });
 
-      fun15()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err); // Error: 这是一个错误
-        });
+      // // 值返回第一个成功的，忽略前面失败的
+      // Promise.any([fun13(), fun14()])
+      //   .then((res) => {
+      //     console.log("any resolve", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("any reject", err);
+      //   });
 
-      function fun16() {
-        return new Promise(function (resolve, reject) {
-          setTimeout(() => {
-            throw new Error("这是一个错误");
-          }, 1000);
-        });
-      }
+      // function fun15() {
+      //   return new Promise(function (resolve, reject) {
+      //     throw new Error("这是一个错误");
+      //   });
+      // }
 
-      fun16()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err); // Uncaught Error: 这是一个错误
-        });
+      // fun15()
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err); // Error: 这是一个错误
+      //   });
 
-      function fun17() {
-        return new Promise(function (resolve, reject) {
-          setTimeout(() => {
-            try {
-              throw new Error("这是一个错误");
-            } catch (err) {
-              reject(err);
-            }
-          }, 1000);
-        });
-      }
+      // function fun16() {
+      //   return new Promise(function (resolve, reject) {
+      //     // 异步错误捕获不到
+      //     setTimeout(() => {
+      //       resolve("fun16 resolve");
+      //       throw new Error("这是一个错误2");
+      //     }, 1000);
+      //   });
+      // }
 
-      fun17()
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err); // Error: 这是一个错误
-        });
+      // fun16()
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err); // Uncaught Error: 这是一个错误
+      //   });
+
+      // function fun17() {
+      //   return new Promise(function (resolve, reject) {
+      //     setTimeout(() => {
+      //       try {
+      //         throw new Error("这是一个错误");
+      //       } catch (err) {
+      //         reject(err);
+      //       }
+      //     }, 1000);
+      //   });
+      // }
+
+      // fun17()
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err); // Error: 这是一个错误
+      //   });
     </script>
   </body>
 </html>
