@@ -22,6 +22,7 @@
       <router-link to="/array">Array</router-link> |
       <router-link to="/yuanma1">源码分析1</router-link> |
       <router-link to="/yuanma2" tag="span">源码分析2</router-link> |
+      <router-link to="/yuanma3">源码分析3</router-link> |
     </div>
     <router-view />
 

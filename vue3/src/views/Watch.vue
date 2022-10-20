@@ -136,6 +136,7 @@ export default defineComponent({
     });
     const clearWatch = watch(
       // 这种监听方式能监听到所有属性改变，但是新老值是一样的，都是新值
+      // 并且能深度监听
       // user2,
 
       // 引用数据类型可以直接监听，但是新老值是一样的，都是新值
@@ -163,7 +164,7 @@ export default defineComponent({
         console.log(newVal, oldVal);
       },
       {
-        // deep: true,
+        deep: true,
       }
     );
     // 返回值是清除监听器
