@@ -1,7 +1,21 @@
 <template>
   <div class="">
-    <div @click="setAge">info.age: {{ info.age }}</div>
-    <div @click="setArr">arr[1][city]: {{ arr[1]["city"] }}</div>
+    <div>info.name: {{ info.name }}</div>
+    <div>info.age: {{ info.age }}</div>
+    <div>
+      <button @click="setAge">setAge</button>
+      <button @click="delName">delName</button>
+    </div>
+    <!-- array -->
+    <div>arr[0]: {{ arr[0] }}</div>
+    <div>arr[1][address]: {{ arr[1]["address"] }}</div>
+    <div>arr[1][city]: {{ arr[1]["city"] }}</div>
+    <div>
+      <button @click="setArr0">setArr0</button>
+      <button @click="setArrAddress">setArrAddress</button>
+      <button @click="setArrCity">setArrCity</button>
+    </div>
+    <!-- map -->
     <div v-for="[key, value] of map" :key="key">{{ key }}: {{ value }}</div>
     <button @click="say">say</button>
   </div>
@@ -45,13 +59,37 @@ export default {
       // 重新赋值也可以
       this.info = { name: "randy", age: 27 };
     },
-    setArr() {
+    delName() {
+      // 这种方式不会响应式
+      // delete this.info.name;
+      // 这种可以
+      // this.$delete(this.info, "name");
+      // 重新赋值也可以
+      this.info = { name: "randy", age: 28 };
+    },
+    setArr0() {
+      // 基本数据类型不能通过下标修改
+      this.arr[0] = 2;
+    },
+    setArrAddress() {
+      // 直接赋值是不可以的
+      // this.arr[1] = { address: "黄市" };
+      // 数组里面的数据进行了响应式，所以如果是对象改变是可以响应式的。
+      // this.arr[1]["address"] = "黄市";
+      // 还有两种方式设置
+      // this.$set(this.arr[1], "address", "黄市");
+      // this.$set(this.arr, 1, { address: "黄市" });
+      // 重新赋值也可以
+      this.arr = [1, { address: "黄市" }];
+    },
+    setArrCity() {
+      // 这样是不可以的
       // this.arr[1]["city"] = "岳阳";
       // 两种方式设置
       // this.$set(this.arr[1], "city", "岳阳");
       // this.$set(this.arr, 1, { address: "汨罗", city: "岳阳" });
       // 重新赋值也可以
-      // this.arr = [1, { address: "汨罗", city: "岳阳" }];
+      this.arr = [1, { address: "汨罗", city: "岳阳" }];
     },
     say() {
       // 记住 map、set的响应式也处理不了，不支持

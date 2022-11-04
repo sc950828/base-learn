@@ -15,7 +15,7 @@
           // value的默认值是undefined，writable、enumerable、configurable、默认值都是false
           name: {
             // value: "randy", // 属性值
-            // writable: true, // 是否能修改
+            writable: true, // 是否能修改
             // enumerable: true, // 是否枚举 就是能否遍历出来
             // configurable: true, // 该属性描述符是否可以被改变并且该属性是否可以被删除
           },
@@ -39,15 +39,28 @@
         // Symbol(a): {value: undefined, writable: false, enumerable: false, configurable: false}
         console.log(Object.getOwnPropertyDescriptors(obj));
 
+        // writable为false的情况下 这种方式修改也无效
+        Object.defineProperty(obj, "name", {
+          writable: false,
+          // writable: true,
+          // enumerable: true,
+          // enumerable: false,
+          // value: "demi",
+          // configurable: false,
+        });
+        console.log(Object.getOwnPropertyDescriptor(obj, "name"));
+
         // writable为false的情况下 修改无效
         obj.name = "demi";
         // configurable 为false的情况下 删除无效
-        // delete obj.name;
+        delete obj.name;
+
+        console.log(obj);
 
         // Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
         // configurable 为false的情况下 会报错
         // Object.defineProperty(obj, "name", {
-        //   writable: true,
+        //   writable: false,
         // });
 
         // Object.defineProperties() 方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。
@@ -264,12 +277,13 @@
         "getOwnPropertyDescriptors: ",
         Object.getOwnPropertyDescriptors(obj6)
       );
-      // configurable置为了false 所以不能修改该对象已有属性的可枚举性、可配置性、可写性，也不能删除已有属性
-      // Object.defineProperty(obj6, "name", {
-      //   writable: false,
-      //   enumerable: false,
-      //   configurable: false,
-      // });
+      // configurable置为了false 所以不能修改该对象已有属性的可枚举性、可配置性，也不能删除已有属性
+      // 可写性writable只能由true变为false
+      Object.defineProperty(obj6, "name", {
+        // writable: false,
+        // enumerable: false,
+        // configurable: false,
+      });
       delete obj6.name; // 不能删除值
       obj6.phone = "17673485272"; // 不能添加新属性
       obj6.name = "randy"; // 能修改以前是可写的值
@@ -306,6 +320,12 @@
       obj7.name = "amy2"; //能修改
       // delete obj7.name; //能删除
 
+      console.log(
+        "preventExtensions isExtensible: ",
+        Object.isExtensible(obj7),
+        "阻止对象扩展后，对象不能扩展"
+      );
+
       console.log("preventExtensions: ", obj7); // {name: 'amy2'}
 
       // false
@@ -323,6 +343,36 @@
       const obj8 = Object.fromEntries(entries);
 
       console.log(obj8); // { name: "randy", age: 24 }
+
+      // get set 测试
+      const a = Object.create(
+        {},
+        // get set 和 value writable 不能同时定义
+        {
+          name: {
+            // value: "randy",
+            configurable: true,
+            // writable: true,
+            enumerable: true,
+            get() {
+              console.log("get");
+              return "randy";
+            },
+            set(val) {
+              console.log("set");
+            },
+          },
+        }
+      );
+      // a.name = "demi";
+      // delete a.name; // delete不会触发set方法
+      console.log(a);
+
+      // arr测试
+      const arr = [1, 2, 3];
+      delete arr[1]; //能使用delete删除数组元素
+      console.log(arr);
+      console.log(arr[1]);
     </script>
   </body>
 </html>

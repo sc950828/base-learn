@@ -79,11 +79,11 @@ let flag3: Flag2 = {
 };
 
 // 交叉类型
-interface User1 {
+export interface User1 {
   name: string;
 }
 
-interface User2 {
+export interface User2 {
   age: number;
 }
 

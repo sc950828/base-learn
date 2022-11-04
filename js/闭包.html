@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>闭包</title>
+  </head>
+  <body>
+    <script>
+      const count = 10;
+
+      // 这里的i相当于全局变量
+      // for (var i = 0; i < 10; i++) {
+      // setTimeout(() => {
+      //   console.log(i);
+      // });
+      // }
+
+      // 块级作用域
+      // for (let i = 0; i < 10; i++) {
+      //   setTimeout(() => {
+      //     console.log(i);
+      //   });
+      // }
+
+      // 使用闭包，也能解决
+      for (var i = 0; i < 10; i++) {
+        (function (i) {
+          setTimeout(() => {
+            console.log(i);
+          });
+        })(i);
+      }
+    </script>
+  </body>
+</html>
