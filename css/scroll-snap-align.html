@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scroll-snap-type scroll-snap-align</title>
+    <style>
+      body,
+      ul {
+        margin: 0;
+      }
+
+      ul {
+        max-height: 100vh;
+        overflow-y: scroll;
+        padding: 0;
+        /* none | [ x | y | block | inline | both ] [ mandatory | proximity ] */
+        /* mandatory：比较好理解：当用户停止滚动的时候，会自动选择一个子元素的点。 */
+        /* proximity：只有用户滚动到接近到足够的值的时候，才会选择一个子元素的点进行滚动。否则不滚动 */
+        scroll-snap-type: y mandatory;
+      }
+      li {
+        font-size: 6vw;
+        height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* [ none | start | end | center ] */
+        /* 以什么为主，开始和浏览器顶部对其，底部对其，中间对其 */
+        scroll-snap-align: start;
+      }
+
+      li:nth-child(1) {
+        background-color: rgb(255, 0, 0);
+      }
+
+      li:nth-child(2) {
+        background-color: rgb(255, 128, 0);
+      }
+
+      li:nth-child(3) {
+        background-color: rgb(255, 255, 0);
+      }
+
+      li:nth-child(4) {
+        background-color: rgb(0, 255, 0);
+      }
+
+      li:nth-child(5) {
+        background-color: rgb(0, 255, 255);
+      }
+
+      li:nth-child(6) {
+        background-color: rgb(0, 0, 255);
+      }
+
+      li:nth-child(7) {
+        background-color: rgb(128, 0, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- scroller snap 目前支持scroll-snap-type和scroll-snap-align两个属性。
+    scroll-snap-type用于容器，定义滚动的方向和类型。
+    scroll-snap-align用于子元素，定义滚动停止后，子元素的对齐方式。 -->
+    <ul>
+      <li>赵</li>
+      <li>钱</li>
+      <li>孙</li>
+      <li>李</li>
+      <li>周</li>
+      <li>吴</li>
+      <li>郑</li>
+    </ul>
+  </body>
+</html>

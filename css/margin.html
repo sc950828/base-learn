@@ -17,18 +17,75 @@
         padding: 10%;
         margin: 10%;
       }
+
+      .div1 {
+        height: 100px;
+        width: 100%;
+        background-color: antiquewhite;
+        margin-top: 10px;
+        /* 第一种方案 */
+        /* display: inline-block; */
+        /* 第二种方案 */
+        /* position: absolute; */
+        /* position: fixed; */
+        /* 第三种方案 */
+        /* float: left; */
+      }
+
+      .div2-1 {
+        height: 160px;
+        background-color: aqua;
+        margin-top: 20px;
+        /* 第一种方案 父元素开启bfc */
+        /* overflow: auto; */
+        /* 第二种 边框和padding */
+        /* padding-top: 1px; */
+        /* border: 1px solid; */
+      }
+
+      .div2-2 {
+        height: 100px;
+        background-color: blanchedalmond;
+        margin-top: 10px;
+        /* 子元素变行块盒子 */
+        /* display: inline-block; */
+        width: 100%;
+        /* 子元素 浮动或定位 */
+        /* position: absolute; */
+        /* float: left; */
+      }
+
+      .div4-1 {
+        background-color: aqua;
+        margin-bottom: 20px;
+        /* 第一种方案 父元素开启bfc */
+        /* overflow: auto; */
+        /* 第二种 边框和padding */
+        /* padding-bottom: 1px; */
+        /* border: 1px solid; */
+      }
+
+      .div4-2 {
+        height: 100px;
+        background-color: blanchedalmond;
+        margin-bottom: 10px;
+        width: 100%;
+
+        /* 子元素变行块盒子 */
+        /* display: inline-block; */
+      }
     </style>
   </head>
   <body>
     <div>
       <h3>常见情况</h3>
       <p>第一种 是相邻兄弟元素的 marin-bottom 和 margin-top 的值发生重叠。</p>
-      <div
-        style="height: 100px; background-color: aqua; margin-bottom: 20px"
-      ></div>
-      <div
-        style="height: 100px; background-color: antiquewhite; margin-top: 10px"
-      ></div>
+      <div>
+        <div
+          style="height: 100px; background-color: aqua; margin-bottom: 20px"
+        ></div>
+        <div class="div1"></div>
+      </div>
     </div>
 
     <div>
@@ -38,17 +95,12 @@
         border-top、padding-top 值来分隔它们。当然我们也可以将父元素设置为 BFC
         来解决。
       </div>
-      <div style="height: 160px; background-color: aqua; margin-top: 20px">
-        <div
-          style="
-            height: 100px;
-            background-color: blanchedalmond;
-            margin-top: 10px;
-          "
-        ></div>
+      <div class="div2-1">
+        <div class="div2-2"></div>
       </div>
     </div>
 
+    <div>第三种 没有高度的元素，自身上下外边距合并</div>
     <div style="overflow: auto">
       <!--  height: 1px -->
       <div style="margin-top: 40px; margin-bottom: 20px"></div>
@@ -57,21 +109,15 @@
 
     <div>
       <p>
-        第三种是高度为 auto 的父元素的 margin-bottom 和子元素的 margin-bottom
+        第四种是高度为 auto 的父元素的 margin-bottom 和子元素的 margin-bottom
         发生重叠。它们发生重叠一个是因为它们相邻，一个是因为父元素的高度不固定。因此我们可以为父元素设置
         border-bottom、padding-bottom 来分隔它们，也可以为父元素设置一个高度
         height，max-height 和 min-height 也能解决这个问题。当然将父元素设置为
         BFC 是最简单的方法。
       </p>
 
-      <div style="background-color: aqua; margin-bottom: 20px">
-        <div
-          style="
-            height: 100px;
-            background-color: blanchedalmond;
-            margin-bottom: 10px;
-          "
-        ></div>
+      <div class="div4-1">
+        <div class="div4-2"></div>
       </div>
     </div>
 

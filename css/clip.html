@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clip</title>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      /* 如果先有"overflow：visible"，clip属性不起作用。 */
+      .img1 {
+        clip: rect(10px 100px 100px 0);
+
+        /* 只有绝对和固定 定位才起作用 */
+        position: absolute;
+        /* position: fixed; */
+      }
+
+      .img2 {
+        margin-top: 200px;
+        clip-path: circle(50%);
+        background-color: aqua;
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./imgs/img1.jpeg" class="img1" />
+    <div class="img2"></div>
+
+    <script>
+      const id = requestAnimationFrame(() => {
+        console.log(123);
+      });
+
+      console.log(id);
+    </script>
+  </body>
+</html>

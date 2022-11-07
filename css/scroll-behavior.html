@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scroll-behavior</title>
+    <style>
+      .tab-box {
+        margin: 20px;
+      }
+
+      .labels {
+        width: 100px;
+        margin-right: -1px;
+        border: 1px solid #ccc;
+        border-bottom: 0;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #eee;
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+        color: #555;
+      }
+
+      .tab-body {
+        height: 200px;
+        border: 1px solid #ccc;
+        scroll-behavior: smooth;
+        overflow: auto;
+      }
+
+      .content {
+        height: 100%;
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 当用户手动导航或者 CSSOM scrolling API 触发滚动操作时，CSS 属性 scroll-behavior 为一个滚动框指定滚动行为，
+      当用户通过鼠标滑轮滚动或者手机触屏滚动，不受这个属性的影响。在根元素中指定这个属性时，它反而适用于视窗。 -->
+
+    <!-- scroll-behavior属性包括： smooth | auto; -->
+
+    <!-- auto: 默认值，表示滚动框立即滚动到指定位置。 
+      smooth 表示允许滚动时采用平滑过渡，而不知直接滚动到相应位置，最常见的比如回到顶部按钮和锚点。 -->
+
+    <div class="tab-box">
+      <div class="tab-t">
+        <a class="labels" href="#tab1">选项卡1</a>
+        <a class="labels" href="#tab2">选项卡2</a>
+        <a class="labels" href="#tab3">选项卡3</a>
+      </div>
+      <div class="tab-body">
+        <!-- 除了id，还可以通过这种方式设置锚点 -->
+        <a name="tab1"></a>
+        <div class="content">
+          <p>我是选项卡1</p>
+        </div>
+        <div class="content" id="tab2">
+          <p>我是选项卡2</p>
+        </div>
+        <div class="content" id="tab3">
+          <p>我是选项卡3</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
