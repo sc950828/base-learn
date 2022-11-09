@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>width auto height auto</title>
+    <title>width auto height auto width 100% height 100%</title>
     <style>
       .container1 {
         padding: 20px;
@@ -28,6 +28,7 @@
         width: 100%;
         margin: 0 20px;
         padding: 20px;
+        border: 2px solid;
       }
 
       .container3 {
@@ -41,21 +42,37 @@
         width: 500px;
         background-color: lavender;
       }
+
+      .container5 {
+        height: 200px;
+        padding: 10px;
+      }
+
+      .child5-1 {
+        padding: 10px;
+        margin: 20px;
+        /* border: 5px solid; */
+        height: 100%;
+      }
     </style>
   </head>
   <body>
     <div class="container1">
-      <div class="child1">child widtd使用默认值 auto 永远被父元素包裹</div>
+      <div class="child1">child width使用默认值 auto 永远被父元素包裹</div>
     </div>
 
     <div class="container2">
       <div class="child2">
-        child widtd 100%; 如果自身有margin或padding会超出父元素
+        child widtd 100%; 如果自身有margin、border或padding会超出父元素
       </div>
     </div>
 
     <div class="container3">margin: 100px; width: auto;</div>
 
     <div class="container4">margin: auto; width: 500px;</div>
+
+    <div class="container5">
+      <div class="child5-1">高度</div>
+    </div>
   </body>
 </html>
