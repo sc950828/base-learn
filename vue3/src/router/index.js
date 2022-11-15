@@ -176,6 +176,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "alive" */ "../views/Alive.vue"),
   },
+  {
+    path: "/video",
+    name: "Video",
+    component: () =>
+      import(/* webpackChunkName: "video" */ "../views/Video.vue"),
+  },
 ];
 
 const router = createRouter({

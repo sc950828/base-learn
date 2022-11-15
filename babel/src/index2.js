@@ -1,5 +1,4 @@
 // import "@babel/polyfill";
-// import Promise from "babel-runtime/core-js/promise";
 
 // "useBuiltIns": "entry"的时候需要选择配置
 
