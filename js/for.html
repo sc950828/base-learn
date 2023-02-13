@@ -107,7 +107,7 @@
       for (const name of Object.getOwnPropertyNames(obj1)) {
         console.log("getOwnPropertyNames: ", name); // name age
       }
-      // 只能获取Symbol属性
+      // 只能获取Symbol属性，不管是否可枚举
       for (const symbol of Object.getOwnPropertySymbols(obj1)) {
         console.log("getOwnPropertySymbols: ", symbol); // Symbol(test)
       }
@@ -188,14 +188,34 @@
 
       arrForEach();
 
-      arr1.map((item) => {
-        if (item == "c") {
-          // continue; // 不支持会报错
-          // break; // 不支持会报错
-          // return; // 跳过当次循环 类似前面的continue
+      function arrMap() {
+        arr1.map((item) => {
+          if (item == "c") {
+            // continue; // 不支持会报错
+            // break; // 不支持会报错
+            // return; // 跳过当次循环 类似前面的continue
+          }
+          console.log("map: ", item); // a b c d
+        });
+      }
+
+      arrMap();
+
+      function keyValues() {
+        for (const iterator of arr1.keys()) {
+          console.log("keys: ", iterator); // 0 1 2 3
         }
-        console.log("map: ", item); // a b c d
-      });
+
+        for (const iterator of arr1.values()) {
+          console.log("values: ", iterator); // a b c d
+        }
+
+        for (const iterator of arr1.entries()) {
+          console.log("entries: ", iterator); // [0, 'a'] [1, 'b'] [2, 'c'] [3, 'd']
+        }
+      }
+
+      keyValues();
 
       function Gen(time) {
         return new Promise(function (resolve, reject) {
@@ -228,7 +248,7 @@
         }
       }
 
-      test2();
+      // test2();
     </script>
   </body>
 </html>
