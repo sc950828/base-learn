@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 
 export class Home extends Component {
+  constructor() {
+    super();
+    this.state = {
+      message: "hello",
+    };
+  }
+
   say = () => {
     const all = "randy" + 27;
     console.log(all);
   };
+
   render() {
     return (
       <div>
