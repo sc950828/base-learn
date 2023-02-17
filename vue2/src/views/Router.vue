@@ -35,6 +35,11 @@
     <h3>滚动</h3>
     <router-link to="/router/route6">/router/route6</router-link> |
 
+    <h3>go back forward 会触发相应的事件监听</h3>
+    <button @click="go">go</button>
+    <button @click="back">back</button>
+    <button @click="forward">forward</button>
+
     <transition name="fade">
       <router-view></router-view>
     </transition>
@@ -45,6 +50,15 @@ export default {
   methods: {
     goRoute1() {
       this.$router.push("/router/route1");
+    },
+    go() {
+      this.$router.go(-1);
+    },
+    back() {
+      this.$router.back();
+    },
+    forward() {
+      this.$router.forward();
     },
   },
 };

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hash</title>
+    <style>
+      .item {
+        height: 500px;
+        position: relative;
+      }
+      .box1 {
+        height: 200px;
+        background-color: aqua;
+        position: absolute;
+        width: 100%;
+      }
+      .box2 {
+        height: 200px;
+        background-color: lightcyan;
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#111">1</a>
+    <a href="#222">2</a>
+    <a href="#333">3</a>
+
+    <div class="item" id="111">
+      <div class="box1" onclick="say()">1</div>
+      <div class="box2" onclick="say2()">2</div>
+    </div>
+    <div class="item" id="222">222</div>
+    <div class="item" name="333">333</div>
+
+    <script>
+      const say = () => {
+        console.log("say");
+      };
+      const say2 = () => {
+        console.log("say2");
+      };
+    </script>
+  </body>
+</html>

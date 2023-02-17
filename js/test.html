@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const arr = [2, 5, -3, 4, 6];
+      // 辅助函数查找数组的总和
+      const findSum = (arr) => arr.reduce((acc, val) => acc + val);
+      const maximumSum = (arr = [], num = 1) => {
+        let left = 0,
+          right = left + num;
+        let sum = findSum(arr.slice(left, right));
+        for (; right <= arr.length; right++, left++) {
+          sum = Math.max(findSum(arr.slice(left, right)), sum);
+        }
+        return sum;
+      };
+
+      const test = () => {
+        let max = 0;
+
+        for (let index = 1; index <= arr.length; index++) {
+          max = Math.max(maximumSum(arr, index), max);
+        }
+
+        return max;
+      };
+
+      console.log(test());
+    </script>
+  </body>
+</html>
