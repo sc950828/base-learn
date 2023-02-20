@@ -157,3 +157,12 @@ fs.stat("./fstest.js", (err, statObj) => {
   if (err) throw err;
   console.log("stat", statObj.size); // 34
 });
+
+// 修改文件和文件夹权限
+// 同步修改
+fs.chmodSync("./fstest.js", "777");
+// 异步修改
+fs.chmod("./fstest", "777", (err) => {
+  if (err) console.log(err);
+  console.log("权限修改成功");
+});
