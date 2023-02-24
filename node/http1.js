@@ -5,18 +5,16 @@ const server = http.createServer((req, res) => {
   // console.log("1、客户端请求url：" + req.url);
   // console.log("2、http版本：" + req.httpVersion);
   // console.log("3、http请求方法：" + req.method);
+  // console.log("4、http请求头部" + req.headers.host);
   // console.log("4、http请求头部" + JSON.stringify(req.headers));
-
   // 获取get请求参数
   // const params = url.parse(req.url, true);
   // console.log(params.query);
-
   // 获取post请求参数
   // let body = "";
   // req.on("data", function (thunk) {
   //   body += thunk;
   // });
-
   // req.on("end", function () {
   //   console.log("post body is: " + body);
   //   res.end("ok");
@@ -28,16 +26,13 @@ const server = http.createServer((req, res) => {
   console.log(res.getHeader("content-type")); //text-plain
   // 删除
   res.removeHeader("Content-Type");
-
   // res.writeHead() 可以提供额外的功能，比如设置响应头部。
   res.writeHead(200, "ok", {
     "Content-Type": "text/plain",
   });
-
   // 简写 res.writeHead(200, "ok")
   // res.statusCode = 200;
   // res.statusMessage = "ok";
-
   res.write("hello");
   res.end("world");
 });
