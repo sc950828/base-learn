@@ -19,23 +19,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// const upload = multer({ dest: "uploads/" });
+// 连接mongodb
+const runmongodb = require("./db/mongodb.js");
+runmongodb();
 
+const db = require("./db/mysql2.js");
+db.sequelize.sync();
+
+// 洋葱模型
 // use使用中间件，这里是全局使用中间件
 app.use(function (request, response, next) {
-  console.log("In comes a " + request.method + " to " + request.url);
+  console.log("start In comes a " + request.method + " to " + request.url);
   next();
+  console.log("end In comes a " + request.method + " to " + request.url);
 });
 
 // 单独中间件
 app.get(
   "/",
   (req, res, next) => {
-    console.log("我是单独中间件");
+    console.log("我是单独中间件 start");
     next();
+    console.log("我是单独中间件 end");
   },
   (req, res) => {
+    console.log("send result start");
     res.send("get method!");
+    console.log("send result end");
   }
 );
 
@@ -90,26 +100,39 @@ app.all("/testall", (req, res) => {
   res.send("所有请求都可以？" + req.method);
 });
 
+// 重定向
+app.get("/testredirect", (req, res) => {
+  res.redirect("/user");
+});
+
+// 异步
+app.get("/testasync", async (req, res) => {
+  let str = "hello";
+  str += await Promise.resolve("world");
+  res.send(str);
+});
+
+// 单文件上传，不固定表单字段名字
 app.post("/file", upload.single(), (req, res) => {
   res.json(req.file);
 });
 
-// 字段名必须为avatar
+// 字单文件上传，段名必须为avatar
 app.post("/file2", upload.single("avatar"), (req, res) => {
   res.json(req.file);
 });
 
-// 多张，不命名
+// 多文件上传，不固定表单字段名字
 app.post("/files", upload.array(), (req, res) => {
   res.json(req.files);
 });
 
-// 多张，命名。最大三张
+// 多文件上传，段名必须为avatars，不超过三张
 app.post("/files2", upload.array("avatars", 3), (req, res) => {
   res.json(req.files);
 });
 
-// 多张，多命名。最大三张
+// 多文件上传，段名必须为avatar、banner，不超过2张的3张
 app.post(
   "/files3",
   upload.fields([
@@ -126,9 +149,37 @@ app.use("/static", express.static(path.join(__dirname, "uploads")));
 
 // 路由，模块化处理
 // router可以看做是app的一个子应用，app对象所具有的功能基本上router对象也都可以使用
-const userRouter = require("./routes/user");
-app.use("/user", userRouter);
+// const userRouter = require("./routes/user");
+// app.use("/user", userRouter);
+
+const registerRoute = require("./routes/index");
+registerRoute(app);
+
+// 错误处理，模拟错误
+app.get("/error", function (req, res, next) {
+  // 新建错误
+  // 同步错误可以直接捕获
+  throw new Error("抛出一个错误");
+});
+
+app.get("/error2", function (req, res, next) {
+  // 新建异步错误
+  // 异步错误需要显示调用next
+  setImmediate(() => {
+    // throw new Error("异步抛出一个错误");
+
+    // 报告异步错误必须通过 next()
+    next(new Error("异步抛出一个错误"));
+  });
+});
+
+// 错误处理中间件，定义在最后
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    message: err.message,
+  });
+});
 
 app.listen(3000, () => {
-  console.log("serve runing on 3000");
+  console.log("serve running on 3000");
 });

@@ -57,7 +57,6 @@
         this.name = name;
         this.age = age;
       }
-
       console.log(People.__proto__);
       console.log(People.prototype);
       console.log(
@@ -65,12 +64,21 @@
         People.prototype.constructor === People
       );
 
+      console.log("People.prototype.__proto__:", People.prototype.__proto__);
+      console.log("Object.prototype:", Object.prototype);
+
       const p1 = new People("randy", 24);
       console.log("Object.getPrototypeOf(p1):", Object.getPrototypeOf(p1));
       console.log(
         "People.prototype === p1.__proto__:",
         People.prototype === p1.__proto__
       ); // true
+
+      // 获取类型
+      console.log(p1.__proto__.constructor.name);
+      console.log(p1.constructor.name);
+      console.log(People.prototype.constructor.name);
+      console.log(p1.constructor.prototype);
 
       console.log(
         "People.__proto__ === Function.prototype: ",

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { create, query } = require("../controller/userController");
 
 router.get("/select", (req, res, next) => {
   res.end("get");
@@ -20,5 +21,8 @@ router.put("/update", (req, res, next) => {
 router.all("/userall", (req, res) => {
   res.send("所有请求都可以？" + req.method);
 });
+
+router.post("/create", create);
+router.get("/query", query);
 
 module.exports = router;

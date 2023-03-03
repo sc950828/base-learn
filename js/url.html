@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const user = { name: "randy" };
+      const user2 = "{name: 'randy'}";
+
+      const user3 = { u: user2 };
+      console.log(user3);
+
+      const search = new URLSearchParams(user3);
+      console.log(search);
+      console.log(search.toString());
+    </script>
+  </body>
+</html>
