@@ -47,9 +47,7 @@ router.get("/error", function (ctx, next) {
 
 router.get("/error2", async function (ctx, next) {
   // 新建异步错误
-  await Promise.resolve().then(() => {
-    throw new Error("异步错误");
-  });
+  await Promise.reject(new Error("异步错误"));
 });
 
 module.exports = router;

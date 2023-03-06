@@ -1,29 +1,29 @@
 const User = require("../model/user");
 const jwt = require("jsonwebtoken");
-const client = require("../db/redis");
 const decoded = require("jwt-decode");
 
 class UserController {
-  async create(req, res) {
-    const { username, password } = req.body;
+  async create(ctx) {
+    const { username, password } = ctx.request.body;
     const repeatedUser = await User.findOne({ username, password });
     if (repeatedUser) {
-      res.status(409).json({
+      ctx.status = 409;
+      ctx.body = {
         message: "用户已存在",
-      });
+      };
     } else {
       const user = await new User({ username, password }).save();
-      res.json(user);
+      ctx.body = user;
     }
   }
 
-  async query(req, res) {
+  async query(ctx) {
     const users = await User.find();
-    res.json(users);
+    ctx.body = users;
   }
 
-  async login(req, res) {
-    const { username, password } = req.body;
+  async login(ctx) {
+    const { username, password } = ctx.request.body;
     const user = await User.findOne({ username, password });
     if (user) {
       // console.log("user", user);
@@ -32,23 +32,25 @@ class UserController {
         "miyao",
         { expiresIn: 60 }
       );
-      // console.log("decoded token", decoded(token));
+      console.log("decoded token", decoded(token));
 
       // const result = jwt.verify(token, "miyao");
       // console.log("result", result);
 
-      res.json({
+      ctx.body = {
         token,
-      });
+      };
     } else {
-      res.status(401).json({
+      ctx.status = 401;
+      ctx.body = {
         message: "账号或密码错误",
-      });
+      };
     }
   }
 
-  async testData(req, res) {
-    res.json(req.auth);
+  async testData(ctx) {
+    console.log(ctx.request.user);
+    ctx.body = ctx.request.user;
   }
 }
 

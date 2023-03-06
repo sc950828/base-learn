@@ -1,22 +1,23 @@
+// controller/user2Controller.js
+
 const User2 = require("../model/user2.js");
 
 class user2Controller {
-  async create(req, res) {
-    const { username, password } = req.body;
+  async create(ctx) {
+    const { username, password } = ctx.request.body;
 
     try {
       const user = await User2.create({ username, password });
-
-      res.send(user);
+      ctx.body = user;
     } catch (error) {
-      console.log(e);
-      res.json({ code: 0, message: "保存失败" });
+      ctx.status = 500;
+      ctx.body = { code: 0, message: "保存失败" };
     }
   }
 
-  async query(req, res) {
+  async query(ctx) {
     const users = await User2.findAll();
-    res.json(users);
+    ctx.body = users;
   }
 }
 

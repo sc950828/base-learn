@@ -5,6 +5,12 @@ const fileRouter = require("./routes/file");
 const { koaBody } = require("koa-body");
 const path = require("path");
 const koaStatic = require("koa-static");
+const mount = require("koa-mount");
+const koaJwt = require("koa-jwt");
+
+// 连接mongodb
+const runmongodb = require("./db/mongodb.js");
+runmongodb();
 
 // post参数
 app.use(
@@ -17,6 +23,12 @@ app.use(
       keepExtensions: true,
     },
   })
+);
+
+app.use(mount("/static", koaStatic(path.join(__dirname, "uploads"))));
+
+app.use(
+  koaJwt({ secret: "miyao" }).unless({ path: [/^\/user\/login/, "/static"] })
 );
 
 app.use(async (ctx, next) => {
@@ -48,8 +60,6 @@ app.use(async (ctx, next) => {
 
 const registerRoutes = require("./routes/index");
 registerRoutes(app);
-
-app.use(koaStatic(path.join(__dirname, "uploads")));
 
 app.listen(3000, () => {
   console.log("serve running on 3000");

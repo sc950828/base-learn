@@ -3,6 +3,7 @@ const app = express();
 // Multer 不会处理任何非 multipart/form-data 类型的表单数据。
 const multer = require("multer");
 const path = require("path");
+const { expressjwt } = require("express-jwt");
 
 // 自定义存储，比如重命名
 const storage = multer.diskStorage({
@@ -23,8 +24,8 @@ const upload = multer({ storage: storage });
 const runmongodb = require("./db/mongodb.js");
 runmongodb();
 
-const db = require("./db/mysql2.js");
-db.sequelize.sync();
+// const db = require("./db/mysql2.js");
+// db.sequelize.sync();
 
 // 洋葱模型
 // use使用中间件，这里是全局使用中间件
@@ -33,6 +34,16 @@ app.use(function (request, response, next) {
   next();
   console.log("end In comes a " + request.method + " to " + request.url);
 });
+
+// 静态资源处理，放token上面
+app.use("/static", express.static(path.join(__dirname, "uploads")));
+
+// token验证中间件
+app.use(
+  expressjwt({ secret: "miyao", algorithms: ["HS256"] }).unless({
+    path: ["/user/login", "/static"],
+  })
+);
 
 // 单独中间件
 app.get(
@@ -144,9 +155,6 @@ app.post(
   }
 );
 
-// 讲台资源处理
-app.use("/static", express.static(path.join(__dirname, "uploads")));
-
 // 路由，模块化处理
 // router可以看做是app的一个子应用，app对象所具有的功能基本上router对象也都可以使用
 // const userRouter = require("./routes/user");
@@ -175,8 +183,8 @@ app.get("/error2", function (req, res, next) {
 
 // 错误处理中间件，定义在最后
 app.use((err, req, res, next) => {
-  res.status(500).json({
-    message: err.message,
+  res.status(err.status || 500).json({
+    message: err.message || "服务端错误",
   });
 });
 

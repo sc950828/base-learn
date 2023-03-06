@@ -1,5 +1,7 @@
+// model/user2.js
+
 const Sequelize = require("sequelize");
-const sequelize = require("../db/mysql2");
+const sequelize = require("../db/mysql");
 
 const User2 = sequelize.define("user", {
   username: {
