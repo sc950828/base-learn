@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { create, query } = require("../controller/userController");
+const {
+  create,
+  query,
+  login,
+  testData,
+} = require("../controller/userController");
 
 router.get("/select", (req, res, next) => {
   res.end("get");
@@ -24,5 +29,7 @@ router.all("/userall", (req, res) => {
 
 router.post("/create", create);
 router.get("/query", query);
+router.post("/login", login);
+router.get("/testData", testData);
 
 module.exports = router;

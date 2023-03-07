@@ -4,6 +4,7 @@ const app = express();
 const multer = require("multer");
 const path = require("path");
 const logger = require("./utils/log");
+const { expressjwt } = require("express-jwt");
 
 // 自定义存储，比如重命名
 const storage = multer.diskStorage({
@@ -34,6 +35,16 @@ app.use(function (request, response, next) {
   next();
   console.log("end In comes a " + request.method + " to " + request.url);
 });
+
+// 静态资源处理，放token上面
+app.use("/static", express.static(path.join(__dirname, "uploads")));
+
+// token验证中间件
+app.use(
+  expressjwt({ secret: "miyao", algorithms: ["HS256"] }).unless({
+    path: ["/user/login", "/static"],
+  })
+);
 
 // 单独中间件
 app.get(
@@ -158,9 +169,6 @@ app.get("/logtest", (req, res) => {
   res.send("test log");
 });
 
-// 讲台资源处理
-app.use("/static", express.static(path.join(__dirname, "uploads")));
-
 // 路由，模块化处理
 // router可以看做是app的一个子应用，app对象所具有的功能基本上router对象也都可以使用
 // const userRouter = require("./routes/user");
@@ -197,9 +205,8 @@ app.get("/error2", async function (req, res, next) {
 
 // 错误处理中间件，定义在最后
 app.use((err, req, res, next) => {
-  console.log("error", err);
-  res.status(500).json({
-    message: err.message,
+  res.status(err.status || 500).json({
+    message: err.message || "服务端错误",
   });
 });
 
