@@ -1,5 +1,6 @@
 const Router = require("@koa/router");
 const router = new Router();
+const logger = require("../utils/log");
 
 router.post("/file", (ctx) => {
   const files = ctx.request.files;
@@ -45,9 +46,17 @@ router.get("/error", function (ctx, next) {
   throw new Error("同步错误");
 });
 
-router.get("/error2", async function (ctx, next) {
+router.get("/error2", async function (ctx) {
   // 新建异步错误
   await Promise.reject(new Error("异步错误"));
+});
+
+router.get("/logtest", (ctx) => {
+  logger.debug("Some debug messages");
+  logger.info("Some info messages");
+  logger.warn("Some warn messages");
+  logger.error("Some error messages");
+  ctx.body = "test log";
 });
 
 module.exports = router;
