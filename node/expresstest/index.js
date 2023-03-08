@@ -3,6 +3,7 @@ const app = express();
 // Multer 不会处理任何非 multipart/form-data 类型的表单数据。
 const multer = require("multer");
 const path = require("path");
+const logger = require("./utils/log");
 const { expressjwt } = require("express-jwt");
 
 // 自定义存储，比如重命名
@@ -21,8 +22,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // 连接mongodb
-const runmongodb = require("./db/mongodb.js");
-runmongodb();
+// const runmongodb = require("./db/mongodb.js");
+// runmongodb();
 
 // const db = require("./db/mysql2.js");
 // db.sequelize.sync();
@@ -48,12 +49,16 @@ app.use(
 // 单独中间件
 app.get(
   "/",
-  (req, res, next) => {
+  async (req, res, next) => {
     console.log("我是单独中间件 start");
+    // next();
+    // 异步会打乱中间件执行顺序
+    // const result = await Promise.resolve(123);
+    // console.log(result);
     next();
     console.log("我是单独中间件 end");
   },
-  (req, res) => {
+  async (req, res, next) => {
     console.log("send result start");
     res.send("get method!");
     console.log("send result end");
@@ -155,13 +160,25 @@ app.post(
   }
 );
 
+// 日志
+app.get("/logtest", (req, res) => {
+  logger.debug("Some debug messages");
+  logger.info("Some info messages");
+  logger.warn("Some warn messages");
+  logger.error("Some error messages");
+  res.send("test log");
+});
+
 // 路由，模块化处理
 // router可以看做是app的一个子应用，app对象所具有的功能基本上router对象也都可以使用
 // const userRouter = require("./routes/user");
 // app.use("/user", userRouter);
 
-const registerRoute = require("./routes/index");
-registerRoute(app);
+const dbtestRouter = require("./routes/dbtest.js");
+app.use("/db", dbtestRouter);
+
+// const registerRoute = require("./routes/index");
+// registerRoute(app);
 
 // 错误处理，模拟错误
 app.get("/error", function (req, res, next) {
@@ -170,15 +187,20 @@ app.get("/error", function (req, res, next) {
   throw new Error("抛出一个错误");
 });
 
-app.get("/error2", function (req, res, next) {
+app.get("/error2", async function (req, res, next) {
   // 新建异步错误
   // 异步错误需要显示调用next
-  setImmediate(() => {
-    // throw new Error("异步抛出一个错误");
+  // setImmediate(() => {
+  //   // throw new Error("异步抛出一个错误");
+  //   // 报告异步错误必须通过 next()
+  //   next(new Error("异步抛出一个错误"));
+  // });
 
-    // 报告异步错误必须通过 next()
-    next(new Error("异步抛出一个错误"));
-  });
+  try {
+    await Promise.reject({ message: "异步抛出一个错误" });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // 错误处理中间件，定义在最后
