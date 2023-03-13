@@ -9,7 +9,9 @@
     "index3": "babel src/index3.js --out-dir dist",
     "index4": "babel src/index4.js --out-dir dist",
     "index5": "babel src/index5.js --out-dir dist",
-    "index6": "babel src/index6.js --out-dir dist"
+    "index6": "babel src/index6.js --out-dir dist",
+    "index7": "babel src/index7.js --out-dir dist",
+    "index8": "babel src/index8.js --out-dir dist"
   },
   "keywords": [
     "babel"

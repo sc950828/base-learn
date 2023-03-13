@@ -12,7 +12,11 @@
 // module1.incAge();
 // console.log(module1.user);
 
-// console.log(this); // {}
+const name = "randy";
+const age = 27;
+// exports.name = name;
+
+console.log(this); // { name: 'randy' }
 
 // if (true) {
 //   const module1 = require("./cjs2");

@@ -15,7 +15,7 @@ import "./esm3.js";
 console.log("我是esm2模块");
 
 export default function say() {
-  console.log("esm2");
+  console.log("esm2 say");
 }
 
 export const name = "randy";
