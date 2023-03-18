@@ -27,9 +27,9 @@ app.use(
 
 app.use(mount("/static", koaStatic(path.join(__dirname, "uploads"))));
 
-app.use(
-  koaJwt({ secret: "miyao" }).unless({ path: [/^\/user\/login/, "/static"] })
-);
+// app.use(
+//   koaJwt({ secret: "miyao" }).unless({ path: [/^\/user\/login/, "/static"] })
+// );
 
 app.use(async (ctx, next) => {
   try {
@@ -51,8 +51,6 @@ app.use(async (ctx, next) => {
   console.log(
     "end In comes a " + ctx.request.method + " to " + ctx.request.url
   );
-  // throw new Error(123);
-  // ctx.body = "Hello World";
 });
 
 // app.use(userRouter.routes()).use(userRouter.allowedMethods());

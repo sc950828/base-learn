@@ -12,6 +12,7 @@
     <div>{{ user2.address.city }}</div>
     <button @click="updateUser2Age">update user2 age</button>
     <button @click="updateUser2Address">update user2 address</button>
+    <button @click="updateUser2">update user2 地址</button>
 
     <h3>watch invalidate</h3>
     <div>{{ invalidate.name }}</div>
@@ -129,7 +130,7 @@ export default defineComponent({
       }
     };
 
-    const user2 = reactive({
+    let user2 = reactive({
       name: "randy2",
       age: 27,
       address: { city: "汨罗" },
@@ -155,7 +156,7 @@ export default defineComponent({
       // () => user2.address,
 
       // 这种浅拷贝方式可以监听到第一层，并且子属性新老值不一样。要监听深度必须开启deep：true，并且孙子新老值是一样的
-      // () => ({ ...user2 }),
+      // () => ({ ...user2.address }),
 
       // 深拷贝能深度监听，并且属性新老值不一样
       // () => deepCopy(user2),
@@ -164,7 +165,7 @@ export default defineComponent({
         console.log(newVal, oldVal);
       },
       {
-        deep: true,
+        // deep: true,
       }
     );
     // 返回值是清除监听器
@@ -190,6 +191,15 @@ export default defineComponent({
     };
     const updateUser2Address = () => {
       user2.address.city += "!";
+      // user2.address = { city: "岳阳" };
+    };
+
+    const updateUser2 = () => {
+      user2 = {
+        name: "randy3",
+        age: 28,
+        address: { city: "岳阳" },
+      };
     };
 
     // 清除副作用
@@ -325,6 +335,7 @@ export default defineComponent({
       user2,
       updateUser2Age,
       updateUser2Address,
+      updateUser2,
       invalidate,
       updateInvalidateName,
       flushOptions,

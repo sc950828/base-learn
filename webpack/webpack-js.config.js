@@ -8,7 +8,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   // './src/index.js' //webpack的默认配置
-  entry: "./jssrc/es1.js",
+  // entry: "./jssrc/es1.js",
+  entry: "./jssrc/es2.js",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./jsdist"),
@@ -22,6 +23,8 @@ module.exports = {
       },
     ],
   },
+  // mode: "production",
+  devtool: false,
   // 2. 实例化插件
   plugins: [
     new HtmlWebpackPlugin({
