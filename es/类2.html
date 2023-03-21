@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>类</title>
+  </head>
+  <body>
+    <script>
+      class People {
+        eat() {
+          console.log(this);
+        }
+      }
+
+      const p1 = new People();
+      p1.eat(); // People实例
+
+      const e = p1.eat;
+      e(); // undefined
+    </script>
+  </body>
+</html>

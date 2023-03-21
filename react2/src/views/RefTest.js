@@ -20,6 +20,7 @@ class RefTest extends React.Component {
     this.ref8 = React.createRef();
     this.ref9 = React.createRef();
     this.refItems = [];
+    console.log(this);
   }
 
   componentDidMount() {
@@ -59,6 +60,7 @@ class RefTest extends React.Component {
   render() {
     return (
       <div>
+        <div ref="testRef">字符串ref，可以直接通过this.refs.xxx获取</div>
         <div ref={this.ref8}>普通元素</div>
         {[1, 2, 3].map((item, index) => (
           <div key={index} ref={this.ref9}>

@@ -9,6 +9,8 @@ class Event1 extends React.Component {
     this.click1 = this.click1.bind(this);
   }
 
+  state = { name: "randy" };
+
   click1(e) {
     // 普通函数不在constructor bind this，this就是undefined
     console.log(e, this);
@@ -46,6 +48,18 @@ class Event1 extends React.Component {
     console.log(name);
   }
 
+  updateName = () => {
+    this.setState({
+      name: "demi",
+    });
+  };
+
+  // 回调函数的方式在更新的时候会调用两次
+  refclick = (e) => {
+    this.ref1 = e;
+    console.log("@", e);
+  };
+
   render() {
     return (
       <div>
@@ -63,6 +77,23 @@ class Event1 extends React.Component {
         </button>
         <button onClick={this.click6.bind(this, "demi")}>
           带参数 函数里面bind this
+        </button>
+
+        {/* 如果 `ref` 回调函数是以内联函数的方式定义的，在更新过程中它会被执行两次，第一次传入参数 `null`，然后第二次会传入参数 DOM 元素。
+        这是因为在每次渲染时会创建一个新的函数实例，所以 React 清空旧的 ref 并且设置新的。
+        通过将 ref 的回调函数定义成 class 的绑定函数的方式可以避免上述问题，但是大多数情况下它是无关紧要的。 */}
+        {/* <div ref={(e) => this.refclick(e)}>{this.state.name}</div> */}
+
+        {/* 改成这种方式避免两次渲染 */}
+        <div ref={this.refclick}>{this.state.name}</div>
+        <button
+          onClick={() => {
+            this.setState({
+              name: "demi",
+            });
+          }}
+        >
+          修改name
         </button>
       </div>
     );

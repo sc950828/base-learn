@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lodash</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <script>
+      // 第一次全量
+      const arr1 = [
+        { id: 1, name: "name1-1" },
+        { id: 2, name: "name1-2" },
+      ];
+
+      // 第二次 将来数据
+      const arr2 = [
+        { id: 2, name: "name2-2" },
+        { id: 3, name: "name2-3" },
+      ];
+
+      // 1. 深度克隆第一次数据
+      const oldArr = _.cloneDeep(arr1);
+      console.log(oldArr);
+
+      // 匹配上的替换，多余的新增
+      let newArr = _.unionBy(arr2, oldArr, "id");
+      console.log(newArr);
+      // 未匹配删除
+      const delArr = _.differenceBy(newArr, oldArr, "id");
+      console.log(delArr);
+    </script>
+  </body>
+</html>
