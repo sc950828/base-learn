@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>requestIdleCallback</title>
+  </head>
+  <body>
+    <script>
+      const sleep = (milliseconds) => {
+        const now = +new Date();
+        while (+new Date() - now < milliseconds) {}
+      };
+
+      console.log(1);
+      // sleep(1000);
+      console.log(2);
+
+      document.write("123");
+
+      const progress = (dealine) => {
+        // didTimeout, timeRemaining
+        console.log(dealine.didTimeout); // 是否超时
+        console.log(dealine.timeRemaining()); // 空闲时间
+      };
+
+      // 每一帧有空闲时间就执行
+      requestIdleCallback(progress);
+    </script>
+  </body>
+</html>
