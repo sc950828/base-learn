@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>页面关闭事件</title>
+  </head>
+  <body>
+    <button onclick="openWin()">打开窗口</button>
+    <button onclick="closeWin()">关闭窗口</button>
+    <input type="text" />
+    <script>
+      let win = null;
+
+      function openWin() {
+        win = window.open("http://127.0.0.1:5500/html/unload2.html");
+      }
+
+      // 可以关闭自己创建的页面
+      function closeWin() {
+        win.close();
+      }
+
+      // 只有这样才能监听到这个事件，并且弹框内容不能定制，浏览器内置
+      // 并且需要用户对页面有交互
+      window.addEventListener("beforeunload", function (event) {
+        console.log(123456); // 无效
+        // 只有这样才有效
+        event.returnValue = "You have unsaved changes.";
+      });
+
+      // 在页面关闭后做一些事情
+      window.addEventListener("unload", function (event) {
+        console.log(123);
+      });
+    </script>
+  </body>
+</html>
