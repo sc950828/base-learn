@@ -19,6 +19,7 @@
     <router-link to="/store">Store</router-link>|
     <router-link to="/alive">Alive</router-link>|
     <router-link to="/video">Video</router-link>|
+    <router-link to="/is">Is</router-link>|
   </div>
   <router-view />
 </template>
