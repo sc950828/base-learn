@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>child</title>
+  </head>
+  <body>
+    <div>
+      <h3>child窗口</h3>
+      <div>
+        <button onclick="send()">发送数据给父窗口</button>
+      </div>
+      <div id="content"></div>
+    </div>
+    <script>
+      // postMessage 方案
+      // const send = () => {
+      //   const parentPage = window.parent; // 通过window.parent获取父窗口
+      //   parentPage.postMessage(
+      //     "<div>child发送给father的数据</div>",
+      //     location.origin
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听father页面发送来的数据
+      // window.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // BroadcastChannel 方案
+      // const channel = new BroadcastChannel("test"); // 频道为test，这个频道必须相同
+      // const send = () => {
+      //   channel.postMessage(
+      //     "<div>BroadcastChannel child发送给father数据</div>"
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // channel.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // storage方案
+      // let i = 0;
+      // const send = () => {
+      //   localStorage.setItem("chidlKey", i++); //需要注意的是要触发storage事件，必须存储不一样的值，或者不同的key
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听iframe页面发送来的数据
+      // window.addEventListener("storage", (e) => {
+      //   console.log(e);
+      //   content.innerHTML += "father更新了";
+      // });
+
+      // SharedWorker方案
+      const sharedWorker = new SharedWorker("./shared.js");
+      sharedWorker.port.start();
+
+      const send = () => {
+        sharedWorker.port.postMessage("sharedWorker child发送给father的数据");
+      };
+
+      const content = document.getElementById("content");
+      sharedWorker.port.onmessage = (e) => {
+        console.log(e);
+        content.innerHTML += e.data;
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>brother1</title>
+  </head>
+  <body>
+    <h3>brother1页面</h3>
+    <div>
+      <!-- <button onclick="openWindow()">打开页面</button> -->
+      <button onclick="send()">发送数据给brother2窗口</button>
+    </div>
+    <div id="content"></div>
+    <script>
+      let childWindow = null;
+      const openWindow = () => {
+        childWindow = window.open(
+          "http://127.0.0.1:5500/js/%E8%B7%A8%E9%A1%B5%E9%9D%A2%E9%80%9A%E8%AE%AF/brother2.html",
+          "brother2"
+        );
+      };
+
+      // postMessage 方案
+      // const send = () => {
+      //   childWindow.postMessage(
+      //     "<div>brother1发送给brother2的数据</div>",
+      //     location.origin
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // window.onmessage = (e) => {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // BroadcastChannel 方案
+      // const channel = new BroadcastChannel("test");
+      // const send = () => {
+      //   channel.postMessage(
+      //     "<div>BroadcastChannel brother1发送给brother2数据</div>"
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // channel.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // storage方案
+      // let i = 0;
+      // const send = () => {
+      //   localStorage.setItem("brother1Key", i++); //需要注意的是要触发storage事件，每次必须存储不一样的值，或者不同的key
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听iframe页面发送来的数据
+      // window.addEventListener("storage", (e) => {
+      //   console.log(e);
+      //   content.innerHTML += "brother2发送来的数据";
+      // });
+
+      // SharedWorker方案
+      const sharedWorker = new SharedWorker("./shared.js");
+      sharedWorker.port.start();
+      const send = () => {
+        sharedWorker.port.postMessage(
+          "<div>sharedWorker brother1发送给brother2数据</div>"
+        );
+      };
+
+      const content = document.getElementById("content");
+      sharedWorker.port.onmessage = (e) => {
+        console.log(e);
+        content.innerHTML += e.data;
+      };
+    </script>
+  </body>
+</html>

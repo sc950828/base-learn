@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>brother2</title>
+  </head>
+  <body>
+    <div>
+      <h3>brother2页面</h3>
+      <button onclick="send()">发送数据给brother1窗口</button>
+      <div id="content"></div>
+    </div>
+    <script>
+      // postMessage 方案
+      // const send = () => {
+      //   window.opener.postMessage(
+      //     "<div>brother2发送给brother1的数据</div>",
+      //     location.origin
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // window.onmessage = (e) => {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // BroadcastChannel 方案
+      // const channel = new BroadcastChannel("test");
+      // const send = () => {
+      //   channel.postMessage(
+      //     "<div>BroadcastChannel brother2发送给brother1数据</div>"
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // channel.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // storage方案
+      // let i = 0;
+      // const send = () => {
+      //   localStorage.setItem("brother2Key", i++); //需要注意的是要触发storage事件，每次必须存储不一样的值，或者不同的key
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听iframe页面发送来的数据
+      // window.addEventListener("storage", (e) => {
+      //   console.log(e);
+      //   content.innerHTML += "brother1发送来的数据";
+      // });
+
+      // SharedWorker方案
+      const sharedWorker = new SharedWorker("./shared.js");
+      sharedWorker.port.start();
+
+      const send = () => {
+        sharedWorker.port.postMessage(
+          "<div>sharedWorker brother2发送给brother1数据</div>"
+        );
+      };
+
+      const content = document.getElementById("content");
+      sharedWorker.port.onmessage = (e) => {
+        console.log(e);
+        content.innerHTML += e.data;
+      };
+    </script>
+  </body>
+</html>

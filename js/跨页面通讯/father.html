@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>father</title>
+  </head>
+  <body>
+    <div>
+      <h3>father窗口</h3>
+      <div>
+        <div>
+          <button onclick="send()">发送数据给子窗口</button>
+        </div>
+        <div id="content"></div>
+      </div>
+      <iframe
+        id="childFrame"
+        src="http://127.0.0.1:5500/js/%E8%B7%A8%E9%A1%B5%E9%9D%A2%E9%80%9A%E8%AE%AF/child.html"
+        width="100%"
+        height="500"
+      ></iframe>
+    </div>
+    <script>
+      // postMessage 方案
+      // const send = () => {
+      //   const childPage = document.getElementById("childFrame"); // 获取iframe
+      //   // 通过childPage.contentWindow发送数据给iframe页面
+      //   childPage.contentWindow.postMessage(
+      //     "<div>father发送给child的数据</div>",
+      //     location.origin
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听iframe页面发送来的数据
+      // window.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // BroadcastChannel 方案
+      // const channel = new BroadcastChannel("test"); // 频道为test，这个频道必须相同
+      // const send = () => {
+      //   channel.postMessage(
+      //     "<div>BroadcastChannel father发送给child数据</div>"
+      //   );
+      // };
+
+      // const content = document.getElementById("content");
+      // channel.onmessage = function (e) {
+      //   console.log(e);
+      //   content.innerHTML += e.data;
+      // };
+
+      // storage方案
+      // let i = 0;
+      // const send = () => {
+      //   localStorage.setItem("fatherKey", i++); //需要注意的是要触发storage事件，每次必须存储不一样的值，或者不同的key
+      // };
+
+      // const content = document.getElementById("content");
+      // // 监听iframe页面发送来的数据
+      // window.addEventListener("storage", (e) => {
+      //   console.log(e);
+      //   content.innerHTML += "child更新了";
+      // });
+
+      // SharedWorker方案
+      const sharedWorker = new SharedWorker("./shared.js");
+      sharedWorker.port.start();
+      const send = () => {
+        sharedWorker.port.postMessage("sharedWorker father发送给child的数据");
+      };
+
+      const content = document.getElementById("content");
+      sharedWorker.port.onmessage = (e) => {
+        console.log(e);
+        content.innerHTML += e.data;
+      };
+    </script>
+  </body>
+</html>
