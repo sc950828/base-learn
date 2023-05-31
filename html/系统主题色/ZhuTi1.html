@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="color-scheme" content="light dark" /> -->
+    <title>主题色</title>
+    <style>
+      /* 默认主题色为亮色 */
+      :root {
+        color-scheme: light dark;
+        --color: black;
+      }
+
+      /* 匹配主题色为黑色 */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color: white;
+        }
+      }
+
+      .div {
+        color: var(--color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div">跟随主题切换主题色</div>
+
+    <script>
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      console.log(mediaQuery); // matches
+
+      // mediaQuery.onchange = function () {
+      //   console.log(mediaQuery);
+      // };
+
+      mediaQuery.addEventListener("change", function () {
+        console.log(mediaQuery);
+      });
+
+      // mediaQuery.addListener(function () {
+      //   console.log(mediaQuery);
+      // });
+    </script>
+  </body>
+</html>
