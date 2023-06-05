@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单的阻止</title>
+  </head>
+  <body>
+    <h3>form1 return submit1() return false</h3>
+    <form action="http://localhost:3000/test" onsubmit="return submit1()">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="submit" id="submitBtn1" />
+    </form>
+
+    <h3>form2 add onclick return false;</h3>
+    <form action="https://jsonplaceholder.typicode.com">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="submit" id="submitBtn2" />
+    </form>
+
+    <h3>form3 return onclick return false;</h3>
+    <form action="https://jsonplaceholder.typicode.com">
+      <input type="text" name="name" />
+      <input type="submit" id="submitBtn3" onclick="return zuZhiFunc()" />
+    </form>
+
+    <h3>form4 add onclick event.preventDefault()</h3>
+    <form action="https://jsonplaceholder.typicode.com">
+      <input type="text" name="name" />
+      <input type="submit" id="submitBtn4" />
+    </form>
+
+    <h3>form5 onclick event.preventDefault();</h3>
+    <form action="https://jsonplaceholder.typicode.com">
+      <input type="text" name="name" />
+      <input type="submit" id="submitBtn5" onclick="zuZhiFunc5()" />
+    </form>
+
+    <h3>form6 addEventListener e.preventDefault();</h3>
+    <form action="https://jsonplaceholder.typicode.com">
+      <input type="text" name="name" />
+      <input type="submit" id="submitBtn6" />
+    </form>
+
+    <script>
+      function submit1() {
+        return false;
+      }
+
+      const submitBtn2 = document.getElementById("submitBtn2");
+      submitBtn2.onclick = function () {
+        return false;
+      };
+
+      const zuZhiFunc = () => {
+        return false;
+      };
+
+      const submitBtn4 = document.getElementById("submitBtn4");
+      submitBtn4.onclick = function (e) {
+        e.preventDefault();
+      };
+
+      const zuZhiFunc5 = (e) => {
+        const event = e || window.event;
+        event.preventDefault();
+      };
+
+      const submitBtn6 = document.getElementById("submitBtn6");
+      submitBtn6.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>

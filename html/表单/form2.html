@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单的提交</title>
+  </head>
+  <body>
+    <h3>form1 直接提交</h3>
+    <form action="http://localhost:3000/test" onsubmit="submit1()">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="submit" />
+    </form>
+
+    <h3>form2 手动提交</h3>
+    <form action="http://localhost:3000/test" id="form2" onsubmit="submit1()">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <!-- 这个按钮可以放在表单内也可以放在表单外 -->
+      <input type="button" id="submitBtn2" value="提交" />
+    </form>
+
+    <h3>form3</h3>
+    <form action="https://jsonplaceholder.typicode.com" id="form3">
+      <input type="text" name="name" />
+      <input type="button" id="submitBtn3" onclick="tijiao3()" value="提交" />
+    </form>
+
+    <h3>form4</h3>
+    <form action="https://jsonplaceholder.typicode.com" id="form4">
+      <input type="text" name="name" />
+      <input type="button" id="submitBtn4" value="提交" />
+    </form>
+
+    <script>
+      // 该方法可以不需要，如果要对数据进行处理再提交就需要
+      function submit1() {
+        alert(1);
+        // console.log(提交成功);
+      }
+
+      const submitBtn2 = document.getElementById("submitBtn2");
+      submitBtn2.onclick = function () {
+        const form2 = document.getElementById("form2");
+        form2.submit();
+      };
+
+      const tijiao3 = () => {
+        const form3 = document.getElementById("form3");
+        form3.submit();
+      };
+
+      const submitBtn4 = document.getElementById("submitBtn4");
+      submitBtn4.addEventListener("click", function () {
+        const form4 = document.getElementById("form4");
+        form4.submit();
+      });
+    </script>
+  </body>
+</html>

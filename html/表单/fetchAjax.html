@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetch Ajax</title>
+  </head>
+  <body>
+    <h3>fetch form</h3>
+    <form id="form1">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="button" id="submitBtn1" onclick="request3()" value="提交" />
+    </form>
+    <h3>结果</h3>
+    <div id="result"></div>
+    <script>
+      function request3() {
+        const formData = new FormData(document.getElementById("form1"));
+        const name = formData.get("name");
+        const age = formData.get("age");
+        const urlSearchParams = new URLSearchParams(formData);
+
+        // get 请求不能通过body传递参数
+        // fetch(`http://localhost:3000/testGet?name=${name}&age=${age}`, {})
+        //   .then((response) => {
+        //     console.log(response);
+        //     return response.json();
+        //   })
+        //   .then((res) => {
+        //     console.log(res);
+        //     // const resultDiv = document.getElementById("result");
+        //     // resultDiv.innerText = JSON.stringify(res);
+        //   });
+
+        // fetch(`http://localhost:3000/testPost`, {
+        //   method: "POST",
+        //   // body: "纯文本",
+        //   // body: formData, // 会自动设置 content-type 为 multipart/form-data
+        //   // body: urlSearchParams, // 会自动设置 application/x-www-form-urlencoded
+        //   // body: `name=${name}&age=${age}`, // 需要手动设置 "content-type": "application/x-www-form-urlencoded"
+        //   body: JSON.stringify({ name, age }), // 需要手动设置 "content-type": "application/json"
+        //   // 还支持  Blob 或 arrayBuffer，使用的比较少 这个笔者就不举例了
+        //   headers: {
+        //     // "content-type": "application/x-www-form-urlencoded",
+        //     "content-type": "application/json",
+        //   },
+        // })
+        //   .then((response) => {
+        //     console.log(response);
+        //     // 转成字符串文本
+        //     return response.text();
+        //   })
+        //   .then((res) => {
+        //     const resultDiv = document.getElementById("result");
+        //     resultDiv.innerText = res;
+        //   });
+
+        // 取消请求
+        // let controller = new AbortController();
+        // let signal = controller.signal;
+
+        // // let controller2 = new AbortController();
+        // // let signal2 = controller2.signal;
+
+        // fetch(`http://localhost:3000/testGet?name=${name}`, {
+        //   signal: controller.signal,
+        // });
+
+        // // fetch(`http://localhost:3000/testGet?age=${age}`, {
+        // //   signal2: controller2.signal,
+        // // });
+
+        // signal.addEventListener("abort", () => console.log("signal abort!"));
+        // controller.abort(); // 取消
+      }
+    </script>
+  </body>
+</html>

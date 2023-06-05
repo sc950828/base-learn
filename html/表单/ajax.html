@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ajax提交数据</title>
+  </head>
+  <body>
+    <h3>form1</h3>
+    <form id="form1" autocomplete="off">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="button" id="submitBtn1" onclick="request1()" value="提交" />
+    </form>
+    <h3>结果</h3>
+    <div id="result"></div>
+
+    <script>
+      function request1() {
+        let xhr;
+        if (window.XMLHttpRequest) {
+          //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+          xhr = new XMLHttpRequest();
+        } else {
+          // IE6, IE5 浏览器执行代码
+          xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // xhr.responseType = "json";
+
+        // 设置状态监听函数
+        xhr.onreadystatechange = function () {
+          // 4成功
+          if (this.readyState !== 4) return;
+
+          // 请求xhr对象
+          console.log(this);
+
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerText = this.response;
+        };
+
+        // 设置请求失败时的监听函数
+        // 当网络中断时或者跨域时会触发onerror事件
+        xhr.onerror = function () {
+          console.error(this);
+        };
+
+        const formData = new FormData(document.getElementById("form1"));
+        const name = formData.get("name");
+        const age = formData.get("age");
+
+        const urlSearchParams = new URLSearchParams(formData);
+
+        // open(method,url,async) 规定请求的类型、URL 以及是否异步处理请求(true（异步）或 false（同步）默认异步)
+        xhr.open(
+          "get",
+          `http://localhost:3000/testGet?name=${name}&age=${age}`,
+          true
+        );
+        // xhr.open("post", `http://localhost:3000/testPost`);
+        // xhr.open("post", `http://localhost:3000/testPost2`);
+
+        // 设置请求头信息
+        // xhr.responseType = "json";
+        // xhr.setRequestHeader("Accept", "application/json");
+
+        // 发送请求
+        const result = xhr.send();
+        // console.log(result);
+        // console.log("后续代码");
+
+        // 取消请求
+        // xhr.abort();
+
+        // xhr.setRequestHeader(
+        //   "Content-type",
+        //   // "application/x-www-form-urlencoded"
+        //   // "multipart/form-data"
+        //   // "application/json"
+        // );
+
+        // xhr.send("纯文本能解析吗");
+
+        // xhr.send(`name=${name}&age=${age}`);
+
+        // 自动设置application/x-www-form-urlencoded请求头
+        // xhr.send(urlSearchParams);
+
+        // 自动设置multipart/form-data请求头
+        // xhr.send(formData);
+
+        // 发送json数据
+        // xhr.send(JSON.stringify({ name, age }));
+
+        // 阻止自动表单提交
+        return false;
+      }
+    </script>
+  </body>
+</html>

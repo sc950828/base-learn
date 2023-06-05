@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>axios ajax</title>
+  </head>
+  <body>
+    <h3>axios form</h3>
+    <form id="form1">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="button" id="submitBtn1" onclick="request4()" value="提交" />
+    </form>
+    <h3>结果</h3>
+    <div id="result"></div>
+
+    <script>
+      async function request4() {
+        const formData = new FormData(document.getElementById("form1"));
+        const name = formData.get("name");
+        const age = formData.get("age");
+        const urlSearchParams = new URLSearchParams(formData);
+
+        // axios({
+        //   url: "http://localhost:3000/testGet",
+        //   params: urlSearchParams,
+        //   responseType: "text",
+        // }).then((res) => {
+        //   // 响应数据在data中
+        //   console.log(res);
+        //   const resultDiv = document.getElementById("result");
+        //   // resultDiv.innerText = JSON.stringify(res.data);
+        //   resultDiv.innerText = res.data;
+        // });
+
+        // axios("http://localhost:3000/testGet", {
+        //   params: urlSearchParams,
+        // })
+        //   .then((res) => {
+        //     console.log(res);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+
+        // try {
+        //   const res = await axios("http://localhost:3000/testGet", {
+        //     params: urlSearchParams,
+        //   });
+        //   console.log(res);
+        // } catch (err) {
+        //   console.log(err);
+        // }
+
+        // axios
+        //   .request({
+        //     url: "http://localhost:3000/testGet",
+        //     params: urlSearchParams,
+        //   })
+        //   .then((res) => {
+        //     // 响应数据在data中
+        //     console.log(res.data);
+        //     const resultDiv = document.getElementById("result");
+        //     resultDiv.innerText = JSON.stringify(res.data);
+        //   });
+
+        // axios({
+        //   method: "POST",
+        //   url: "http://localhost:3000/testPost",
+        //   // data: urlSearchParams, // 会自动设置 application/x-www-form-urlencoded
+        //   // data: formData, // 会自动设置 content-type 为 multipart/form-data
+        //   // data: { name, age }, // 会自动设置 application/json
+        //   // data: "纯文本",
+        //   // data: JSON.stringify({ name, age }),
+        //   data: `name=${name}&age=${age}`,
+        //   responseType: "text",
+        //   headers: {
+        //     // "content-type": "text/plain",
+        //   },
+        // }).then((res) => {
+        //   // 响应数据在data中
+        //   console.log(res);
+        //   const resultDiv = document.getElementById("result");
+        //   // resultDiv.innerText = JSON.stringify(res.data);
+        //   resultDiv.innerText = res.data;
+        // });
+
+        // 并发请求
+        // axios
+        //   .all([
+        //     axios.get("http://localhost:3000/testGet", {
+        //       params: { name: "jack" },
+        //     }),
+        //     axios.get("http://localhost:3000/testGet", {
+        //       params: { name: "tom" },
+        //     }),
+        //   ])
+        //   .then(
+        //     axios.spread((res1, res2) => {
+        //       console.log(res1);
+        //       console.log(res2);
+        //     })
+        //   )
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+
+        // 取消请求
+        // const CancelToken = axios.CancelToken;
+        // const source = CancelToken.source();
+
+        // axios("http://localhost:3000/testGet", {
+        //   cancelToken: source.token,
+        // });
+
+        // // 取消请求（message 参数是可选的）
+        // source.cancel("Operation canceled by the user.");
+
+        const CancelToken = axios.CancelToken;
+        let cancel;
+
+        axios("http://localhost:3000/testGet", {
+          cancelToken: new CancelToken(function executor(c) {
+            // executor 函数接收一个 cancel 函数作为参数
+            cancel = c;
+          }),
+        });
+
+        // 取消请求（message 参数是可选的）
+        cancel("Operation canceled by the user.");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jquery ajax</title>
+  </head>
+  <body>
+    <h3>jQuery ajax form</h3>
+    <form id="form1">
+      <input type="text" name="name" placeholder="请输入名字" />
+      <input type="number" name="age" placeholder="请输入年龄" />
+      <input type="button" id="submitBtn1" onclick="request2()" value="提交" />
+    </form>
+    <h3>结果</h3>
+    <div id="result"></div>
+
+    <script>
+      function request2() {
+        const formData = new FormData(document.getElementById("form1"));
+        const name = formData.get("name");
+        const age = formData.get("age");
+
+        const urlSearchParams = new URLSearchParams(formData);
+
+        $.ajax({
+          url: "http://localhost:3000/testGet", // 规定发送请求的 URL。默认是当前页面。
+          data: $("#form1").serialize(), // 规定要发送到服务器的数据。
+          success(result) {
+            console.log(result);
+            $("#result").text(JSON.stringify(result));
+          },
+        });
+
+        // $.ajax({
+        //   type: "POST", // 规定请求的类型（GET 或 POST） 默认GET
+        //   url: "http://localhost:3000/testPost2", // 规定发送请求的 URL。默认是当前页面。
+        //   // data: formData, // 上传文件需要用到，传送formData会自动设置contentType: "multipart/form-data"，我们需要设置contentType: false、processData: false
+        //   data: urlSearchParams, // 直接传递 URLSearchParams 对象 我们需要设置processData: false
+        //   // data: `name=${name}&age=${age}`, // 规定要发送到服务器的数据。支持这种search字符串类型。
+        //   // data: $("#form1").serialize(), // 把表单序列化出search字符串
+        //   // data: $.param({ name, age }), // 把对象序列化出search字符串
+        //   // data: { name, age }, // 支持对象类型
+        //   // data: JSON.stringify({ name, age }), // 支持对象字符串类型。使用这种方式需要设置 contentType: "application/json"
+        //   // contentType: "application/x-www-form-urlencoded", // 发送数据到服务器时所使用的内容类型。默认是："application/x-www-form-urlencoded"。
+        //   // contentType: "application/json", // 发送数据到服务器时所使用的内容类型。默认是："application/x-www-form-urlencoded"。
+        //   // contentType: "multipart/form-data",
+        //   // contentType: false,
+        //   dataType: "", // 预期的服务器响应的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断。可以设置json、text、xml、html等
+        //   processData: false, // 布尔值，规定通过请求发送的数据是否转换为查询字符串。默认是 true。
+        //   beforeSend(xhr) {
+        //     // 发送请求前运行的函数
+        //     console.log(xhr);
+        //   },
+        //   success(result) {
+        //     // 请求成功运行的函数
+        //     console.log(result);
+        //     $("#result").text(JSON.stringify(result));
+        //   },
+        //   error(xhr, status, error) {
+        //     // 如果请求失败要运行的函数
+        //     // 后端返回错误码也会进入该方法 比如 400/401/500
+        //     console.log(error);
+        //   },
+        //   complete(xhr, status) {
+        //     // 请求完成时运行的函数，不管成功或者失败
+        //     console.log(status);
+        //   },
+        // });
+
+        // $.get(
+        //   "http://localhost:3000/testGet",
+        //   // $("#form1").serialize(), // 支持
+        //   // { name, age }, // 支持
+        //   // urlSearchParams, // 不支持
+        //   // formData, // 不支持
+        //   // JSON.stringify({ name, age }), // 不支持
+        //   function success(data, status, xhr) {
+        //     console.log(data);
+        //     $("#result").text(JSON.stringify(data));
+        //   },
+        //   "json"
+        // );
+
+        // $.post(
+        //   "http://localhost:3000/testPost",
+        //   // $("#form1").serialize(), // 支持
+        //   // { name, age }, // 支持
+        //   // urlSearchParams, // 不支持
+        //   // formData, // 不支持
+        //   // JSON.stringify({ name, age }),// 不支持
+        //   function success(data, status, xhr) {
+        //     console.log(data);
+        //     $("#result").text(JSON.stringify(data));
+        //   },
+        //   "json"
+        // );
+
+        // $.getJSON(
+        //   "http://localhost:3000/testGet",
+        //   $("#form1").serialize(),
+        //   function success(data, status, xhr) {
+        //     console.log(data);
+        //     $("#result").text(JSON.stringify(data));
+        //   }
+        // );
+      }
+    </script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  </body>
+</html>
