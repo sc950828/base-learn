@@ -16,10 +16,10 @@ module.exports = {
     rules: [
       {
         test: /\.ts?$/,
-        use: "babel-loader",
+        // use: "babel-loader",
 
         // ts-loader必须安装typescript和ts-loader并且还需要配置文件tsconfig.josn
-        // use: ["ts-loader"],
+        use: ["ts-loader"],
         exclude: /node_modules/, //排除 node_modules 目录
       },
     ],

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正则表达式</title>
+  </head>
+  <body>
+    <script>
+      const str = `
+  <html>
+    <body>
+      <div>第一个div</div>
+      <p>这是一个p</p>
+      <span>span</span>
+      <div>第二个div</div>
+    <body>
+  </html>
+`;
+
+      // . 代表 除了\n \r
+
+      const str1 = `<p>1235555555555555555555555555555555555555555555555555555</p><p>你好</p><p><br/></p>
+        <p>456<img src="https://ntppc.oss-cn-shanghai.aliyuncs.com/微信朋友圈新功能热点公众号首图(1)20230606103213040.jpg" /></p>
+        <p>randy</p>
+        <p><img src="https://ntppc.oss-cn-shanghai.aliyuncs.com/微信截图_2022120709464420230606103309584.png" /></p>`;
+
+      const str2 = `hellorandyhellojack`;
+      // console.log(str1);
+      // console.log(str2);
+      console.log(str1.split("</p>"));
+
+      function selectDiv(regExp, str) {
+        let matches = [];
+        for (let match of str.matchAll(regExp)) {
+          console.log(match);
+          // matches.push(match[1]);
+          matches.push(match[0]);
+        }
+        return matches;
+      }
+      // const res = selectDiv(/<div>(.*)<\/div>/g, str);
+      const res = selectDiv(/<p>.*<\/p>/g, str1);
+      // const res = selectDiv(/h.*o/g, str2);
+      console.log(res);
+    </script>
+  </body>
+</html>

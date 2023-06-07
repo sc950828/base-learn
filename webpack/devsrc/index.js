@@ -12,5 +12,12 @@ fetch("/user")
     console.log(data);
   });
 
+// 热更新
+// if (module && module.hot) {
+//   module.hot.accept();
+// }
+
+console.log("lala123");
+
 // 定义一个错误
 // console.log(e);
