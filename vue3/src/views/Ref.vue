@@ -10,12 +10,14 @@
       <div>{{ index }}：{{ list }}</div>
     </div>
 
-    <RefChild ref="childRef" />
+    <RefChild ref="childRef" msg="hello" />
+    <RefChild2 ref="childRef2" @clickCount="handleClick" msg="hello" />
   </div>
 </template>
 
 <script>
 import RefChild from "@/components/RefChild";
+import RefChild2 from "@/components/RefChild2";
 import {
   defineComponent,
   ref,
@@ -28,11 +30,13 @@ import {
 export default defineComponent({
   components: {
     RefChild,
+    RefChild2,
   },
   setup() {
     const sigleRef = ref(null);
     const forRef = ref(null);
     const childRef = ref(null);
+    const childRef2 = ref(null);
 
     const lists = reactive([1, 2, 3]);
 
@@ -66,9 +70,23 @@ export default defineComponent({
       console.log(childRef.value.$props); // 获取传递的属性 {msg: undefined}
       console.log(childRef.value.$parent); // 获取父组件
       console.log(childRef.value.$root); // 获取根组件
+
+      console.log(childRef2.value);
     });
 
-    return { sigleRef, forRef, childRef, lists, setItemRef };
+    const handleClick = () => {
+      console.log("点击啦");
+    };
+
+    return {
+      sigleRef,
+      forRef,
+      childRef,
+      childRef2,
+      lists,
+      setItemRef,
+      handleClick,
+    };
   },
 });
 </script>
