@@ -257,18 +257,23 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(to);
   // console.log("beforeEach");
   // console.log(to, from);
   // console.log(VueRouter.START_LOCATION);
 
-  next();
+  // next();
 
-  // if (to.path == "/about" && to.path !== "mixins") {
-  //   // 重新又走了一遍路由
-  //   next("/mixins");
-  // } else {
-  //   next();
-  // }
+  if (to.path == "/home" && to.path !== "mixins") {
+    // 重新又走了一遍路由
+    console.log(1);
+    next("/mixins");
+    console.log(2);
+  } else {
+    console.log(3);
+    next();
+    console.log(4);
+  }
 });
 
 // 所有都处理完后进入该方法，因为支持next所以可以在该方法进行再次跳转

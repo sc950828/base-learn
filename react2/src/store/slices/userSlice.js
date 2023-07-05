@@ -38,9 +38,9 @@ const userSlice = createSlice({
 
   // createAsyncThunk创建成功后，return出去的值，会在extraReducers中接收，有三种状态：
 
-  // pending: 'fetchCustomer/requestStatus/pending'，运行中；
-  // fulfilled: 'fetchCustomer/requestStatus/fulfilled'，完成；
-  // rejected: 'fetchCustomer/requestStatus/rejected'，拒绝；
+  // pending: 'user/thunk/pending'，运行中；
+  // fulfilled: 'user/thunk/fulfilled'，完成；
+  // rejected: 'user/thunk/rejected'，拒绝；
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
@@ -48,7 +48,8 @@ const userSlice = createSlice({
         console.log(state, action);
       })
       .addCase(userThunk.fulfilled, (state, action) => {
-        console.log(state, action);
+        console.log(state.age);
+        console.log(action);
       })
       .addCase(userThunk.rejected, (state, action) => {
         console.log(state, action);

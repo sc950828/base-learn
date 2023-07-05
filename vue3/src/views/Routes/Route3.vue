@@ -54,6 +54,19 @@ export default defineComponent({
 
     return {};
   },
+  // 选项式api还是可以使用的
+  beforeRouteEnter(to, from, next) {
+    console.log("beforeRouteEnter");
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log("beforeRouteUpdate");
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log("beforeRouteLeave");
+    next();
+  },
 });
 </script>
 
