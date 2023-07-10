@@ -21,7 +21,9 @@
     <router-link to="/video">Video</router-link>|
     <router-link to="/is">Is</router-link>|
     <router-link to="/md">Md</router-link>|
+    <router-link to="/vue2">vue2</router-link>|
   </div>
+
   <router-view />
 </template>
 
