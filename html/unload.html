@@ -22,6 +22,8 @@
         win.close();
       }
 
+      // 并没有close事件
+
       // 只有这样才能监听到这个事件，并且弹框内容不能定制，浏览器内置
       // 并且需要用户对页面有交互
       window.addEventListener("beforeunload", function (event) {

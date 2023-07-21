@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pageshow pagehide load unload visibilitychange</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.4.1/vconsole.min.js"></script>
+  </head>
+  <body>
+    <button onclick="jump()">跳转</button>
+    <script>
+      var vConsole = new VConsole(); // init vConsole
+
+      const handler = () => {
+        console.log("pageshow");
+      };
+      window.addEventListener("pageshow", handler);
+      // ios跳转外部链接 pagehide 会触发
+      window.addEventListener("pagehide", () => {
+        // window.removeEventListener("pageshow", handler);
+        console.log("pagehide");
+      });
+
+      window.addEventListener("load", () => {
+        console.log("load");
+      });
+
+      // ios跳转外部链接 unload不会触发
+      window.addEventListener("unload", () => {
+        console.log("unload");
+      });
+      // ios跳转外部链接 beforeunload 不会触发
+      window.addEventListener("beforeunload", () => {
+        console.log("beforeunload");
+      });
+
+      window.addEventListener("visibilitychange", () => {
+        console.log("visibilitychange");
+      });
+
+      const jump = () => {
+        location.assign("https://www.baidu.com");
+
+        // pushState会导致浏览器地址栏变化，但是并不会触发页面跳转
+        // const state = { page_id: 1 };
+        // history.pushState(state, "", "./index2.html");
+      };
+    </script>
+  </body>
+</html>
