@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserInfoAction } from "./store/actions/userActions";
 import Home from "./views/Home";
 import About from "./views/About";
 import Login from "./views/Login";
@@ -10,6 +12,7 @@ import Auth from "./router/Auth";
 
 function App(props) {
   console.log("App", props);
+  const dispatch = useDispatch();
   // const history = useHistory();
   // useEffect(() => {
   //   const unblock = history.block((location, action) => {
@@ -25,6 +28,11 @@ function App(props) {
   //     unlisten && unlisten();
   //   };
   // }, []);
+
+  useEffect(() => {
+    // 获取用户信息
+    dispatch(setUserInfoAction());
+  }, []);
 
   return (
     <div className="app-wrapper">

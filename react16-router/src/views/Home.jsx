@@ -7,8 +7,6 @@ import Child2 from "./Child2";
 import Auth from "../router/Auth";
 
 export default function Home(props) {
-  console.log("Home", props);
-
   // useEffect(() => {
   //   const unblock = props.history.block((location, action) => {
   //     console.log(location, action);

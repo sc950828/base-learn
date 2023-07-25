@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import Home from "./views/Home";
@@ -7,9 +7,17 @@ import Login from "./views/Login";
 import Child1 from "./views/Child1";
 import Child2 from "./views/Child2";
 import routes, { transformRoutes } from "./router/routes";
+import { useDispatch } from "react-redux";
+import { setUserInfoAction } from "./store/actions/userActions";
 
 function App() {
   const pages = useRoutes(transformRoutes(routes));
+  const dispatch = useDispatch();
+  console.log("App");
+  useEffect(() => {
+    // 获取用户信息
+    dispatch(setUserInfoAction());
+  }, []);
 
   return (
     <div className="app-wrapper">
