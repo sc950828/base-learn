@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>getSelection</title>
+  </head>
+  <body>
+    <div id="div">
+      <p id="p1">我爱你啊</p>
+      <p id="p2">aaa <span>哈哈</span></p>
+    </div>
+    <input type="button" value="选中上面内容后点我" onclick="foo()" />
+    <script>
+      function foo() {
+        let selObj = window.getSelection();
+        console.log(selObj);
+        console.log(selObj.toString());
+      }
+
+      const div = document.getElementById("div");
+
+      div.addEventListener("click", function (e) {
+        console.log(e.target);
+      });
+    </script>
+  </body>
+</html>
