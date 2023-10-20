@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ellipsis</title>
+    <style>
+      .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .ellipsis2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        width: auto;
+      }
+
+      .spanbox {
+        display: inline-block;
+        width: 100%;
+      }
+
+      .ellipsis-2 {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2; /*这个值可以随便设置，比如这里的2就是最多显示两行，两行后出现省略号*/
+        -webkit-box-orient: vertical;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="ellipsis2">
+      22当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）222222222。
+    </span>
+
+    <div class="ellipsis">
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </div>
+    <p class="ellipsis">
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </p>
+    <div class="ellipsis">
+      <div>
+        多层div嵌套也会不起作用。
+        当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+        使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+        inline-block）。
+      </div>
+    </div>
+    <span class="ellipsis">
+      span 不会起作用。
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </span>
+
+    <span class="ellipsis spanbox">
+      将span变成块级元素 并有宽度就可以啦。
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </span>
+
+    <p>
+      ===================================================================================
+    </p>
+
+    <div class="ellipsis-2">
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </div>
+
+    <div class="ellipsis-2">
+      <div>
+        多行文本省略的时候 可以嵌套。
+        当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+        使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+        inline-block）。
+      </div>
+    </div>
+
+    <span class="ellipsis-2">
+      多行文本省略是不需要块级元素的，普通span行内元素也是可以的。
+      当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。
+      使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:
+      inline-block）。
+    </span>
+
+    <!-- <div id="box1" class="ellipsis"></div>
+    <div id="box2" class="ellipsis"></div> -->
+
+    <div id="box1" class="ellipsis-2"></div>
+    <div id="box2" class="ellipsis-2"></div>
+
+    <script>
+      const box1 = document.getElementById("box1");
+      const box2 = document.getElementById("box2");
+      box1.innerText =
+        "多行文本省略是不需要块级元素的，普通span行内元素也是可以的。当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:inline-block）。";
+      box2.innerHTML =
+        "<div>多行文本省略是不需要块级元素的，普通span行内元素也是可以的。当我们需要将多于文本用省略号显示的时候，我们可以用到如下样式。其实这个是pc端和移动端通用的样式。使用这个样式需要注意，元素必须是块级元素，或者是具有指定宽度的行内块级元素（就是display:inline-block）。</div>";
+    </script>
+  </body>
+</html>
