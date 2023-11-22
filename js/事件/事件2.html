@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>offsetX、clientX、screenX、pageX、layerX</title>
+    <style>
+      .div1 {
+        width: 200px;
+        height: 200px;
+        border: grey solid 10px;
+        padding: 20px;
+        background-color: aqua;
+        /* position: relative; */
+
+        /* margin-top: 200px; */
+      }
+
+      .div2 {
+        width: 100px;
+        height: 100px;
+        padding: 30px;
+        border: forestgreen solid 20px;
+        background-color: blanchedalmond;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1" onclick="handleClick(event)">
+      <div class="div2">点</div>
+    </div>
+
+    <script>
+      const handleClick = (e) => {
+        console.log(e);
+        // console.log("screenX: ", e.screenX);
+        // console.log("screenY: ", e.screenY);
+
+        console.log("clientX: ", e.clientX);
+        console.log("clientY: ", e.clientY);
+
+        console.log("pageX: ", e.pageX);
+        console.log("pageY: ", e.pageY);
+
+        console.log("offsetX: ", e.offsetX);
+        console.log("offsetY: ", e.offsetY);
+
+        console.log("layerX: ", e.layerX);
+        console.log("layerY: ", e.layerY);
+      };
+    </script>
+  </body>
+</html>
