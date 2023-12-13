@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://g.alicdn.com/apsara-media-box/imp-web-player/2.16.3/skins/default/aliplayer-min.css"
+    />
+    <script
+      charset="utf-8"
+      type="text/javascript"
+      src="https://g.alicdn.com/apsara-media-box/imp-web-player/2.16.3/aliplayer-min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="./aliplayercomponents-1.0.9.min.js"
+    ></script>
+  </head>
+  <body>
+    <div id="J_prismPlayer"></div>
+  </body>
+
+  <script>
+    /* Custom events for skipping ads. These parameters are provided by the video ad component. */
+    var videoAdClose = function (videoAd) {
+      /* Register the pause event to pause the ad. */
+      videoAd.pauseVideoAd();
+      var result = confirm("确定开通会员关闭广告吗？");
+      if (result) {
+        /* Register the skip event to skip the ad. */
+        videoAd.closeVideoAd();
+      } else {
+        /* Register the play event to play the ad. */
+        videoAd.playVideoAd();
+      }
+    };
+
+    console.log(AliPlayerComponent);
+    var player = new Aliplayer(
+      {
+        id: "J_prismPlayer",
+        source:
+          "https://live.morehealth.net.cn/test/test.m3u8?auth_key=1700706788-0-0-4f241b9ad005e6dba00dd88f4411ad44", // 播放地址，可以是第三方点播地址，或阿里云点播服务中的播放地址。
+        isLive: true, // 是否为直播播放。
+        components: [
+          {
+            name: "StartADComponent",
+            type: AliPlayerComponent.StartADComponent,
+            args: [
+              "https://img.alicdn.com/tfs/TB1byi8afDH8KJjy1XcXXcpdXXa-1920-514.jpg",
+              "https://promotion.aliyun.com/ntms/act/videoai.html",
+              3,
+            ],
+          },
+          {
+            name: "PauseADComponent",
+            type: AliPlayerComponent.PauseADComponent,
+            args: [
+              "https://img.alicdn.com/tfs/TB1byi8afDH8KJjy1XcXXcpdXXa-1920-514.jpg",
+              "https://promotion.aliyun.com/ntms/act/videoai.html",
+            ],
+          },
+        ],
+      },
+      function (player) {
+        console.log("The player is created.");
+      }
+    );
+  </script>
+</html>

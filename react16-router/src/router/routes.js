@@ -1,4 +1,4 @@
-import Home from "../views/Home";
+import Home from "@/views/Home";
 import About from "../views/About";
 import Login from "../views/Login";
 import Child1 from "../views/Child1";
@@ -43,6 +43,8 @@ const routes = [
       roles: ["admin"], // admin角色才能看
     },
   },
+
+  // 动态添加路由的时候只需要将固定路由配置在这里
   {
     path: "/login",
     component: Login,

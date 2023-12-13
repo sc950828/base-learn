@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="//unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js"
+      type="text/javascript"
+    ></script>
+    <title>视频播放</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mse"></div>
+  </body>
+  <script>
+    let player = new Player({
+      id: "mse",
+      url: "https://ntppc.oss-cn-shanghai.aliyuncs.com/mp4/%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D.mp4",
+      width: "100%",
+      playsinline: true,
+      poster: "https://ntppc.oss-cn-shanghai.aliyuncs.com/20200424103144.png",
+    });
+  </script>
+</html>

@@ -7,16 +7,22 @@ import Login from "./views/Login";
 import Child1 from "./views/Child1";
 import Child2 from "./views/Child2";
 import routes, { transformRoutes } from "./router/routes";
-import { useDispatch } from "react-redux";
-import { setUserInfoAction } from "./store/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUserInfoAction,
+  setUserMenusAction,
+} from "./store/actions/userActions";
 
 function App() {
   const pages = useRoutes(transformRoutes(routes));
   const dispatch = useDispatch();
+  const menus = useSelector((state) => state.user.menus);
   console.log("App");
+
   useEffect(() => {
     // 获取用户信息
     dispatch(setUserInfoAction());
+    dispatch(setUserMenusAction());
   }, []);
 
   return (
@@ -34,7 +40,8 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
       </Routes> */}
 
-      {pages}
+      {/* {pages} */}
+      {useRoutes(menus)}
     </div>
   );
 }

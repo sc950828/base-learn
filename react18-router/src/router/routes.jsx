@@ -8,44 +8,46 @@ import NoPermission from "../views/NoPermission";
 
 import { Navigate } from "react-router-dom";
 import Auth from "./Auth";
+import { lazy } from "react";
+import { Suspense } from "react";
 
 const routes = [
-  {
-    element: <Home></Home>,
-    path: "/home",
-    meta: {
-      title: "首页",
-      needLogin: false,
-    },
-    children: [
-      {
-        path: "/home/child1",
-        element: <Child1></Child1>,
-        meta: {
-          title: "子页面1",
-          needLogin: false,
-        },
-      },
-      {
-        path: "/home/child2",
-        element: <Child2></Child2>,
-        meta: {
-          title: "子页面2",
-          needLogin: true,
-          roles: ["admin", "manage"], // admin和manage角色才能看
-        },
-      },
-    ],
-  },
-  {
-    path: "/about",
-    element: <About></About>,
-    meta: {
-      title: "关于",
-      needLogin: true,
-      roles: ["admin"], // admin角色才能看
-    },
-  },
+  // {
+  //   element: <Home></Home>,
+  //   path: "/home",
+  //   meta: {
+  //     title: "首页",
+  //     needLogin: false,
+  //   },
+  //   children: [
+  //     {
+  //       path: "/home/child1",
+  //       element: <Child1></Child1>,
+  //       meta: {
+  //         title: "子页面1",
+  //         needLogin: false,
+  //       },
+  //     },
+  //     {
+  //       path: "/home/child2",
+  //       element: <Child2></Child2>,
+  //       meta: {
+  //         title: "子页面2",
+  //         needLogin: true,
+  //         roles: ["admin", "manage"], // admin和manage角色才能看
+  //       },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/about",
+  //   element: <About></About>,
+  //   meta: {
+  //     title: "关于",
+  //     needLogin: true,
+  //     roles: ["admin"], // admin角色才能看
+  //   },
+  // },
   {
     path: "/login",
     element: <Login></Login>,
@@ -76,7 +78,14 @@ const routes = [
 
 // HOC
 const authLoad = (element, meta = {}) => {
-  return <Auth meta={meta}>{element}</Auth>;
+  const Component = lazy(() => import(element));
+  return (
+    <Suspense>
+      <Auth meta={meta}>
+        <Component></Component>
+      </Auth>
+    </Suspense>
+  );
 };
 
 // 路由配置列表数据转换

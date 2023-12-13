@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUserInfoAction } from "./store/actions/userActions";
-import Home from "./views/Home";
-import About from "./views/About";
-import Login from "./views/Login";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUserInfoAction,
+  setUserMenusAction,
+} from "./store/actions/userActions";
 
 import routes from "./router/routes";
 import Auth from "./router/Auth";
 
 function App(props) {
-  console.log("App", props);
   const dispatch = useDispatch();
+  const menus = useSelector((state) => state.user.menus);
   // const history = useHistory();
   // useEffect(() => {
   //   const unblock = history.block((location, action) => {
@@ -32,6 +32,9 @@ function App(props) {
   useEffect(() => {
     // 获取用户信息
     dispatch(setUserInfoAction());
+
+    // 后台动态获取菜单
+    dispatch(setUserMenusAction());
   }, []);
 
   return (
@@ -50,6 +53,14 @@ function App(props) {
             <Auth key={route.path} {...route}></Auth>
           );
         })}
+
+        {/* 动态添加路由 */}
+        {/* {menus.map((route) => {
+          return (
+            // 路由鉴权
+            <Auth key={route.path} {...route}></Auth>
+          );
+        })} */}
       </Switch>
     </div>
   );
