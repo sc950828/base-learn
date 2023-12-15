@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     // 获取用户信息
-    dispatch(setUserInfoAction());
+    // dispatch(setUserInfoAction());
     dispatch(setUserMenusAction());
   }, []);
 

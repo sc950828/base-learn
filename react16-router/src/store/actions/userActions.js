@@ -15,6 +15,13 @@ export const setUserInfoAction = () => {
   };
 };
 
+export const setUserInfoAction2 = (payload) => {
+  return {
+    type: SET_USERINFO_TYPE,
+    payload,
+  };
+};
+
 // 菜单转路由
 const transformMenuToRoute = (menus) => {
   return menus.map((menu) => {
@@ -57,6 +64,7 @@ const getUserMenus = async () => {
           meta: {
             title: "子页面2",
             needLogin: true, // 需要登录
+            btns: ["add", "delete"],
           },
         },
       ],

@@ -47,20 +47,20 @@ function App(props) {
         <Route path="/about" component={About}></Route>
         <Route path="/login" component={Login}></Route> */}
 
-        {routes.map((route) => {
-          return (
-            // 路由鉴权
-            <Auth key={route.path} {...route}></Auth>
-          );
-        })}
-
-        {/* 动态添加路由 */}
-        {/* {menus.map((route) => {
+        {/* {routes.map((route) => {
           return (
             // 路由鉴权
             <Auth key={route.path} {...route}></Auth>
           );
         })} */}
+
+        {/* 动态添加路由 */}
+        {menus.map((route) => {
+          return (
+            // 路由鉴权
+            <Auth key={route.path} {...route}></Auth>
+          );
+        })}
       </Switch>
     </div>
   );

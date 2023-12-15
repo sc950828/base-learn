@@ -14,6 +14,13 @@ export const setUserInfoAction = () => {
   };
 };
 
+export const setUserInfoAction2 = (payload) => {
+  return {
+    type: SET_USERINFO_TYPE,
+    payload,
+  };
+};
+
 // 假设这里调用后端接口获取了用户菜单
 const getUserMenus = async () => {
   const menus = await Promise.resolve([
@@ -39,6 +46,7 @@ const getUserMenus = async () => {
           meta: {
             title: "子页面2",
             needLogin: true,
+            btns: ["add", "select"], // 当前用户只有add和select按钮
           },
         },
       ],

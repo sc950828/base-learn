@@ -35,6 +35,10 @@ const routes = [
   //         title: "子页面2",
   //         needLogin: true,
   //         roles: ["admin", "manage"], // admin和manage角色才能看
+  //         btns: {
+  //           admin: ["add", "delete", "edit", "select"], // admin 有增删改查按钮
+  //           manage: ["select"], // 普通管理员只有查看按钮
+  //         },
   //       },
   //     },
   //   ],
@@ -67,7 +71,8 @@ const routes = [
   // 放后面
   {
     path: "/",
-    redirect: "/home",
+    // redirect: "/home",
+    element: <Navigate to="/home" replace={true} />,
   },
   // 放最后
   {
@@ -82,10 +87,12 @@ const authLoad = (element, meta = {}) => {
   return (
     <Suspense>
       <Auth meta={meta}>
-        <Component></Component>
+        <Component btns={meta.btns ? meta.btns : []}></Component>
       </Auth>
     </Suspense>
   );
+
+  // return <Auth meta={meta}>{element}</Auth>;
 };
 
 // 路由配置列表数据转换

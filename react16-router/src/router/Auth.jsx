@@ -15,7 +15,7 @@ function Auth(props) {
 
   // 获取用户信息
   const userInfo = useSelector((state) => state.user.userinfo);
-  console.log("auth", userInfo, props);
+  // console.log("auth", userInfo, props);
 
   // 设置网页标题
   if (meta && meta.title) {
@@ -48,7 +48,14 @@ function Auth(props) {
         path={path}
         exact={exact}
         strict={strict}
-        render={(props) => <Component {...props} routes={routes} />}
+        render={(props) => (
+          <Component
+            {...props}
+            routes={routes}
+            // btns={meta.btns && userInfo ? meta.btns[userInfo.role] : []} // 注入它相应权限的按钮，写死配置
+            btns={meta.btns ? meta.btns : []} // 动态添加路由
+          />
+        )}
       ></Route>
     </Suspense>
   );
