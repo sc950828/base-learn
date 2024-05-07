@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      ul {
+        margin: 0;
+      }
+
+      li {
+        height: 40px;
+      }
+
+      .div1 {
+        height: 100%;
+        overflow: auto;
+      }
+      .div2 {
+        height: 260px;
+        background-color: aqua;
+      }
+
+      .div3 {
+        height: 100px;
+        background-color: bisque;
+        position: sticky;
+        top: 0;
+      }
+
+      .div4 {
+        height: 2000px;
+        overflow: auto;
+        background-color: cadetblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">
+      <div class="div2">播放框</div>
+      <div class="div3">
+        <button onclick="testClick(1)">1</button>
+        <button onclick="testClick(5)">5</button>
+        <button onclick="testClick(10)">10</button>
+        <button onclick="testClick(15)">15</button>
+      </div>
+      <div class="div4">
+        <ul>
+          <li id="1">1</li>
+          <li id="2">2</li>
+          <li id="3">3</li>
+          <li id="4">4</li>
+          <li id="5">5</li>
+          <li id="6">6</li>
+          <li id="7">7</li>
+          <li id="8">8</li>
+          <li id="9">9</li>
+          <li id="10">10</li>
+          <li id="11">11</li>
+          <li id="12">12</li>
+          <li id="13">13</li>
+          <li id="14">14</li>
+          <li id="15">15</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function testClick(id) {
+        console.log(id);
+        const ele = document.getElementById(id);
+        ele.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+      }
+    </script>
+  </body>
+</html>

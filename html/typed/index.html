@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>typed</title>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style></style>
+  </head>
+  <body>
+    <span id="element"></span>
+    <script>
+      var typed = new Typed("#element", {
+        strings: ["这是第一行这是第二行,<br/>另一组字符串包含换行符"],
+        typeSpeed: 50,
+        backSpeed: 25,
+        startDelay: 500,
+        backDelay: 500,
+        loop: false,
+      });
+    </script>
+  </body>
+</html>

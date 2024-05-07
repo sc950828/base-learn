@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      #box {
+        height: 100%;
+        overflow: auto;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+      #box::-webkit-scrollbar {
+        display: none;
+      }
+
+      section {
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: center;
+        scroll-snap-stop: normal;
+      }
+      .section1 {
+        background-image: url("https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921550320292.jpg");
+      }
+      .section2 {
+        background-image: url("https://uploadstatic.mihoyo.com/contentweb/20200319/2020031921552395638.jpg");
+      }
+      .section3 {
+        background-image: url("https://uploadstatic.mihoyo.com/contentweb/20210719/2021071918001232800.jpg");
+      }
+      .section4 {
+        background-image: url("https://webstatic.mihoyo.com/upload/contentweb/2022/08/15/8969f683b92839ac427c875d0d742be2_4825576482548821743.jpg");
+      }
+      .section5 {
+        background-image: url("https://act-webstatic.mihoyo.com/upload/contentweb/hk4e/721a74c43614d7aeb25b046cabfb57be_2012964858524199390.jpg");
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <section class="section1"></section>
+      <section class="section2"></section>
+      <section class="section3"></section>
+      <section class="section4"></section>
+      <section class="section5"></section>
+    </div>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        console.log(1);
+      });
+      console.log(document.documentElement);
+      const box = document.getElementById("box");
+      box.onclick = function () {
+        box.scrollBy(0, 1);
+      };
+    </script>
+  </body>
+</html>

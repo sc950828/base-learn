@@ -1,3 +1,6 @@
 <template>
-  <div>我是子组件</div>
+  <div class="child">
+    我是子组件
+    <div class="lala">lalal</div>
+  </div>
 </template>

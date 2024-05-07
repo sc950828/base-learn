@@ -36,7 +36,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .class1 {
   color: blue;
 }
@@ -52,4 +52,18 @@ export default defineComponent({
 .class4 {
   font-weight: bold;
 }
+
+/* 三种样式穿透 */
+
+/* /deep/ .lala {
+  color: aqua;
+} */
+
+/* ::v-deep(.lala) {
+  color: aqua;
+} */
+
+/* :deep(.lala) {
+  color: aqua;
+} */
 </style>

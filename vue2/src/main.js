@@ -12,6 +12,15 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.config.ignoredElements = ["basic-button"];
 
+// 监听基座下发的数据变化
+window.microApp?.addDataListener((data) => {
+  console.log(data);
+  // 当基座下发跳转指令时进行跳转
+  if (data.path) {
+    router.push(data.path);
+  }
+});
+
 new Vue({
   router,
   store,

@@ -1,0 +1,1 @@
+const mes = "hello randy";

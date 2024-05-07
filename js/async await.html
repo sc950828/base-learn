@@ -11,8 +11,8 @@
       async function test() {
         return "randy";
       }
-      const res = test();
-      console.log(res);
+      // const res = test();
+      // console.log(res);
       // Promise {<resolved>: "randy"}
 
       function getData() {
@@ -26,7 +26,7 @@
         console.log("让异步代码自己去执行，不阻塞我们主程序");
       }
 
-      fun1(); // 主程序开始执行、模拟获取后端数据、让异步代码自己去执行，不阻塞我们主程序
+      // fun1(); // 主程序开始执行、模拟获取后端数据、让异步代码自己去执行，不阻塞我们主程序
 
       async function fun2() {
         console.log("主程序开始执行");
@@ -36,7 +36,46 @@
         console.log("让异步代码自己去执行，不阻塞我们主程序");
       }
 
-      fun2(); // 主程序开始执行、让异步代码自己去执行，不阻塞我们主程序、模拟获取后端数据
+      // fun2(); // 主程序开始执行、让异步代码自己去执行，不阻塞我们主程序、模拟获取后端数据
+
+      function Gen(time) {
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            resolve(time);
+          }, time);
+        });
+      }
+
+      async function test1() {
+        let arr = [2, 3, 3, 1];
+        for (let item of arr) {
+          console.log(Date.now());
+          const res = await Gen(1000 * item);
+          console.log(res);
+        }
+      }
+
+      async function test3() {
+        let arr = [Gen(2000), Gen(100), Gen(3000)];
+        for (let item of arr) {
+          console.log(Date.now()); // 这个先输出
+          const res = await item;
+          console.log(res);
+        }
+      }
+
+      async function test2() {
+        let arr = [Gen(2000), Gen(100), Gen(3000)];
+        for await (let item of arr) {
+          console.log(Date.now()); // 这个和res是一起打印的
+          const res = item;
+          console.log(res);
+        }
+      }
+
+      // test1();
+      test2();
+      // test3();
     </script>
   </body>
 </html>
