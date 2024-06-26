@@ -1,0 +1,22 @@
+{
+  "name": "nao-platform",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "camera-controls": "^2.8.3",
+    "offset": "0.0.1",
+    "three": "^0.164.1",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "less": "^4.2.0",
+    "vite": "^4.4.5"
+  }
+}
