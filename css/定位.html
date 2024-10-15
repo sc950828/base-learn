@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      .div1 {
+        height: 100%;
+        overflow: auto;
+        position: relative;
+      }
+
+      .heightbox {
+        height: 1000px;
+      }
+
+      .button {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">
+      123
+      <div class="button">lalal</div>
+      <div class="heightbox"></div>
+    </div>
+
+    <script>
+      const divs = document.getElementsByClassName("div1");
+      console.log(divs[0].scrollHeight);
+      console.log(divs[0].clientHeight);
+      console.log(divs[0].scrollTop);
+      divs[0].addEventListener("scroll", () => {
+        console.log(111);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script>
+      location.href = "weixin://dl/business/?t=ea4J0baC5ie";
+    </script> -->
+
+    <!-- <div style="margin-top: 20px"></div> -->
+
+    <script>
+      fetch(
+        "https://dashscope.aliyuncs.com/api/v1/apps/2e4580257a6448f9acc472d2d252ea6d/completion",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            input: {
+              prompt: "帮我查找哮喘的相关学习课程和病例?",
+            },
+            parameters: {},
+            debug: {},
+          }),
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer sk-3674302d43294b0f85fa6461eca78d67",
+            "X-DashScope-SSE": "enable",
+          },
+        }
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    </script>
+  </body>
+</html>
