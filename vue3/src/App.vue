@@ -22,10 +22,29 @@
     <router-link to="/is">Is</router-link>|
     <router-link to="/md">Md</router-link>|
     <router-link to="/vue2">vue2</router-link>|
+
+    <div>
+      <button @click="goNotFound">去NotFound</button>
+    </div>
   </div>
 
   <router-view />
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goNotFound = () => {
+  router.push({
+    name: "NotFound",
+    params: {
+      id: 12,
+    },
+  });
+};
+</script>
 
 <style lang="scss">
 // #app {

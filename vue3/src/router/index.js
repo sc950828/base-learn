@@ -197,6 +197,13 @@ const routes = [
     name: "Vue2",
     component: () => import(/* webpackChunkName: "vue2" */ "../views/Vue2.vue"),
   },
+  // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () =>
+      import(/* webpackChunkName: "notfound" */ "../views/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
